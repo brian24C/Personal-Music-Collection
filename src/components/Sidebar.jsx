@@ -21,7 +21,7 @@ const Sidebar = () => {
       </ListItem>
 
       <ListItem>
-        <NavLink to="/">
+        <NavLink to="/profile">
           <ListIcon as={AtSignIcon} color="white" />
           Profile
         </NavLink>
