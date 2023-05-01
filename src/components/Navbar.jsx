@@ -1,3 +1,4 @@
+import { UnlockIcon } from "@chakra-ui/icons";
 import {
   Flex,
   Box,
@@ -6,21 +7,44 @@ import {
   Text,
   Spacer,
   HStack,
+  useToast,
+  Avatar,
+  AvatarBadge,
 } from "@chakra-ui/react";
 import React from "react";
 
 const Navbar = () => {
+  const toast = useToast();
+
+  const showToast = () => {
+    toast({
+      title: "Logged out",
+      description: "Succesfully logged out",
+      duration: 5000,
+      isClosable: true,
+      status: "success",
+      position: "top",
+      icon: <UnlockIcon />,
+    });
+  };
+
   return (
     <Flex as="nav" p="10px" mb="40px" alignItems="center">
       <Heading as="h1">Dojo Task</Heading>
 
       <Spacer />
       <HStack spacing="20px">
-        <Box bg="gray.200" p="10px">
-          M
-        </Box>
+        <Avatar src="img/mari.png" bg="purple.200" name="Mario">
+          <AvatarBadge width="1.3em" bg="teal.500">
+            <Text fontSize="xs" color="white">
+              3
+            </Text>
+          </AvatarBadge>
+        </Avatar>
         <Text>mario@dg.com</Text>
-        <Button colorScheme="purple">logout</Button>
+        <Button colorScheme="purple" onClick={showToast}>
+          logout
+        </Button>
       </HStack>
     </Flex>
     // <Flex bg="gray.200" justify="space-between" wrap="wrap" gap="2">
