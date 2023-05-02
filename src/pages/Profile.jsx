@@ -20,8 +20,8 @@ export default function Profile() {
   return (
     <Tabs mt="40px" p="20px" variant="enclosed">
       <TabList>
-        <Tab _selected={{ color: "white", bg: "purple.400" }}>Account Info</Tab>
-        <Tab _selected={{ color: "white", bg: "purple.400" }}>Task history</Tab>
+        <Tab _selected={{ color: "white", bg: "blue.400" }}>Account Info</Tab>
+        <Tab _selected={{ color: "white", bg: "blue.400" }}>Task history</Tab>
       </TabList>
       <TabPanels>
         <TabPanel>

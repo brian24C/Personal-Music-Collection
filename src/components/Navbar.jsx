@@ -34,7 +34,7 @@ const Navbar = () => {
 
       <Spacer />
       <HStack spacing="20px">
-        <Avatar src="img/mari.png" bg="purple.200" name="Mario">
+        <Avatar src="img/mari.png" bg="blue.200" name="Mario">
           <AvatarBadge width="1.3em" bg="teal.500">
             <Text fontSize="xs" color="white">
               3
@@ -42,7 +42,7 @@ const Navbar = () => {
           </AvatarBadge>
         </Avatar>
         <Text>mario@dg.com</Text>
-        <Button colorScheme="purple" onClick={showToast}>
+        <Button colorScheme="blue" onClick={showToast}>
           logout
         </Button>
       </HStack>

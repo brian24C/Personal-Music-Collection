@@ -26,7 +26,7 @@ export default function Dashboard() {
           <Card
             key={task.id}
             borderTop="8px"
-            borderColor="purple.400"
+            borderColor="green.300"
             bg="white"
           >
             <CardHeader>
