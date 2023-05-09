@@ -30,7 +30,7 @@ const Navbar = () => {
 
   return (
     <Flex as="nav" p="10px" mb="40px" alignItems="center">
-      <Heading as="h1">Dojo Task</Heading>
+      <Heading as="h1">My PlayList</Heading>
 
       <Spacer />
       <HStack spacing="20px">
