@@ -41,6 +41,51 @@ export default function EditPlaylist({ songs, idSong }) {
             </Button>
           </Box>
         </Box>
+        <Box mt="5" rounded={"lg"} boxShadow="base">
+          <Box p="4" display={"flex"} justifyContent="space-between">
+            <Text fontSize="xl" fontWeight="bold">
+              List Songs
+            </Text>
+            <Button
+              colorScheme="teal"
+              variant="outline"
+              maxW={"300px"}
+              minW="150px"
+              leftIcon={<AiOutlinePlus fontSize={"20px"} />}
+              onClick={onOpen}
+            >
+              Add Song
+            </Button>
+          </Box>
+          <TableContainer>
+            <Table variant="simple">
+              <Thead>
+                <Tr>
+                  <Th>Name</Th>
+                  <Th>Artist</Th>
+                  <Th>link</Th>
+                  <Th>recommended by</Th>
+                </Tr>
+              </Thead>
+              <Tbody>
+                {songs?.map(({ id, Name, Artist, link, recommended_by }) => {
+                  return (
+                    <React.Fragment key={id}>
+                      <Row
+                        id={id}
+                        Name={Name}
+                        Artist={Artist}
+                        link={link}
+                        recommended_by={recommended_by}
+                      />
+                    </React.Fragment>
+                  );
+                })}
+              </Tbody>
+            </Table>
+          </TableContainer>
+        </Box>
+        <DrawerExample />
       </Container>
     </div>
   );
