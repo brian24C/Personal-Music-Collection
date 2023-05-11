@@ -7,15 +7,15 @@ import {
 import React from "react";
 import { GlobalContext } from "../../context/GlobalWrapper";
 
-const InputsGroup = ({ name, onChangeHandler, value, errors }) => {
+const InputsGroup = ({ name, onChangeHandler, value }) => {
   return (
-    <FormControl isInvalid={errors}>
+    <FormControl>
       <FormLabel>{name}</FormLabel>
       <Input type="text" name={name} onChange={onChangeHandler} value={value} />
-      {errors &&
+      {/* {errors &&
         errors?.map((err) => {
           return <FormErrorMessage>{err}</FormErrorMessage>;
-        })}
+        })} */}
     </FormControl>
   );
 };

@@ -14,8 +14,30 @@ import { useContext, useEffect, useState } from "react";
 import { GlobalContext } from "../../context/GlobalWrapper";
 import InputsGroup from "./InputsGroup";
 
-export default function DrawerExample() {
-  const { isOpen, onClose } = useContext(GlobalContext);
+export default function DrawerExample(id_playlist) {
+  const { isOpen, onClose, song, addSongToPlaylist, updateSong } =
+    useContext(GlobalContext);
+  const [form, setForm] = useState({});
+
+  const onChangeHandler = (e) => {
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const onAdd = () => {
+    console.log(id_playlist);
+    addSongToPlaylist(form, setForm, id_playlist);
+  };
+
+  const onUpdate = () => {
+    updateSong(form, setForm, form.id, id_playlist);
+  };
+
+  useEffect(() => {
+    setForm(song);
+  }, [song]);
 
   return (
     <>
@@ -31,9 +53,26 @@ export default function DrawerExample() {
 
           <DrawerBody>
             <Stack spacing={"24px"}>
-              <InputsGroup name="name" />
-              <InputsGroup name="link" />
-              <InputsGroup name="recommendedBy" />
+              <InputsGroup
+                name="name"
+                onChangeHandler={onChangeHandler}
+                value={form?.name}
+              />
+              <InputsGroup
+                name="artist"
+                onChangeHandler={onChangeHandler}
+                value={form?.artist}
+              />
+              <InputsGroup
+                name="link"
+                onChangeHandler={onChangeHandler}
+                value={form?.link}
+              />
+              <InputsGroup
+                name="recommendedBy"
+                onChangeHandler={onChangeHandler}
+                value={form?.recommendedBy}
+              />
             </Stack>
           </DrawerBody>
 
@@ -43,11 +82,17 @@ export default function DrawerExample() {
               mr={3}
               onClick={() => {
                 onClose();
+                setForm({});
               }}
             >
               Cancel
             </Button>
-            <Button colorScheme="blue">Save</Button>
+            <Button
+              colorScheme="blue"
+              onClick={() => (form._id ? onUpdate() : onAdd())}
+            >
+              Save
+            </Button>
           </DrawerFooter>
         </DrawerContent>
       </Drawer>

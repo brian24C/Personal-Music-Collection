@@ -31,11 +31,12 @@ export default function Wrapper({ children }) {
     apiClient
       .get(`/playlist/${id}`)
       .then(({ data }) => {
-        console.log("getoneplaylist", data.data.songs);
-        setSongs(data.data.songs);
+        console.log("getoneplaylist", data);
+        const Songs = data.data.songs.map((song) => song.song);
+        setSongs(Songs);
       })
       .catch((err) => {
-        console.log(err.reponse.data);
+        console.log(err.reponse);
       });
   };
 
@@ -81,17 +82,17 @@ export default function Wrapper({ children }) {
       });
   };
 
-  const addSongToPlaylist = (form, setForm, id_playlist) => {
+  const addSongToPlaylist = (form, setForm, idPplaylist) => {
     apiClient
       .post("/song", form)
       .then((resSong) => {
         apiClient
           .post("/playlist/SongsOnPlaylist", {
-            id_song: resSong.data.id,
-            id_playlist: id_playlist,
+            id_song: resSong.data.data.id,
+            id_playlist: idPplaylist.id_playlist,
           })
           .then((res) => {
-            setSongs([...songs, resSong.data]);
+            setSongs([...songs, resSong.data.data]);
             toast({
               title: "Song Added",
               status: "success",
@@ -119,9 +120,9 @@ export default function Wrapper({ children }) {
       });
   };
 
-  const updateSong = (form, setForm, id) => {
+  const updateSong = (form, setForm, idSong, idPlaylist) => {
     axios
-      .put(`/song/${id}`, form)
+      .put(`/song/${idSong}`, form)
       .then((res) => {
         toast({
           title: "Song Updated",
@@ -132,7 +133,7 @@ export default function Wrapper({ children }) {
         setErrors({});
         setForm({});
         onClose();
-        getSongs();
+        getSongs(idPlaylist);
         //Probar esto luego:
         //setSongs(songs.map((song) => song.id===id ? res.data : song))
       })
@@ -148,7 +149,7 @@ export default function Wrapper({ children }) {
         getSongs,
         Search,
         deleteSong,
-        addSong,
+        addSongToPlaylist,
         FindOne,
         updateSong,
         songs,

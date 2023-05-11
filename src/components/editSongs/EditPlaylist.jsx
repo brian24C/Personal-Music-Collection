@@ -26,6 +26,7 @@ export default function EditPlaylist({ playlist, idPlaylist }) {
     useContext(GlobalContext);
 
   useEffect(() => {
+    console.log(idPlaylist, "id");
     getSongs(idPlaylist);
   }, []);
 
@@ -80,15 +81,15 @@ export default function EditPlaylist({ playlist, idPlaylist }) {
                 </Tr>
               </Thead>
               <Tbody>
-                {songs?.map(({ song }) => {
+                {songs?.map(({ id, name, link, artist, recommendedBy }) => {
                   return (
-                    <React.Fragment key={song.id}>
+                    <React.Fragment key={id}>
                       <Row
-                        id={song.id}
-                        name={song.name}
-                        link={song.link}
-                        artist={song.artist}
-                        recommended_by={song.recommendedBy}
+                        id={id}
+                        name={name}
+                        link={link}
+                        artist={artist}
+                        recommended_by={recommendedBy}
                       />
                     </React.Fragment>
                   );
@@ -97,7 +98,7 @@ export default function EditPlaylist({ playlist, idPlaylist }) {
             </Table>
           </TableContainer>
         </Box>
-        <DrawerExample />
+        <DrawerExample id_playlist={idPlaylist} />
       </Container>
     </div>
   );
