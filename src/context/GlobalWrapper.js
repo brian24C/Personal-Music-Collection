@@ -12,6 +12,7 @@ export default function Wrapper({ children }) {
   const [songsFilter, setSongsFilter] = useState([]);
 
   const toast = useToast();
+
   const getSongs = () => {
     apiClient
       .get("/song")
@@ -25,7 +26,7 @@ export default function Wrapper({ children }) {
 
   const Search = (query) => {
     if (query === "") {
-      setSongsFilter(users);
+      setSongsFilter(songs);
     } else {
       const resultSearch = songs.filter((song) => {
         if (song.name.toString().toLowerCase().incudes(query.toLowerCase())) {
@@ -41,7 +42,7 @@ export default function Wrapper({ children }) {
     apiClient
       .delete(`/song/${id}`)
       .then((res) => {
-        setUsers(songs.filter((u) => u.id != id));
+        setSongs(songs.filter((u) => u.id != id));
         toast({
           title: "Song Deleted",
           status: "success",
@@ -58,7 +59,7 @@ export default function Wrapper({ children }) {
     axios
       .post("/song", form)
       .then((res) => {
-        setUsers([...songs, res.data]);
+        setSongs([...songs, res.data]);
         toast({
           title: "Song Added",
           status: "success",
@@ -78,7 +79,7 @@ export default function Wrapper({ children }) {
     apiClient
       .get(`/song/${id}`)
       .then((res) => {
-        setUsers(res.data);
+        setSong(res.data);
       })
       .catch((err) => {
         console.log(err.reponse.data);
@@ -90,7 +91,7 @@ export default function Wrapper({ children }) {
       .put(`/song/${id}`, form)
       .then((res) => {
         toast({
-          title: "User Updated",
+          title: "Song Updated",
           status: "success",
           duration: 4000,
           isClosable: true,
@@ -106,4 +107,27 @@ export default function Wrapper({ children }) {
         setErrors(err.response.data.error);
       });
   };
+
+  return (
+    <GlobalContext.Provider
+      value={{
+        getSongs,
+        Search,
+        deleteSong,
+        addSong,
+        FindOne,
+        updateSong,
+        songs,
+        onOpen,
+        isOpen,
+        onClose,
+        errors,
+        setErrors,
+        song,
+        setSong,
+      }}
+    >
+      {children}
+    </GlobalContext.Provider>
+  );
 }
