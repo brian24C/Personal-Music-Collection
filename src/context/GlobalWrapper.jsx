@@ -134,6 +134,7 @@ export default function Wrapper({ children }) {
         setForm({});
         onClose();
         getSongs(idPlaylist);
+        console.log(res.data.data);
         //Probar esto luego:
         //setSongs(songs.map((song) => song.id===id ? res.data : song))
       })

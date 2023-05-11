@@ -39,6 +39,7 @@ export default function DrawerExample(id_playlist) {
     setForm(song);
   }, [song]);
   console.log("repeticua,", song);
+
   return (
     <>
       <Drawer isOpen={isOpen} placement="right" onClose={onClose}>
@@ -90,7 +91,7 @@ export default function DrawerExample(id_playlist) {
             </Button>
             <Button
               colorScheme="blue"
-              onClick={() => (form._id ? onUpdate() : onAdd())}
+              onClick={() => (form.id ? onUpdate() : onAdd())}
             >
               Save
             </Button>

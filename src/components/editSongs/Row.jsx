@@ -25,7 +25,7 @@ const Row = ({ id, name, link, artist, recommended_by }) => {
           >
             <AiFillEdit />
           </Button>
-          <Button colorScheme={"red"}>
+          <Button colorScheme={"red"} onClick={() => deleteSong(id)}>
             <AiFillDelete />
           </Button>
         </Box>
