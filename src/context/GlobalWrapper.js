@@ -9,7 +9,7 @@ export default function Wrapper({ children }) {
   const [errors, setErrors] = useState({});
   const { isOpen, onOpen, onClose } = useDisclosure();
   const toast = useToast();
-  const fetchSongs = () => {
+  const getSongs = () => {
     apiClient
       .get("/song")
       .then(({ res }) => {
@@ -45,6 +45,26 @@ export default function Wrapper({ children }) {
       })
       .catch((err) => {
         console.log(err.reponse.data);
+      });
+  };
+
+  const addSong = (form, setForm) => {
+    axios
+      .post("/song", form)
+      .then((res) => {
+        setUsers([...songs, res.data]);
+        toast({
+          title: "Song Added",
+          status: "success",
+          duration: 4000,
+          isClosable: true,
+        });
+        setErrors({});
+        setForm({});
+        onClose();
+      })
+      .catch((err) => {
+        setErrors(err.response.data.error);
       });
   };
 }
