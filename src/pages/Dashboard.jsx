@@ -19,33 +19,32 @@ import { useLoaderData } from "react-router-dom";
 
 export default function Dashboard() {
   const [idSong, setIdSong] = useState(null);
-  const tasks = useLoaderData();
+  const { data: playlists } = useLoaderData();
 
   if (idSong != null)
     return (
       <Wrapper>
-        <EditPlaylist songs={tasks} idSong={idSong} />
+        <EditPlaylist songs={playlists} idSong={idSong} />
       </Wrapper>
     );
   return (
     <SimpleGrid spacing={10} minChildWidth="300px">
-      {tasks &&
-        tasks.map((task) => (
+      {playlists &&
+        playlists.map((playlist) => (
           <Card
-            key={task.id}
+            key={playlist.id}
             borderTop="8px"
             borderColor="green.300"
             bg="white"
           >
             <CardHeader>
-              <Flex gap={5}>
-                <Avatar src={task.img} />
+              <Flex gap={5} justify="space-between">
+                <Avatar name={playlist.name} />
                 <Box>
                   <Heading as="h3" size="sm">
-                    {task.title}
+                    {playlist.name}
                   </Heading>
-
-                  <Text>By: {task.author}</Text>
+                  <Text>Created By: {playlist.name}</Text>
                 </Box>
               </Flex>
             </CardHeader>
@@ -60,12 +59,12 @@ export default function Dashboard() {
                 <Button
                   variant="ghost"
                   leftIcon={<ViewIcon />}
-                  onClick={() => setIdSong(task.id)}
+                  onClick={() => setIdSong(playlist.id)}
                 >
                   Watch
                 </Button>
                 <Button variant="ghost" leftIcon={<DeleteIcon />}>
-                  Comment
+                  Delete
                 </Button>
               </HStack>
             </CardFooter>
@@ -75,7 +74,7 @@ export default function Dashboard() {
   );
 }
 
-export const tasksLoader = async () => {
-  const res = await fetch("http://localhost:3000/tasks");
+export const playlistLoader = async () => {
+  const res = await fetch("https://api-playlist.onrender.com/api/v1/playlist");
   return res.json();
 };
