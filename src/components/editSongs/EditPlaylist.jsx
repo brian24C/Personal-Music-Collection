@@ -25,6 +25,7 @@ export default function EditPlaylist({ playlist, idPlaylist }) {
   const { onOpen, isOpen, onClose, getSongs, songs } =
     useContext(GlobalContext);
 
+  const [query, setQuery] = useState("");
   useEffect(() => {
     getSongs(idPlaylist);
   }, []);
@@ -33,13 +34,17 @@ export default function EditPlaylist({ playlist, idPlaylist }) {
     Search(query);
   };
 
+  const onchangeHandler = (e) => {
+    setQuery(e.target.value);
+  };
+
   return (
     <div className="EditPlaylist">
       <Container maxW={"full"} p="3" fontSize={"18px"}>
         <Box rounded="lg" boxShadow="base" p="4">
           <Box mt="2" gap={"2"} mb="3" display={"flex"}>
             <FormControl>
-              <Input type="text" />
+              <Input type="text" onChange={onchangeHandler} />
             </FormControl>
             <Button
               leftIcon={<AiOutlineSearch />}
@@ -47,6 +52,7 @@ export default function EditPlaylist({ playlist, idPlaylist }) {
               variant="outline"
               // maxW="300px"
               // minW="150px"
+              onClick={() => SearchHandler()}
             >
               Search
             </Button>
