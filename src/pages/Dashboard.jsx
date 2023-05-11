@@ -16,6 +16,7 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { useLoaderData } from "react-router-dom";
+import Wrapper from "../context/GlobalWrapper";
 
 export default function Dashboard() {
   const [idSong, setIdSong] = useState(null);
