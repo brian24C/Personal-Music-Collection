@@ -17,6 +17,7 @@ import {
 import { useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import Wrapper from "../context/GlobalWrapper";
+import EditPlaylist from "../components/editSongs/EditPlaylist";
 
 export default function Dashboard() {
   const [idSong, setIdSong] = useState(null);

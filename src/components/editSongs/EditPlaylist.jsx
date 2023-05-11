@@ -21,6 +21,7 @@ import React from "react";
 import { GlobalContext } from "../context/GlobalWrapper";
 export default function EditPlaylist({ songs, idSong }) {
   //const btnRef = React.useRef();
+
   const { onOpen, isOpen, onClose } = useContext(GlobalContext);
   return (
     <div className="EditPlaylist">
@@ -68,15 +69,14 @@ export default function EditPlaylist({ songs, idSong }) {
                 </Tr>
               </Thead>
               <Tbody>
-                {songs?.map(({ id, Name, Artist, link, recommended_by }) => {
+                {songs?.map(({ id, name, link, recommendedBy }) => {
                   return (
                     <React.Fragment key={id}>
                       <Row
                         id={id}
-                        Name={Name}
-                        Artist={Artist}
+                        Name={name}
                         link={link}
-                        recommended_by={recommended_by}
+                        recommended_by={recommendedBy}
                       />
                     </React.Fragment>
                   );
