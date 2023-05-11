@@ -14,15 +14,28 @@ import {
   Divider,
   Avatar,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import Wrapper from "../context/GlobalWrapper";
 import EditPlaylist from "../components/editSongs/EditPlaylist";
+import apiClient from "../services/api-client";
 
 export default function Dashboard() {
   const [idSong, setIdSong] = useState(null);
-  const { data: playlists } = useLoaderData();
-  console.log(playlists);
+  const [playlists, setPlaylists] = useState(null);
+
+  useEffect(() => {
+    apiClient
+      .get(`/playlist`)
+      .then(({ data }) => {
+        console.log("sisi", data.data);
+        setPlaylists(data.data);
+      })
+      .catch((err) => {
+        console.log(err.reponse.data);
+      });
+  }, []);
+
   if (idSong != null)
     return (
       <Wrapper>
@@ -75,8 +88,3 @@ export default function Dashboard() {
     </SimpleGrid>
   );
 }
-
-export const playlistLoader = async () => {
-  const res = await fetch("https://api-playlist.onrender.com/api/v1/playlist");
-  return res.json();
-};

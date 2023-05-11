@@ -22,14 +22,16 @@ import { GlobalContext } from "../../context/GlobalWrapper";
 export default function EditPlaylist({ playlist, idPlaylist }) {
   //const btnRef = React.useRef();
 
-  const { onOpen, isOpen, onClose, getOnePlaylist, songFromPlaylist } =
+  const { onOpen, isOpen, onClose, getSongs, songs } =
     useContext(GlobalContext);
 
   useEffect(() => {
-    getOnePlaylist(idPlaylist);
+    getSongs(idPlaylist);
   }, []);
 
-  console.log("aqui es", songFromPlaylist);
+  const SearchHandler = () => {
+    Search(query);
+  };
 
   return (
     <div className="EditPlaylist">
@@ -70,6 +72,7 @@ export default function EditPlaylist({ playlist, idPlaylist }) {
             <Table variant="simple">
               <Thead>
                 <Tr>
+                  <Th>Image</Th>
                   <Th>Name</Th>
                   <Th>Artist</Th>
                   <Th>link</Th>
@@ -77,7 +80,7 @@ export default function EditPlaylist({ playlist, idPlaylist }) {
                 </Tr>
               </Thead>
               <Tbody>
-                {songFromPlaylist?.map(({ song }) => {
+                {songs?.map(({ song }) => {
                   return (
                     <React.Fragment key={song.id}>
                       <Row
