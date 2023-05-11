@@ -21,12 +21,11 @@ import React from "react";
 import { GlobalContext } from "../../context/GlobalWrapper";
 export default function EditPlaylist({ playlist, idPlaylist }) {
   //const btnRef = React.useRef();
-
+  console.log("j");
   const { onOpen, isOpen, onClose, getSongs, songs } =
     useContext(GlobalContext);
 
   useEffect(() => {
-    console.log(idPlaylist, "id");
     getSongs(idPlaylist);
   }, []);
 

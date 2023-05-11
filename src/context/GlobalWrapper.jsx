@@ -31,7 +31,6 @@ export default function Wrapper({ children }) {
     apiClient
       .get(`/playlist/${id}`)
       .then(({ data }) => {
-        console.log("getoneplaylist", data);
         const Songs = data.data.songs.map((song) => song.song);
         setSongs(Songs);
       })
@@ -113,7 +112,8 @@ export default function Wrapper({ children }) {
     apiClient
       .get(`/song/${id}`)
       .then((res) => {
-        setSong(res.data);
+        setSong(res.data.data);
+        console.log(res.data.data);
       })
       .catch((err) => {
         console.log(err.reponse.data);

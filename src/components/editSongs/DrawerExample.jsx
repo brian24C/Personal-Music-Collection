@@ -38,7 +38,7 @@ export default function DrawerExample(id_playlist) {
   useEffect(() => {
     setForm(song);
   }, [song]);
-
+  console.log("repeticua,", song);
   return (
     <>
       <Drawer isOpen={isOpen} placement="right" onClose={onClose}>
@@ -47,6 +47,7 @@ export default function DrawerExample(id_playlist) {
           <DrawerCloseButton
             onClick={() => {
               onClose();
+              setForm({});
             }}
           />
           <DrawerHeader>Create / Update user</DrawerHeader>
@@ -56,22 +57,22 @@ export default function DrawerExample(id_playlist) {
               <InputsGroup
                 name="name"
                 onChangeHandler={onChangeHandler}
-                value={form?.name}
+                value={form?.name || ""}
               />
               <InputsGroup
                 name="artist"
                 onChangeHandler={onChangeHandler}
-                value={form?.artist}
+                value={form?.artist || ""}
               />
               <InputsGroup
                 name="link"
                 onChangeHandler={onChangeHandler}
-                value={form?.link}
+                value={form?.link || ""}
               />
               <InputsGroup
                 name="recommendedBy"
                 onChangeHandler={onChangeHandler}
-                value={form?.recommendedBy}
+                value={form?.recommendedBy || ""}
               />
             </Stack>
           </DrawerBody>
