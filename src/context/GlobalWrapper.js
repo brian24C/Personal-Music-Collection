@@ -5,7 +5,7 @@ export const GlobalContext = createContext();
 
 export default function Wrapper({ children }) {
   const [songs, setSongs] = useState([]);
-  const [user, setUser] = useState({});
+  const [song, setSong] = useState({});
   const [errors, setErrors] = useState({});
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -14,6 +14,17 @@ export default function Wrapper({ children }) {
       .get("/song")
       .then(({ res }) => {
         setSongs(res.data);
+      })
+      .catch((err) => {
+        console.log(err.reponse.data);
+      });
+  };
+
+  const searchSong = (id) => {
+    axios
+      .post(`/song/${id}`)
+      .then((res) => {
+        setUsers(res.data);
       })
       .catch((err) => {
         console.log(err.reponse.data);
