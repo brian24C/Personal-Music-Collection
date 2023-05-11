@@ -1,8 +1,8 @@
 import { Avatar, Box, Button, Td, Tr } from "@chakra-ui/react";
 import React, { useContext } from "react";
 import { AiFillDelete, AiFillEdit } from "react-icons/ai";
-import { GlobalContext } from "../context/GlobalWrapper";
-const Row = ({ id, name, link, recommended_by }) => {
+import { GlobalContext } from "../../context/GlobalWrapper";
+const Row = ({ id, name, link, artist, recommended_by }) => {
   const { onOpen } = useContext(GlobalContext);
 
   return (
@@ -11,6 +11,7 @@ const Row = ({ id, name, link, recommended_by }) => {
         <Avatar name={name} />
       </Td>
       <Td>{name}</Td>
+      <Td>{artist}</Td>
       <Td>{link}</Td>
       <Td>{recommended_by}</Td>
       <Td>

@@ -22,11 +22,11 @@ import EditPlaylist from "../components/editSongs/EditPlaylist";
 export default function Dashboard() {
   const [idSong, setIdSong] = useState(null);
   const { data: playlists } = useLoaderData();
-
+  console.log(playlists);
   if (idSong != null)
     return (
       <Wrapper>
-        <EditPlaylist songs={playlists} idSong={idSong} />
+        <EditPlaylist playlist={playlists} idPlaylist={idSong} />
       </Wrapper>
     );
   return (

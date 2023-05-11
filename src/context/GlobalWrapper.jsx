@@ -10,8 +10,21 @@ export default function Wrapper({ children }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const [songsFilter, setSongsFilter] = useState([]);
+  const [songFromPlaylist, setSongFromPlaylist] = useState([]);
 
   const toast = useToast();
+
+  const getOnePlaylist = (id) => {
+    apiClient
+      .get(`/playlist/${id}`)
+      .then(({ data }) => {
+        console.log("getoneplaylist", data.data.songs);
+        setSongFromPlaylist(data.data.songs);
+      })
+      .catch((err) => {
+        console.log(err.reponse.data);
+      });
+  };
 
   const getSongs = () => {
     apiClient
@@ -111,6 +124,9 @@ export default function Wrapper({ children }) {
   return (
     <GlobalContext.Provider
       value={{
+        getOnePlaylist,
+        setSongFromPlaylist,
+        songFromPlaylist,
         getSongs,
         Search,
         deleteSong,

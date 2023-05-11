@@ -18,11 +18,19 @@ import { AiOutlinePlus, AiOutlineSearch } from "react-icons/ai";
 import Row from "./Row";
 import DrawerExample from "./DrawerExample";
 import React from "react";
-import { GlobalContext } from "../context/GlobalWrapper";
-export default function EditPlaylist({ songs, idSong }) {
+import { GlobalContext } from "../../context/GlobalWrapper";
+export default function EditPlaylist({ playlist, idPlaylist }) {
   //const btnRef = React.useRef();
 
-  const { onOpen, isOpen, onClose } = useContext(GlobalContext);
+  const { onOpen, isOpen, onClose, getOnePlaylist, songFromPlaylist } =
+    useContext(GlobalContext);
+
+  useEffect(() => {
+    getOnePlaylist(idPlaylist);
+  }, []);
+
+  console.log("aqui es", songFromPlaylist);
+
   return (
     <div className="EditPlaylist">
       <Container maxW={"full"} p="3" fontSize={"18px"}>
@@ -69,14 +77,15 @@ export default function EditPlaylist({ songs, idSong }) {
                 </Tr>
               </Thead>
               <Tbody>
-                {songs?.map(({ id, name, link, recommendedBy }) => {
+                {songFromPlaylist?.map(({ song }) => {
                   return (
-                    <React.Fragment key={id}>
+                    <React.Fragment key={song.id}>
                       <Row
-                        id={id}
-                        name={name}
-                        link={link}
-                        recommended_by={recommendedBy}
+                        id={song.id}
+                        name={song.name}
+                        link={song.link}
+                        artist={song.artist}
+                        recommended_by={song.recommendedBy}
                       />
                     </React.Fragment>
                   );
