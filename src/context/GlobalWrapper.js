@@ -11,9 +11,9 @@ export default function Wrapper({ children }) {
 
   const fetchSongs = () => {
     apiClient
-      .get("/api/users")
-      .then((res) => {
-        setUsers(res.data);
+      .get("/song")
+      .then(({ res }) => {
+        setSongs(res.data);
       })
       .catch((err) => {
         console.log(err.reponse.data);
