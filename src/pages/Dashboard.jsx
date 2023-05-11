@@ -16,19 +16,21 @@ import {
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useLoaderData } from "react-router-dom";
-import Wrapper from "../context/GlobalWrapper";
+import GlobalContext from "../context/GlobalWrapper";
 import EditPlaylist from "../components/editSongs/EditPlaylist";
+import Wrapper from "../context/GlobalWrapper";
 import apiClient from "../services/api-client";
+import { useContext } from "react";
 
 export default function Dashboard() {
+  //const { getPlaylists, playlists } = useContext(GlobalContext);
   const [idSong, setIdSong] = useState(null);
-  const [playlists, setPlaylists] = useState(null);
+  const [playlists, setPlaylists] = useState([]);
 
   useEffect(() => {
     apiClient
       .get(`/playlist`)
       .then(({ data }) => {
-        console.log("sisi", data.data);
         setPlaylists(data.data);
       })
       .catch((err) => {

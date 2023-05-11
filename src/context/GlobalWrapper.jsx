@@ -10,9 +10,22 @@ export default function Wrapper({ children }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const [songsFilter, setSongsFilter] = useState([]);
+  const [playlists, setPlaylists] = useState([]);
   //const [songFromPlaylist, setSongFromPlaylist] = useState([]);
 
   const toast = useToast();
+
+  // const getPlaylists = () => {
+  //   apiClient
+  //     .get(`/playlist`)
+  //     .then(({ data }) => {
+  //       console.log("sisi", data.data);
+  //       setPlaylists(data.data);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err.reponse.data);
+  //     });
+  // };
 
   const getSongs = (id) => {
     apiClient
@@ -68,20 +81,27 @@ export default function Wrapper({ children }) {
       });
   };
 
-  const addSong = (form, setForm) => {
-    axios
+  const addSongToPlaylist = (form, setForm, id_playlist) => {
+    apiClient
       .post("/song", form)
-      .then((res) => {
-        setSongs([...songs, res.data]);
-        toast({
-          title: "Song Added",
-          status: "success",
-          duration: 4000,
-          isClosable: true,
-        });
-        setErrors({});
-        setForm({});
-        onClose();
+      .then((resSong) => {
+        apiClient
+          .post("/playlist/SongsOnPlaylist", {
+            id_song: resSong.data.id,
+            id_playlist: id_playlist,
+          })
+          .then((res) => {
+            setSongs([...songs, resSong.data]);
+            toast({
+              title: "Song Added",
+              status: "success",
+              duration: 4000,
+              isClosable: true,
+            });
+            setErrors({});
+            setForm({});
+            onClose();
+          });
       })
       .catch((err) => {
         setErrors(err.response.data.error);
@@ -124,6 +144,7 @@ export default function Wrapper({ children }) {
   return (
     <GlobalContext.Provider
       value={{
+        playlists,
         getSongs,
         Search,
         deleteSong,
