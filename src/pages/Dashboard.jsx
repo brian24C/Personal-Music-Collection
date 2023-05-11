@@ -1,4 +1,4 @@
-import { EditIcon, ViewIcon } from "@chakra-ui/icons";
+import { DeleteIcon, EditIcon, ViewIcon } from "@chakra-ui/icons";
 import {
   Box,
   Card,
@@ -14,11 +14,19 @@ import {
   Divider,
   Avatar,
 } from "@chakra-ui/react";
+import { useState } from "react";
 import { useLoaderData } from "react-router-dom";
 
 export default function Dashboard() {
+  const [idSong, setIdSong] = useState(null);
   const tasks = useLoaderData();
-  console.log(tasks);
+
+  if (idSong != null)
+    return (
+      <Wrapper>
+        <EditPlaylist songs={tasks} idSong={idSong} />
+      </Wrapper>
+    );
   return (
     <SimpleGrid spacing={10} minChildWidth="300px">
       {tasks &&
@@ -32,7 +40,6 @@ export default function Dashboard() {
             <CardHeader>
               <Flex gap={5}>
                 <Avatar src={task.img} />
-
                 <Box>
                   <Heading as="h3" size="sm">
                     {task.title}
@@ -50,10 +57,14 @@ export default function Dashboard() {
 
             <CardFooter>
               <HStack>
-                <Button variant="ghost" leftIcon={<ViewIcon />}>
+                <Button
+                  variant="ghost"
+                  leftIcon={<ViewIcon />}
+                  onClick={() => setIdSong(task.id)}
+                >
                   Watch
                 </Button>
-                <Button variant="ghost" leftIcon={<EditIcon />}>
+                <Button variant="ghost" leftIcon={<DeleteIcon />}>
                   Comment
                 </Button>
               </HStack>
