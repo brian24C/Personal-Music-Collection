@@ -74,7 +74,7 @@ export default function EditPlaylist({ songs, idSong }) {
                     <React.Fragment key={id}>
                       <Row
                         id={id}
-                        Name={name}
+                        name={name}
                         link={link}
                         recommended_by={recommendedBy}
                       />
