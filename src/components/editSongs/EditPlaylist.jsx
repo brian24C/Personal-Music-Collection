@@ -22,7 +22,7 @@ import { GlobalContext } from "../../context/GlobalWrapper";
 export default function EditPlaylist({ playlist, idPlaylist }) {
   //const btnRef = React.useRef();
   console.log("j");
-  const { onOpen, isOpen, onClose, getSongs, songs } =
+  const { onOpen, isOpen, onClose, Search, getSongs, songs } =
     useContext(GlobalContext);
 
   const [query, setQuery] = useState("");

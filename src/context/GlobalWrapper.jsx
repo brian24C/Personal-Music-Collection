@@ -122,7 +122,7 @@ export default function Wrapper({ children }) {
   };
 
   const updateSong = (form, setForm, idSong, idPlaylist) => {
-    axios
+    apiClient
       .put(`/song/${idSong}`, form)
       .then((res) => {
         toast({

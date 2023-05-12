@@ -32,13 +32,12 @@ export default function DrawerExample(id_playlist) {
   };
 
   const onUpdate = () => {
-    updateSong(form, setForm, form.id, id_playlist);
+    updateSong(form, setForm, form.id, id_playlist.id_playlist);
   };
 
   useEffect(() => {
     setForm(song);
   }, [song]);
-  console.log("repeticua,", song);
 
   return (
     <>
