@@ -33,7 +33,7 @@ export default function Wrapper({ children }) {
       .then(({ data }) => {
         const Songs = data.data.songs.map((song) => song.song);
         setSongs(Songs);
-        setSongsFilter(songs);
+        setSongsFilter(Songs);
       })
       .catch((err) => {
         console.log(err.reponse);
@@ -52,11 +52,13 @@ export default function Wrapper({ children }) {
   // };
 
   const Search = (query) => {
+    console.log(query);
     if (query === "") {
       setSongs(songsFilter);
     } else {
-      const resultSearch = songs.filter((song) => {
-        if (song.name.toString().toLowerCase().incudes(query.toLowerCase())) {
+      const resultSearch = songsFilter.filter((song) => {
+        console.log(song);
+        if (song.name.toString().toLowerCase().includes(query.toLowerCase())) {
           return song;
         }
       });

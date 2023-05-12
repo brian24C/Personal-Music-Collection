@@ -44,7 +44,15 @@ export default function EditPlaylist({ playlist, idPlaylist }) {
         <Box rounded="lg" boxShadow="base" p="4">
           <Box mt="2" gap={"2"} mb="3" display={"flex"}>
             <FormControl>
-              <Input type="text" onChange={onchangeHandler} />
+              <Input
+                type="text"
+                onChange={onchangeHandler}
+                onKeyDown={() => {
+                  if (event.key === "Enter") {
+                    SearchHandler();
+                  }
+                }}
+              />
             </FormControl>
             <Button
               leftIcon={<AiOutlineSearch />}
