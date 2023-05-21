@@ -51,6 +51,7 @@ export default function Create() {
         <FormControl mb="40px">
           <FormLabel>Created By:</FormLabel>
           <Input
+            value={playlist.createdBy}
             onChange={(event) =>
               setPlaylist({ ...playlist, createdBy: event.target.value })
             }

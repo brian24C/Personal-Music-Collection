@@ -31,7 +31,7 @@ export default function Wrapper({ children }) {
     apiClient
       .get(`/playlist/${id}`)
       .then(({ data }) => {
-        const Songs = data.data.songs.map((song) => song.song);
+        const Songs = data.dataTotal.songs.map((song) => song.song);
         setSongs(Songs);
         setSongsFilter(Songs);
       })
@@ -90,11 +90,11 @@ export default function Wrapper({ children }) {
       .then((resSong) => {
         apiClient
           .post("/playlist/SongsOnPlaylist", {
-            id_song: resSong.data.data.id,
+            id_song: resSong.data.dataTotal.id,
             id_playlist: idPplaylist.id_playlist,
           })
           .then((res) => {
-            setSongs([...songs, resSong.data.data]);
+            setSongs([...songs, resSong.data.dataTotal]);
             toast({
               title: "Song Added",
               status: "success",
@@ -115,8 +115,8 @@ export default function Wrapper({ children }) {
     apiClient
       .get(`/song/${id}`)
       .then((res) => {
-        setSong(res.data.data);
-        console.log(res.data.data);
+        setSong(res.data.dataTotal);
+        console.log(res.data.dataTotal);
       })
       .catch((err) => {
         console.log(err.reponse.data);
@@ -137,7 +137,7 @@ export default function Wrapper({ children }) {
         setForm({});
         onClose();
         getSongs(idPlaylist);
-        console.log(res.data.data);
+        console.log(res.data.dataTotal);
         //Probar esto luego:
         //setSongs(songs.map((song) => song.id===id ? res.data : song))
       })
