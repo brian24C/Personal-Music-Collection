@@ -24,7 +24,7 @@ import { useContext } from "react";
 
 export default function Dashboard() {
   //const { getPlaylists, playlists } = useContext(GlobalContext);
-  const [idSong, setIdSong] = useState(null);
+  const [IdPlaylist, setIdPlaylist] = useState(null);
   const [playlists, setPlaylists] = useState([]);
 
   useEffect(() => {
@@ -34,14 +34,15 @@ export default function Dashboard() {
         setPlaylists(data.data);
       })
       .catch((err) => {
+        console.log("error: " + err);
         console.log(err.reponse.data);
       });
   }, []);
 
-  if (idSong != null)
+  if (IdPlaylist != null)
     return (
       <Wrapper>
-        <EditPlaylist playlist={playlists} idPlaylist={idSong} />
+        <EditPlaylist playlist={playlists} idPlaylist={IdPlaylist} />
       </Wrapper>
     );
   return (
@@ -76,7 +77,7 @@ export default function Dashboard() {
                 <Button
                   variant="ghost"
                   leftIcon={<ViewIcon />}
-                  onClick={() => setIdSong(playlist.id)}
+                  onClick={() => setIdPlaylist(playlist.id)}
                 >
                   Watch
                 </Button>
