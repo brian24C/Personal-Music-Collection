@@ -21,23 +21,24 @@ import EditPlaylist from "../components/editSongs/EditPlaylist";
 import Wrapper from "../context/GlobalWrapper";
 import apiClient from "../services/api-client";
 import { useContext } from "react";
+import usePlaylists from "../hooks/usePlaylists";
 
 export default function Dashboard() {
   //const { getPlaylists, playlists } = useContext(GlobalContext);
   const [IdPlaylist, setIdPlaylist] = useState(null);
-  const [playlists, setPlaylists] = useState([]);
-
-  useEffect(() => {
-    apiClient
-      .get(`/playlist`)
-      .then(({ data }) => {
-        setPlaylists(data.data);
-      })
-      .catch((err) => {
-        console.log("error: " + err);
-        console.log(err.reponse.data);
-      });
-  }, []);
+  //const [playlists, setPlaylists] = useState([]);
+  const { data: playlists, isLoading, error } = usePlaylists();
+  // useEffect(() => {
+  //   apiClient
+  //     .get(`/playlist`)
+  //     .then(({ data }) => {
+  //       setPlaylists(data.data);
+  //     })
+  //     .catch((err) => {
+  //       console.log("error: " + err);
+  //       console.log(err.reponse.data);
+  //     });
+  // }, []);
 
   if (IdPlaylist != null)
     return (
