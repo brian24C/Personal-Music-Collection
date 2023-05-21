@@ -28,6 +28,7 @@ export default function Dashboard() {
   const [IdPlaylist, setIdPlaylist] = useState(null);
   //const [playlists, setPlaylists] = useState([]);
   const { data: playlists, isLoading, error } = usePlaylists();
+  console.log(playlists);
   // useEffect(() => {
   //   apiClient
   //     .get(`/playlist`)

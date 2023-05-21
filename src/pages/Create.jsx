@@ -8,24 +8,55 @@ import {
   Checkbox,
   Button,
 } from "@chakra-ui/react";
+import { useState } from "react";
 import { Form, redirect } from "react-router-dom";
+import useAddPlaylist from "../hooks/useAddPlaylist";
 
 export default function Create() {
+  const [playlist, setPlaylist] = useState({
+    namePlaylist: "",
+    createdBy: "",
+  });
+
+  const addPlaylist = useAddPlaylist(() => {
+    setPlaylist({ namePlaylist: "", createdBy: "" });
+  });
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    addPlaylist.mutate({
+      name: playlist.namePlaylist,
+      CreatedBy: playlist.createdBy,
+    });
+  };
   return (
     <Box maxW="480px">
-      <Form method="post" action="/create">
+      <form onSubmit={handleSubmit}>
         <FormControl isRequired mb="40px">
           <FormLabel>Playlist name:</FormLabel>
-          <Input type="text" name="name" />
+          <Input
+            value={playlist.namePlaylist}
+            type="text"
+            name="name"
+            onChange={(event) =>
+              setPlaylist({
+                ...playlist,
+                namePlaylist: event.target.value,
+              })
+            }
+          />
           <FormHelperText>Enter a descriptive task name.</FormHelperText>
         </FormControl>
 
         <FormControl mb="40px">
           <FormLabel>Created By:</FormLabel>
-          <Textarea
-            placeholder="Enter a who created this playlist..."
-            name="description"
+          <Input
+            onChange={(event) =>
+              setPlaylist({ ...playlist, createdBy: event.target.value })
+            }
+            name="createdBy"
           />
+          <FormHelperText>Enter a who created this playlist...</FormHelperText>
         </FormControl>
 
         {/* <FormControl display="flex" alignItems="center" mb="40px">
@@ -36,33 +67,33 @@ export default function Create() {
         </FormControl> */}
 
         <Button type="submit">Submit</Button>
-      </Form>
+      </form>
     </Box>
   );
 }
 
-export const createAction = async ({ request }) => {
-  const data = await request.formData();
+// export const createAction = async ({ request }) => {
+//   const data = await request.formData();
 
-  const playlist = {
-    name: data.get("name"),
-  };
+//   const playlist = {
+//     name: data.get("name"),
+//   };
 
-  fetch("https://api-playlist.onrender.com/api/v1/playlist", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(playlist),
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      window.location.reload();
-      console.log(data);
-    })
-    .catch((error) => {
-      console.error("Error:", error);
-    });
+//   fetch("https://api-playlist.onrender.com/api/v1/playlist", {
+//     method: "POST",
+//     headers: {
+//       "Content-Type": "application/json",
+//     },
+//     body: JSON.stringify(playlist),
+//   })
+//     .then((response) => response.json())
+//     .then((data) => {
+//       window.location.reload();
+//       console.log(data);
+//     })
+//     .catch((error) => {
+//       console.error("Error:", error);
+//     });
 
-  return redirect("/");
-};
+//   return redirect("/");
+// };
