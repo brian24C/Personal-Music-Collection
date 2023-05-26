@@ -15,8 +15,15 @@ import { GlobalContext } from "../../context/GlobalWrapper";
 import InputsGroup from "./InputsGroup";
 
 export default function DrawerExample(id_playlist) {
-  const { isOpen, onClose, song, addSongToPlaylist, updateSong } =
-    useContext(GlobalContext);
+  const {
+    isOpen,
+    onClose,
+    song,
+    addSongToPlaylist,
+    updateSong,
+    setSongs,
+    setSongsFilter,
+  } = useContext(GlobalContext);
   const [form, setForm] = useState({});
 
   const onChangeHandler = (e) => {
@@ -27,7 +34,6 @@ export default function DrawerExample(id_playlist) {
   };
 
   const onAdd = () => {
-    console.log(id_playlist);
     addSongToPlaylist(form, setForm, id_playlist);
   };
 
@@ -41,7 +47,14 @@ export default function DrawerExample(id_playlist) {
 
   return (
     <>
-      <Drawer isOpen={isOpen} placement="right" onClose={onClose}>
+      <Drawer
+        isOpen={isOpen}
+        placement="right"
+        onClose={() => {
+          setForm({});
+          onClose();
+        }}
+      >
         <DrawerOverlay />
         <DrawerContent>
           <DrawerCloseButton

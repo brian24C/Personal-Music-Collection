@@ -25,7 +25,6 @@ import { useParams } from "react-router-dom";
 
 export default function EditPlaylist() {
   const params = useParams();
-  console.log(params);
 
   const { onOpen, isOpen, onClose, Search, getSongs, songs } =
     useContext(GlobalContext);

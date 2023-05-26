@@ -29,7 +29,6 @@ const Form = ({ playlist, firstFieldRef, onCancel }) => {
       [e.target.name]: e.target.value,
     });
   };
-  console.log("palylist", form);
 
   return (
     <Stack spacing={4}>

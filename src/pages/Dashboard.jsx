@@ -27,10 +27,7 @@ import PopoverForm from "../components/PopoverForm";
 export default function Dashboard() {
   const { data: playlists, isLoading, error } = usePlaylists();
   const deletePlaylist = useDeletePlaylist();
-  const editPlaylist = useEditPlaylist();
-
   const { colorMode } = useColorMode();
-  console.log(playlists);
 
   if (isLoading === true)
     return (
@@ -38,7 +35,6 @@ export default function Dashboard() {
         <Spinner size="xl" />
       </Center>
     );
-
   return (
     <SimpleGrid spacing={10} minChildWidth="300px">
       {playlists &&
