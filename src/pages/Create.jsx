@@ -26,6 +26,7 @@ export default function Create() {
       CreatedBy: playlist.createdBy,
     });
   };
+
   return (
     <Box maxW="480px">
       <form onSubmit={handleSubmit}>

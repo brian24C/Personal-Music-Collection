@@ -21,11 +21,16 @@ import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import usePlaylists from "../hooks/usePlaylists";
 import useDeletePlaylist from "../hooks/useDeletePlaylist";
+import useEditPlaylist from "../hooks/useEditPlaylist";
+import PopoverForm from "../components/PopForm";
 
 export default function Dashboard() {
   const { data: playlists, isLoading, error } = usePlaylists();
   const deletePlaylist = useDeletePlaylist();
+  const editPlaylist = useEditPlaylist();
+
   const { colorMode } = useColorMode();
+  console.log(playlists);
 
   if (isLoading === true)
     return (
@@ -50,7 +55,7 @@ export default function Dashboard() {
                   <Heading as="h3" size="sm">
                     {playlist.name}
                   </Heading>
-                  <Text>Created By: {playlist.name}</Text>
+                  <Text>Created By: {playlist.CreatedBy}</Text>
                 </Box>
               </Flex>
             </CardHeader>
@@ -80,9 +85,7 @@ export default function Dashboard() {
               >
                 Delete
               </Button>
-              <Button variant="ghost" leftIcon={<EditIcon />}>
-                Edit
-              </Button>
+              <PopoverForm playlist={playlist} />
             </CardFooter>
           </Card>
         ))}
