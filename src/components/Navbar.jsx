@@ -17,7 +17,7 @@ import {
 import React from "react";
 
 const Navbar = () => {
-  const { toggleColorMode, colorMode } = useColorMode();
+  //const { toggleColorMode, colorMode } = useColorMode();
   const toast = useToast();
 
   const showToast = () => {
@@ -38,12 +38,6 @@ const Navbar = () => {
 
       <Spacer />
       <HStack spacing="20px">
-        <Switch
-          colorScheme="green"
-          isChecked={colorMode === "dark"}
-          onChange={toggleColorMode}
-        />
-        <Text>Dark Mode</Text>
         <Avatar src="img/mari.png" bg="blue.200" name="b">
           {/* <AvatarBadge width="1.3em" bg="teal.500">
             <Text fontSize="xs" color="white">

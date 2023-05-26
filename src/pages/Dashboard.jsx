@@ -60,31 +60,29 @@ export default function Dashboard() {
 
             <Divider borderColor="gray.300" />
 
-            <CardFooter>
-              <HStack>
-                <NavLink
-                  to={`/playlist/${playlist.name}/idPlaylist/${playlist.id}`}
-                >
-                  <Button variant="ghost" leftIcon={<ViewIcon />}>
-                    Watch
-                  </Button>
-                </NavLink>
-                <Button
-                  variant="ghost"
-                  onClick={() =>
-                    deletePlaylist.mutate({
-                      playlistId: playlist.id,
-                      name: playlist.name,
-                    })
-                  }
-                  leftIcon={<DeleteIcon />}
-                >
-                  Delete
+            <CardFooter justify="space-between">
+              <NavLink
+                to={`/playlist/${playlist.name}/idPlaylist/${playlist.id}`}
+              >
+                <Button variant="ghost" leftIcon={<ViewIcon />}>
+                  Watch
                 </Button>
-                <Button variant="ghost" leftIcon={<EditIcon />}>
-                  Editar
-                </Button>
-              </HStack>
+              </NavLink>
+              <Button
+                variant="ghost"
+                onClick={() =>
+                  deletePlaylist.mutate({
+                    playlistId: playlist.id,
+                    name: playlist.name,
+                  })
+                }
+                leftIcon={<DeleteIcon />}
+              >
+                Delete
+              </Button>
+              <Button variant="ghost" leftIcon={<EditIcon />}>
+                Edit
+              </Button>
             </CardFooter>
           </Card>
         ))}
