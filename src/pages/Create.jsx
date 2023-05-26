@@ -1,15 +1,12 @@
 import {
-  FormControl,
   Box,
+  Button,
+  FormControl,
+  FormHelperText,
   FormLabel,
   Input,
-  FormHelperText,
-  Textarea,
-  Checkbox,
-  Button,
 } from "@chakra-ui/react";
 import { useState } from "react";
-import { Form, redirect } from "react-router-dom";
 import useAddPlaylist from "../hooks/useAddPlaylist";
 
 export default function Create() {
@@ -67,7 +64,9 @@ export default function Create() {
           </FormLabel>
         </FormControl> */}
 
-        <Button type="submit">Submit</Button>
+        <Button colorScheme="green" type="submit">
+          Submit
+        </Button>
       </form>
     </Box>
   );
