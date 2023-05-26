@@ -24,6 +24,7 @@ import PopoverForm from "../components/PopoverForm";
 import { GlobalContext } from "../context/GlobalWrapper";
 import useDeletePlaylist from "../hooks/useDeletePlaylist";
 import usePlaylists from "../hooks/usePlaylists";
+import AlertDeleteSong from "../components/AlertDeleteSong";
 
 export default function Dashboard() {
   const { data: playlists, isLoading, error } = usePlaylists();
@@ -79,7 +80,7 @@ export default function Dashboard() {
                   Watch
                 </Button>
               </NavLink>
-              <Button
+              {/* <Button
                 variant="ghost"
                 onClick={() =>
                   deletePlaylist.mutate({
@@ -91,7 +92,17 @@ export default function Dashboard() {
                 leftIcon={<DeleteIcon />}
               >
                 Delete
-              </Button>
+              </Button> */}
+              <AlertDeleteSong
+                deletePlaylist={() =>
+                  deletePlaylist.mutate({
+                    playlistId: playlist.id,
+                    name: playlist.name,
+                    CreatedBy: playlist.CreatedBy,
+                  })
+                }
+              />
+
               <PopoverForm playlist={playlist} />
             </CardFooter>
           </Card>
