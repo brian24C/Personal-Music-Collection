@@ -88,10 +88,11 @@ export default function Wrapper({ children }) {
     apiClient
       .post("/song", form)
       .then((resSong) => {
+        console.log("idplalist", idPplaylist.id_playlist);
         apiClient
           .post("/playlist/SongsOnPlaylist", {
             id_song: resSong.data.dataTotal.id,
-            id_playlist: idPplaylist.id_playlist,
+            id_playlist: parseInt(idPplaylist.id_playlist),
           })
           .then((res) => {
             setSongs([...songs, resSong.data.dataTotal]);

@@ -25,6 +25,7 @@ import { useParams } from "react-router-dom";
 
 export default function EditPlaylist() {
   const params = useParams();
+  console.log(params);
 
   const { onOpen, isOpen, onClose, Search, getSongs, songs } =
     useContext(GlobalContext);
@@ -117,7 +118,7 @@ export default function EditPlaylist() {
           </Table>
         </TableContainer>
       </Box>
-      <DrawerExample id_playlist={params.idPlaylist} />
+      <DrawerExample id_playlist={params.id} />
     </Container>
   );
 }

@@ -15,6 +15,7 @@ import {
   SimpleGrid,
   Spinner,
   Text,
+  useColorMode,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
@@ -24,6 +25,7 @@ import useDeletePlaylist from "../hooks/useDeletePlaylist";
 export default function Dashboard() {
   const { data: playlists, isLoading, error } = usePlaylists();
   const deletePlaylist = useDeletePlaylist();
+  const { colorMode } = useColorMode();
 
   if (isLoading === true)
     return (
@@ -39,8 +41,7 @@ export default function Dashboard() {
           <Card
             key={playlist.id}
             borderTop="8px"
-            borderColor="green.300"
-            bg="white"
+            borderColor={colorMode === "light" ? "green.300" : "gray.600"}
           >
             <CardHeader>
               <Flex gap={5} justify="space-between">

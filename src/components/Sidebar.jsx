@@ -10,7 +10,7 @@ const Sidebar = () => {
         <NavLink to="/">
           <Flex alignItems="center">
             <ListIcon as={CalendarIcon} color="white" />
-            <span>Dashboard</span>
+            Dashboard
           </Flex>
         </NavLink>
       </ListItem>
