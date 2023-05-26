@@ -1,4 +1,5 @@
 import { UnlockIcon } from "@chakra-ui/icons";
+
 import {
   Flex,
   Box,
@@ -10,10 +11,13 @@ import {
   useToast,
   Avatar,
   AvatarBadge,
+  Switch,
+  useColorMode,
 } from "@chakra-ui/react";
 import React from "react";
 
 const Navbar = () => {
+  const { toggleColorMode, colorMode } = useColorMode();
   const toast = useToast();
 
   const showToast = () => {
@@ -30,18 +34,24 @@ const Navbar = () => {
 
   return (
     <Flex as="nav" p="10px" mb="40px" alignItems="center">
-      <Heading as="h1">Dojo Task</Heading>
+      <Heading as="h1">My PlayList</Heading>
 
       <Spacer />
       <HStack spacing="20px">
-        <Avatar src="img/mari.png" bg="blue.200" name="Mario">
-          <AvatarBadge width="1.3em" bg="teal.500">
+        <Switch
+          colorScheme="green"
+          isChecked={colorMode === "dark"}
+          onChange={toggleColorMode}
+        />
+        <Text>Dark Mode</Text>
+        <Avatar src="img/mari.png" bg="blue.200" name="b">
+          {/* <AvatarBadge width="1.3em" bg="teal.500">
             <Text fontSize="xs" color="white">
               3
             </Text>
-          </AvatarBadge>
+          </AvatarBadge> */}
         </Avatar>
-        <Text>mario@dg.com</Text>
+        <Text>Brian Castro</Text>
         <Button colorScheme="blue" onClick={showToast}>
           logout
         </Button>

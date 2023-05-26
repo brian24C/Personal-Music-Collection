@@ -1,44 +1,56 @@
-import { EditIcon, ViewIcon } from "@chakra-ui/icons";
+import { DeleteIcon, EditIcon, ViewIcon } from "@chakra-ui/icons";
 import {
+  Avatar,
   Box,
+  Button,
   Card,
   CardBody,
   CardFooter,
   CardHeader,
-  Flex,
-  SimpleGrid,
-  Text,
-  Heading,
-  HStack,
-  Button,
+  Center,
   Divider,
-  Avatar,
+  Flex,
+  HStack,
+  Heading,
+  SimpleGrid,
+  Spinner,
+  Text,
+  useColorMode,
 } from "@chakra-ui/react";
-import { useLoaderData } from "react-router-dom";
+import { useState } from "react";
+import { NavLink } from "react-router-dom";
+import usePlaylists from "../hooks/usePlaylists";
+import useDeletePlaylist from "../hooks/useDeletePlaylist";
 
 export default function Dashboard() {
-  const tasks = useLoaderData();
-  console.log(tasks);
+  const { data: playlists, isLoading, error } = usePlaylists();
+  const deletePlaylist = useDeletePlaylist();
+  const { colorMode } = useColorMode();
+
+  if (isLoading === true)
+    return (
+      <Center h="50%">
+        <Spinner size="xl" />
+      </Center>
+    );
+
   return (
     <SimpleGrid spacing={10} minChildWidth="300px">
-      {tasks &&
-        tasks.map((task) => (
+      {playlists &&
+        playlists.map((playlist) => (
           <Card
-            key={task.id}
+            key={playlist.id}
             borderTop="8px"
-            borderColor="green.300"
-            bg="white"
+            borderColor={colorMode === "light" ? "green.300" : "gray.600"}
           >
             <CardHeader>
-              <Flex gap={5}>
-                <Avatar src={task.img} />
-
+              <Flex gap={5} justify="space-between">
+                <Avatar name={playlist.name} />
                 <Box>
                   <Heading as="h3" size="sm">
-                    {task.title}
+                    {playlist.name}
                   </Heading>
-
-                  <Text>By: {task.author}</Text>
+                  <Text>Created By: {playlist.name}</Text>
                 </Box>
               </Flex>
             </CardHeader>
@@ -50,11 +62,27 @@ export default function Dashboard() {
 
             <CardFooter>
               <HStack>
-                <Button variant="ghost" leftIcon={<ViewIcon />}>
-                  Watch
+                <NavLink
+                  to={`/playlist/${playlist.name}/idPlaylist/${playlist.id}`}
+                >
+                  <Button variant="ghost" leftIcon={<ViewIcon />}>
+                    Watch
+                  </Button>
+                </NavLink>
+                <Button
+                  variant="ghost"
+                  onClick={() =>
+                    deletePlaylist.mutate({
+                      playlistId: playlist.id,
+                      name: playlist.name,
+                    })
+                  }
+                  leftIcon={<DeleteIcon />}
+                >
+                  Delete
                 </Button>
                 <Button variant="ghost" leftIcon={<EditIcon />}>
-                  Comment
+                  Editar
                 </Button>
               </HStack>
             </CardFooter>
@@ -63,8 +91,3 @@ export default function Dashboard() {
     </SimpleGrid>
   );
 }
-
-export const tasksLoader = async () => {
-  const res = await fetch("http://localhost:3000/tasks");
-  return res.json();
-};

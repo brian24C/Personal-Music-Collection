@@ -1,5 +1,5 @@
-import { AtSignIcon, CalendarIcon, EditIcon } from "@chakra-ui/icons";
-import { List, ListIcon, ListItem } from "@chakra-ui/react";
+import { AtSignIcon, CalendarIcon, AddIcon } from "@chakra-ui/icons";
+import { List, ListIcon, ListItem, Flex, Text } from "@chakra-ui/react";
 import React from "react";
 import { NavLink } from "react-router-dom";
 
@@ -8,15 +8,19 @@ const Sidebar = () => {
     <List color="white" fontSize="1.2em" spacing={4}>
       <ListItem>
         <NavLink to="/">
-          <ListIcon as={CalendarIcon} color="white" />
-          Dashboard
+          <Flex alignItems="center">
+            <ListIcon as={CalendarIcon} color="white" />
+            Dashboard
+          </Flex>
         </NavLink>
       </ListItem>
 
       <ListItem>
         <NavLink to="/create">
-          <ListIcon as={EditIcon} color="white" />
-          New task
+          <Flex alignItems="center">
+            <ListIcon as={AddIcon} color="white" />
+            <Text noOfLines={1}>New Playlist</Text>
+          </Flex>
         </NavLink>
       </ListItem>
 

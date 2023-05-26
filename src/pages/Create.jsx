@@ -8,49 +8,93 @@ import {
   Checkbox,
   Button,
 } from "@chakra-ui/react";
+import { useState } from "react";
 import { Form, redirect } from "react-router-dom";
+import useAddPlaylist from "../hooks/useAddPlaylist";
 
 export default function Create() {
+  const [playlist, setPlaylist] = useState({
+    namePlaylist: "",
+    createdBy: "",
+  });
+
+  const addPlaylist = useAddPlaylist(() => {
+    setPlaylist({ namePlaylist: "", createdBy: "" });
+  });
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    addPlaylist.mutate({
+      name: playlist.namePlaylist,
+      CreatedBy: playlist.createdBy,
+    });
+  };
   return (
     <Box maxW="480px">
-      <Form method="post" action="/create">
+      <form onSubmit={handleSubmit}>
         <FormControl isRequired mb="40px">
-          <FormLabel>Task name:</FormLabel>
-          <Input type="text" name="title" />
+          <FormLabel>Playlist name:</FormLabel>
+          <Input
+            value={playlist.namePlaylist}
+            type="text"
+            name="name"
+            onChange={(event) =>
+              setPlaylist({
+                ...playlist,
+                namePlaylist: event.target.value,
+              })
+            }
+          />
           <FormHelperText>Enter a descriptive task name.</FormHelperText>
         </FormControl>
 
         <FormControl mb="40px">
-          <FormLabel>Task description:</FormLabel>
-          <Textarea
-            placeholder="Enter a detailed description for the task..."
-            name="description"
+          <FormLabel>Created By:</FormLabel>
+          <Input
+            value={playlist.createdBy}
+            onChange={(event) =>
+              setPlaylist({ ...playlist, createdBy: event.target.value })
+            }
+            name="createdBy"
           />
+          <FormHelperText>Enter a who created this playlist...</FormHelperText>
         </FormControl>
 
-        <FormControl display="flex" alignItems="center" mb="40px">
+        {/* <FormControl display="flex" alignItems="center" mb="40px">
           <Checkbox name="isPriority" size="lg" colorScheme="blue" />
           <FormLabel mb="0" ml="10px">
             Make this a priority task
           </FormLabel>
-        </FormControl>
+        </FormControl> */}
 
         <Button type="submit">Submit</Button>
-      </Form>
+      </form>
     </Box>
   );
 }
 
-export const createAction = async ({ request }) => {
-  const data = await request.formData();
+// export const createAction = async ({ request }) => {
+//   const data = await request.formData();
 
-  const task = {
-    title: data.get("title"),
-    description: data.get("description"),
-    isPriority: data.get("isPriority") === "",
-  };
+//   const playlist = {
+//     name: data.get("name"),
+//   };
 
-  console.log(task);
+//   fetch("https://api-playlist.onrender.com/api/v1/playlist", {
+//     method: "POST",
+//     headers: {
+//       "Content-Type": "application/json",
+//     },
+//     body: JSON.stringify(playlist),
+//   })
+//     .then((response) => response.json())
+//     .then((data) => {
+//       window.location.reload();
+//       console.log(data);
+//     })
+//     .catch((error) => {
+//       console.error("Error:", error);
+//     });
 
-  return redirect("/");
-};
+//   return redirect("/");
+// };
