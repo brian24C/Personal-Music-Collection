@@ -4,7 +4,7 @@ import { AiFillDelete, AiFillEdit } from "react-icons/ai";
 import { GlobalContext } from "../../context/GlobalWrapper";
 const Row = ({ id, name, link, artist, recommended_by }) => {
   const { deleteSong, onOpen, FindOne } = useContext(GlobalContext);
-
+  console.log("row");
   return (
     <Tr>
       <Td>

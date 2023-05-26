@@ -15,15 +15,8 @@ import { GlobalContext } from "../../context/GlobalWrapper";
 import InputsGroup from "./InputsGroup";
 
 export default function DrawerExample(id_playlist) {
-  const {
-    isOpen,
-    onClose,
-    song,
-    addSongToPlaylist,
-    updateSong,
-    setSongs,
-    setSongsFilter,
-  } = useContext(GlobalContext);
+  const { isOpen, onClose, song, addSongToPlaylist, updateSong } =
+    useContext(GlobalContext);
   const [form, setForm] = useState({});
 
   const onChangeHandler = (e) => {

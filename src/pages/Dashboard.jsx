@@ -1,4 +1,4 @@
-import { DeleteIcon, EditIcon, ViewIcon } from "@chakra-ui/icons";
+import { DeleteIcon, ViewIcon } from "@chakra-ui/icons";
 import {
   Avatar,
   Box,
@@ -17,17 +17,24 @@ import {
   Text,
   useColorMode,
 } from "@chakra-ui/react";
-import { useState } from "react";
+
+import { useContext, useEffect } from "react";
 import { NavLink } from "react-router-dom";
-import usePlaylists from "../hooks/usePlaylists";
-import useDeletePlaylist from "../hooks/useDeletePlaylist";
-import useEditPlaylist from "../hooks/useEditPlaylist";
 import PopoverForm from "../components/PopoverForm";
+import { GlobalContext } from "../context/GlobalWrapper";
+import useDeletePlaylist from "../hooks/useDeletePlaylist";
+import usePlaylists from "../hooks/usePlaylists";
 
 export default function Dashboard() {
   const { data: playlists, isLoading, error } = usePlaylists();
   const deletePlaylist = useDeletePlaylist();
   const { colorMode } = useColorMode();
+  const { setSongsFilter, setSongs } = useContext(GlobalContext);
+  console.log("dashboard");
+  useEffect(() => {
+    setSongsFilter([]);
+    setSongs([]);
+  }, []);
 
   if (isLoading === true)
     return (
@@ -35,6 +42,9 @@ export default function Dashboard() {
         <Spinner size="xl" />
       </Center>
     );
+
+  error && console.log(error);
+
   return (
     <SimpleGrid spacing={10} minChildWidth="300px">
       {playlists &&
