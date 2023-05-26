@@ -1,4 +1,4 @@
-import { DeleteIcon, EditIcon, ViewIcon } from "@chakra-ui/icons";
+import { DeleteIcon, ViewIcon } from "@chakra-ui/icons";
 import {
   Avatar,
   Box,
@@ -17,15 +17,25 @@ import {
   Text,
   useColorMode,
 } from "@chakra-ui/react";
-import { useState } from "react";
+
+import { useContext, useEffect } from "react";
 import { NavLink } from "react-router-dom";
-import usePlaylists from "../hooks/usePlaylists";
+import PopoverForm from "../components/PopoverForm";
+import { GlobalContext } from "../context/GlobalWrapper";
 import useDeletePlaylist from "../hooks/useDeletePlaylist";
+import usePlaylists from "../hooks/usePlaylists";
+import AlertDeleteSong from "../components/AlertDeleteSong";
 
 export default function Dashboard() {
   const { data: playlists, isLoading, error } = usePlaylists();
   const deletePlaylist = useDeletePlaylist();
   const { colorMode } = useColorMode();
+  const { setSongsFilter, setSongs } = useContext(GlobalContext);
+  console.log("dashboard");
+  useEffect(() => {
+    setSongsFilter([]);
+    setSongs([]);
+  }, []);
 
   if (isLoading === true)
     return (
@@ -33,6 +43,8 @@ export default function Dashboard() {
         <Spinner size="xl" />
       </Center>
     );
+
+  error && console.log(error);
 
   return (
     <SimpleGrid spacing={10} minChildWidth="300px">
@@ -50,7 +62,7 @@ export default function Dashboard() {
                   <Heading as="h3" size="sm">
                     {playlist.name}
                   </Heading>
-                  <Text>Created By: {playlist.name}</Text>
+                  <Text>Created By: {playlist.CreatedBy}</Text>
                 </Box>
               </Flex>
             </CardHeader>
@@ -60,31 +72,39 @@ export default function Dashboard() {
 
             <Divider borderColor="gray.300" />
 
-            <CardFooter>
-              <HStack>
-                <NavLink
-                  to={`/playlist/${playlist.name}/idPlaylist/${playlist.id}`}
-                >
-                  <Button variant="ghost" leftIcon={<ViewIcon />}>
-                    Watch
-                  </Button>
-                </NavLink>
-                <Button
-                  variant="ghost"
-                  onClick={() =>
-                    deletePlaylist.mutate({
-                      playlistId: playlist.id,
-                      name: playlist.name,
-                    })
-                  }
-                  leftIcon={<DeleteIcon />}
-                >
-                  Delete
+            <CardFooter justify="space-between">
+              <NavLink
+                to={`/playlist/${playlist.name}/idPlaylist/${playlist.id}`}
+              >
+                <Button variant="ghost" leftIcon={<ViewIcon />}>
+                  Watch
                 </Button>
-                <Button variant="ghost" leftIcon={<EditIcon />}>
-                  Editar
-                </Button>
-              </HStack>
+              </NavLink>
+              {/* <Button
+                variant="ghost"
+                onClick={() =>
+                  deletePlaylist.mutate({
+                    playlistId: playlist.id,
+                    name: playlist.name,
+                    CreatedBy: playlist.CreatedBy,
+                  })
+                }
+                leftIcon={<DeleteIcon />}
+              >
+                Delete
+              </Button> */}
+              <AlertDeleteSong
+                deletePlaylist={() =>
+                  deletePlaylist.mutate({
+                    playlistId: playlist.id,
+                    name: playlist.name,
+                    CreatedBy: playlist.CreatedBy,
+                  })
+                }
+                playlistName={playlist.name}
+              />
+
+              <PopoverForm playlist={playlist} />
             </CardFooter>
           </Card>
         ))}

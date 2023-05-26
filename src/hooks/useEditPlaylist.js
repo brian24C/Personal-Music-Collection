@@ -3,27 +3,32 @@ import React from "react";
 import apiClient from "../services/api-client";
 import { useToast } from "@chakra-ui/react";
 
-const useDeletePlaylist = () => {
+const useEditPlaylist = (close) => {
   const queryClient = useQueryClient();
   const toast = useToast();
   return useMutation({
     mutationFn: (data) => {
       return apiClient
-        .delete(`/playlist/${data.playlistId}`)
+        .put(`/playlist/${data.id}`, {
+          name: data.name,
+          CreatedBy: data.CreatedBy,
+        })
         .then(({ data }) => data.dataTotal);
     },
     onMutate: (newPlaylist) => {
       const previousPlaylist = queryClient.getQueryData(["playlists"]);
       queryClient.setQueryData(["playlists"], (playlists) =>
-        playlists.filter((p) => p.id != newPlaylist.playlistId)
+        playlists.map((p) => (p.id === newPlaylist.id ? newPlaylist : p))
       );
 
       toast({
-        title: "Song delete successfully",
+        title: "Song update successfully",
         status: "success",
         duration: 4000,
         isClosable: true,
       });
+
+      close();
 
       return { previousPlaylist };
     },
@@ -31,9 +36,10 @@ const useDeletePlaylist = () => {
 
     onError: (error, newPlaylist, context) => {
       if (!context) return;
+
       queryClient.setQueryData(["playlists"], context.previousPlaylist);
     },
   });
 };
 
-export default useDeletePlaylist;
+export default useEditPlaylist;

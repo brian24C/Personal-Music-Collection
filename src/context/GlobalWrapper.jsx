@@ -15,18 +15,6 @@ export default function Wrapper({ children }) {
 
   const toast = useToast();
 
-  // const getPlaylists = () => {
-  //   apiClient
-  //     .get(`/playlist`)
-  //     .then(({ data }) => {
-  //       console.log("sisi", data.data);
-  //       setPlaylists(data.data);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err.reponse.data);
-  //     });
-  // };
-
   const getSongs = (id) => {
     apiClient
       .get(`/playlist/${id}`)
@@ -40,24 +28,11 @@ export default function Wrapper({ children }) {
       });
   };
 
-  // const getSongs = () => {
-  //   apiClient
-  //     .get("/song")
-  //     .then(({ res }) => {
-  //       setSongs(res.data);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err.reponse.data);
-  //     });
-  // };
-
   const Search = (query) => {
-    console.log(query);
     if (query === "") {
       setSongs(songsFilter);
     } else {
       const resultSearch = songsFilter.filter((song) => {
-        console.log(song);
         if (song.name.toString().toLowerCase().includes(query.toLowerCase())) {
           return song;
         }
@@ -88,7 +63,6 @@ export default function Wrapper({ children }) {
     apiClient
       .post("/song", form)
       .then((resSong) => {
-        console.log("idplalist", idPplaylist.id_playlist);
         apiClient
           .post("/playlist/SongsOnPlaylist", {
             id_song: resSong.data.dataTotal.id,
@@ -117,7 +91,6 @@ export default function Wrapper({ children }) {
       .get(`/song/${id}`)
       .then((res) => {
         setSong(res.data.dataTotal);
-        console.log(res.data.dataTotal);
       })
       .catch((err) => {
         console.log(err.reponse.data);
@@ -138,7 +111,7 @@ export default function Wrapper({ children }) {
         setForm({});
         onClose();
         getSongs(idPlaylist);
-        console.log(res.data.dataTotal);
+
         //Probar esto luego:
         //setSongs(songs.map((song) => song.id===id ? res.data : song))
       })
@@ -150,6 +123,8 @@ export default function Wrapper({ children }) {
   return (
     <GlobalContext.Provider
       value={{
+        setSongsFilter,
+        setSongs,
         playlists,
         getSongs,
         Search,

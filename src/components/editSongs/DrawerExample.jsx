@@ -27,7 +27,6 @@ export default function DrawerExample(id_playlist) {
   };
 
   const onAdd = () => {
-    console.log(id_playlist);
     addSongToPlaylist(form, setForm, id_playlist);
   };
 
@@ -41,7 +40,14 @@ export default function DrawerExample(id_playlist) {
 
   return (
     <>
-      <Drawer isOpen={isOpen} placement="right" onClose={onClose}>
+      <Drawer
+        isOpen={isOpen}
+        placement="right"
+        onClose={() => {
+          setForm({});
+          onClose();
+        }}
+      >
         <DrawerOverlay />
         <DrawerContent>
           <DrawerCloseButton

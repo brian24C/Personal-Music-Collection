@@ -2,37 +2,34 @@ import {
   Box,
   Button,
   Container,
+  FormControl,
   Input,
   Table,
   TableContainer,
   Tbody,
-  Td,
   Text,
   Th,
   Thead,
   Tr,
-  Heading,
-  Highlight,
 } from "@chakra-ui/react";
-import { FormControl } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { AiOutlinePlus, AiOutlineSearch } from "react-icons/ai";
-import Row from "./Row";
-import DrawerExample from "./DrawerExample";
-import React from "react";
-import { GlobalContext } from "../../context/GlobalWrapper";
 import { useParams } from "react-router-dom";
+import { GlobalContext } from "../../context/GlobalWrapper";
+import DrawerExample from "./DrawerExample";
+import Row from "./Row";
 
 export default function EditPlaylist() {
   const params = useParams();
-  console.log(params);
 
-  const { onOpen, isOpen, onClose, Search, getSongs, songs } =
-    useContext(GlobalContext);
+  const { onOpen, Search, getSongs, songs } = useContext(GlobalContext);
 
   const [query, setQuery] = useState("");
+
+  console.log("eidtplaylis");
   useEffect(() => {
     getSongs(params.id);
+    console.log("entra nuevo");
   }, []);
 
   const SearchHandler = () => {
