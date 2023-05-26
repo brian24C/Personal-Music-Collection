@@ -1,23 +1,20 @@
 import {
   ChatIcon,
   EmailIcon,
-  StarIcon,
-  CheckCircleIcon,
-  WarningIcon,
-  HamburgerIcon,
   ExternalLinkIcon,
+  HamburgerIcon,
 } from "@chakra-ui/icons";
 import {
+  Flex,
+  Link,
+  List,
+  ListIcon,
+  ListItem,
   Tab,
   TabList,
   TabPanel,
   TabPanels,
   Tabs,
-  List,
-  ListItem,
-  ListIcon,
-  Flex,
-  Link,
 } from "@chakra-ui/react";
 
 export default function Profile() {
