@@ -38,7 +38,7 @@ const Navbar = () => {
 
       <Spacer />
       <HStack spacing="20px">
-        <Avatar src="img/mari.png" bg="blue.200" name="b">
+        <Avatar bg="blue.200" name="b">
           {/* <AvatarBadge width="1.3em" bg="teal.500">
             <Text fontSize="xs" color="white">
               3

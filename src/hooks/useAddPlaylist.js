@@ -2,8 +2,10 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import React from "react";
 import apiClient from "../services/api-client";
 import { useToast } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
 
 const useAddPlaylist = (onPlaylist) => {
+  const navigate = useNavigate();
   const queryClient = useQueryClient();
   const toast = useToast();
   return useMutation({
@@ -34,6 +36,7 @@ const useAddPlaylist = (onPlaylist) => {
       queryClient.setQueryData(["playlists"], (playlists) =>
         playlists.map((p) => (p === newPlaylist ? savePlaylist : p))
       );
+      navigate("/");
     },
 
     onError: (error, newPlaylist, context) => {

@@ -8,6 +8,7 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 import useAddPlaylist from "../hooks/useAddPlaylist";
+import { useNavigate } from "react-router-dom";
 
 export default function Create() {
   const [playlist, setPlaylist] = useState({
@@ -18,6 +19,8 @@ export default function Create() {
   const addPlaylist = useAddPlaylist(() => {
     setPlaylist({ namePlaylist: "", createdBy: "" });
   });
+
+  const navigate = useNavigate();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -55,7 +58,7 @@ export default function Create() {
             }
             name="createdBy"
           />
-          <FormHelperText>Enter a who created this playlist...</FormHelperText>
+          <FormHelperText>Enter who created this playlist...</FormHelperText>
         </FormControl>
 
         {/* <FormControl display="flex" alignItems="center" mb="40px">
