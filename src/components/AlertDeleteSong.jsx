@@ -11,7 +11,7 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 import { DeleteIcon, ViewIcon } from "@chakra-ui/icons";
-function AlertDeleteSong({ deletePlaylist }) {
+function AlertDeleteSong({ deletePlaylist, playlistName }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = React.useRef();
 
@@ -29,7 +29,7 @@ function AlertDeleteSong({ deletePlaylist }) {
         <AlertDialogOverlay>
           <AlertDialogContent>
             <AlertDialogHeader fontSize="lg" fontWeight="bold">
-              Delete Playlist
+              Delete Playlist {playlistName}
             </AlertDialogHeader>
 
             <AlertDialogBody>

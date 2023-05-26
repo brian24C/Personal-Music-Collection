@@ -1,23 +1,18 @@
 import { UnlockIcon } from "@chakra-ui/icons";
 
 import {
-  Flex,
-  Box,
-  Heading,
-  Button,
-  Text,
-  Spacer,
-  HStack,
-  useToast,
   Avatar,
-  AvatarBadge,
-  Switch,
-  useColorMode,
+  Button,
+  Flex,
+  HStack,
+  Heading,
+  Spacer,
+  Text,
+  useToast,
 } from "@chakra-ui/react";
 import React from "react";
 
 const Navbar = () => {
-  //const { toggleColorMode, colorMode } = useColorMode();
   const toast = useToast();
 
   const showToast = () => {

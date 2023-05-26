@@ -101,6 +101,7 @@ export default function Dashboard() {
                     CreatedBy: playlist.CreatedBy,
                   })
                 }
+                playlistName={playlist.name}
               />
 
               <PopoverForm playlist={playlist} />
