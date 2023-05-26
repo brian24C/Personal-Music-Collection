@@ -22,7 +22,7 @@ import { NavLink } from "react-router-dom";
 import usePlaylists from "../hooks/usePlaylists";
 import useDeletePlaylist from "../hooks/useDeletePlaylist";
 import useEditPlaylist from "../hooks/useEditPlaylist";
-import PopoverForm from "../components/PopForm";
+import PopoverForm from "../components/PopoverForm";
 
 export default function Dashboard() {
   const { data: playlists, isLoading, error } = usePlaylists();
