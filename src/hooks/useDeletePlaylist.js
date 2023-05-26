@@ -15,7 +15,7 @@ const useDeletePlaylist = () => {
     onMutate: (newPlaylist) => {
       const previousPlaylist = queryClient.getQueryData(["playlists"]);
       queryClient.setQueryData(["playlists"], (playlists) =>
-        playlists.filter((p) => p.name != newPlaylist.name)
+        playlists.filter((p) => p.id != newPlaylist.playlistId)
       );
 
       toast({

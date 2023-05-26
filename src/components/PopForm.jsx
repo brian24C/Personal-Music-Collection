@@ -46,18 +46,14 @@ const Form = ({ playlist, firstFieldRef, onCancel }) => {
   return (
     <Stack spacing={4}>
       <TextInput
-        label="First name"
-        id="first-name"
+        label="Name"
         ref={firstFieldRef}
         onChange={onChangeHandler}
-        defaultValue={form.name}
         name="name"
         value={form?.name || ""}
       />
       <TextInput
-        label="Last name"
-        id="last-name"
-        defaultValue={form.CreatedBy}
+        label="Created By:"
         onChange={onChangeHandler}
         name="CreatedBy"
         value={form?.CreatedBy || ""}

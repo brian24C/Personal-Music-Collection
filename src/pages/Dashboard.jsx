@@ -79,6 +79,7 @@ export default function Dashboard() {
                   deletePlaylist.mutate({
                     playlistId: playlist.id,
                     name: playlist.name,
+                    CreatedBy: playlist.CreatedBy,
                   })
                 }
                 leftIcon={<DeleteIcon />}
