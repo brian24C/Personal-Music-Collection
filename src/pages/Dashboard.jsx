@@ -1,42 +1,37 @@
 import { DeleteIcon, EditIcon, ViewIcon } from "@chakra-ui/icons";
 import {
+  Avatar,
   Box,
+  Button,
   Card,
   CardBody,
   CardFooter,
   CardHeader,
-  Flex,
-  SimpleGrid,
-  Text,
-  Heading,
-  HStack,
-  Button,
+  Center,
   Divider,
-  Avatar,
+  Flex,
+  HStack,
+  Heading,
+  SimpleGrid,
+  Spinner,
+  Text,
 } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
-import { useLoaderData } from "react-router-dom";
-import GlobalContext from "../context/GlobalWrapper";
-import EditPlaylist from "../components/editSongs/EditPlaylist";
-import Wrapper from "../context/GlobalWrapper";
-import apiClient from "../services/api-client";
-import { useContext } from "react";
+import { useState } from "react";
+import { NavLink } from "react-router-dom";
 import usePlaylists from "../hooks/usePlaylists";
+import useDeletePlaylist from "../hooks/useDeletePlaylist";
 
 export default function Dashboard() {
-  //const { getPlaylists, playlists } = useContext(GlobalContext);
-  const [IdPlaylist, setIdPlaylist] = useState(null);
-
   const { data: playlists, isLoading, error } = usePlaylists();
+  const deletePlaylist = useDeletePlaylist();
 
-  console.log(playlists);
-
-  if (IdPlaylist != null)
+  if (isLoading === true)
     return (
-      <Wrapper>
-        <EditPlaylist playlist={playlists} idPlaylist={IdPlaylist} />
-      </Wrapper>
+      <Center h="50%">
+        <Spinner size="xl" />
+      </Center>
     );
+
   return (
     <SimpleGrid spacing={10} minChildWidth="300px">
       {playlists &&
@@ -66,15 +61,27 @@ export default function Dashboard() {
 
             <CardFooter>
               <HStack>
+                <NavLink
+                  to={`/playlist/${playlist.name}/idPlaylist/${playlist.id}`}
+                >
+                  <Button variant="ghost" leftIcon={<ViewIcon />}>
+                    Watch
+                  </Button>
+                </NavLink>
                 <Button
                   variant="ghost"
-                  leftIcon={<ViewIcon />}
-                  onClick={() => setIdPlaylist(playlist.id)}
+                  onClick={() =>
+                    deletePlaylist.mutate({
+                      playlistId: playlist.id,
+                      name: playlist.name,
+                    })
+                  }
+                  leftIcon={<DeleteIcon />}
                 >
-                  Watch
-                </Button>
-                <Button variant="ghost" leftIcon={<DeleteIcon />}>
                   Delete
+                </Button>
+                <Button variant="ghost" leftIcon={<EditIcon />}>
+                  Editar
                 </Button>
               </HStack>
             </CardFooter>

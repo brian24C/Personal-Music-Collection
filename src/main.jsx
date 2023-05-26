@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
-
+import Wrapper from "./context/GlobalWrapper";
 import { ChakraProvider, extendTheme } from "@chakra-ui/react ";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 const colors = {
@@ -20,7 +20,9 @@ const queryClient = new QueryClient();
 ReactDOM.createRoot(document.getElementById("root")).render(
   <QueryClientProvider client={queryClient}>
     <ChakraProvider theme={theme}>
-      <App />
+      <Wrapper>
+        <App />
+      </Wrapper>
     </ChakraProvider>
   </QueryClientProvider>
 );
