@@ -18,18 +18,22 @@ import { useParams } from "react-router-dom";
 import { GlobalContext } from "../../context/GlobalWrapper";
 import DrawerExample from "./DrawerExample";
 import Row from "./Row";
+import useSongs from "../../hooks/useSongs";
 
 export default function EditPlaylist() {
   const params = useParams();
-
-  const { onOpen, Search, getSongs, songs } = useContext(GlobalContext);
+  const { data: songs, isLoading, error } = useSongs(params.id);
+  const { onOpen, Search, setSongs, setSongsFilter } =
+    useContext(GlobalContext);
 
   const [query, setQuery] = useState("");
 
   console.log("eidtplaylis");
   useEffect(() => {
-    getSongs(params.id);
-    console.log("entra nuevo");
+    // getSongs(params.id);
+    // console.log("entra nuevo");
+    setSongs(songs);
+    setSongsFilter(songs);
   }, []);
 
   const SearchHandler = () => {

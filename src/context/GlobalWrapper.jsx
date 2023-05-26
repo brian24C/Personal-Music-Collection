@@ -10,8 +10,6 @@ export default function Wrapper({ children }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const [songsFilter, setSongsFilter] = useState([]);
-  const [playlists, setPlaylists] = useState([]);
-  //const [songFromPlaylist, setSongFromPlaylist] = useState([]);
 
   const toast = useToast();
 
@@ -125,7 +123,6 @@ export default function Wrapper({ children }) {
       value={{
         setSongsFilter,
         setSongs,
-        playlists,
         getSongs,
         Search,
         deleteSong,
