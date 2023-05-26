@@ -21,7 +21,7 @@ import useEditPlaylist from "../hooks/useEditPlaylist";
 import TextInput from "./PopTextInput";
 
 const Form = ({ playlist, firstFieldRef, onCancel }) => {
-  const editPlaylist = useEditPlaylist();
+  const editPlaylist = useEditPlaylist(onCancel);
   const [form, setForm] = useState(playlist);
   const onChangeHandler = (e) => {
     setForm({

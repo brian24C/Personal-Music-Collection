@@ -3,7 +3,7 @@ import React from "react";
 import apiClient from "../services/api-client";
 import { useToast } from "@chakra-ui/react";
 
-const useEditPlaylist = () => {
+const useEditPlaylist = (close) => {
   const queryClient = useQueryClient();
   const toast = useToast();
   return useMutation({
@@ -27,6 +27,8 @@ const useEditPlaylist = () => {
         duration: 4000,
         isClosable: true,
       });
+
+      close();
 
       return { previousPlaylist };
     },
