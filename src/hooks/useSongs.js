@@ -10,6 +10,7 @@ const useSongs = (id) => {
     queryFn: () => {
       return apiClient.get(`/playlist/${id}`).then(({ data }) => {
         const Songs = data.dataTotal.songs.map((song) => song.song);
+        console.log(Songs);
         return Songs;
       });
     },

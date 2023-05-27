@@ -9,6 +9,7 @@ import {
 } from "@chakra-ui/react ";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import theme from "./theme";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 const colors = {
   brand: {
     900: "#024fc9",
@@ -28,6 +29,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <ColorModeScript initialColorMode={theme.config.initialColorMode} />
       <Wrapper>
         <App />
+        <ReactQueryDevtools />
       </Wrapper>
     </ChakraProvider>
   </QueryClientProvider>

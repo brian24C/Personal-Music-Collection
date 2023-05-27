@@ -11,6 +11,8 @@ import {
   Th,
   Thead,
   Tr,
+  Center,
+  Spinner,
 } from "@chakra-ui/react";
 import React, { useContext, useEffect, useState } from "react";
 import { AiOutlinePlus, AiOutlineSearch } from "react-icons/ai";
@@ -23,18 +25,20 @@ import useSongs from "../../hooks/useSongs";
 export default function EditPlaylist() {
   const params = useParams();
   const { data: songs, isLoading, error } = useSongs(params.id);
+
   const { onOpen, Search, setSongs, setSongsFilter } =
     useContext(GlobalContext);
 
   const [query, setQuery] = useState("");
 
-  console.log("eidtplaylis");
+  console.log("eidtplaylis", songs);
   useEffect(() => {
     // getSongs(params.id);
     // console.log("entra nuevo");
     setSongs(songs);
     setSongsFilter(songs);
-  }, []);
+    console.log("useeefect", songs);
+  }, [songs]);
 
   const SearchHandler = () => {
     Search(query);

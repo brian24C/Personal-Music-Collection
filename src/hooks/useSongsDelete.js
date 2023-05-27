@@ -3,23 +3,26 @@ import React from "react";
 import apiClient from "../services/api-client";
 import { useToast } from "@chakra-ui/react";
 
-const useDeletePlaylist = () => {
+const useSongsDelete = () => {
   const queryClient = useQueryClient();
   const toast = useToast();
   return useMutation({
-    mutationFn: (data) => {
+    mutationFn: (idSong) => {
+      console.log(idSong);
       return apiClient
-        .delete(`/playlist/${data.playlistId}`)
+        .delete(`/song/${idSong}`)
         .then(({ data }) => data.dataTotal);
     },
-    onMutate: (newPlaylist) => {
-      const previousPlaylist = queryClient.getQueryData(["playlists"]);
-      queryClient.setQueryData(["playlists"], (playlists) =>
-        playlists.filter((p) => p.id != newPlaylist.playlistId)
+    onMutate: (songDeleteId) => {
+      console.log(songDeleteId);
+      const previousPlaylist = queryClient.getQueryData(["songs"]);
+      console.log(previousPlaylist);
+      queryClient.setQueryData(["songs"], (songs) =>
+        songs.filter((p) => p.id != songDeleteId)
       );
 
       toast({
-        title: "Playlist delete successfully",
+        title: "Song delete successfully",
         status: "success",
         duration: 4000,
         isClosable: true,
@@ -31,9 +34,10 @@ const useDeletePlaylist = () => {
 
     onError: (error, newPlaylist, context) => {
       if (!context) return;
-      queryClient.setQueryData(["playlists"], context.previousPlaylist);
+      console.log(error);
+      queryClient.setQueryData(["songs"], context.previousPlaylist);
     },
   });
 };
 
-export default useDeletePlaylist;
+export default useSongsDelete;

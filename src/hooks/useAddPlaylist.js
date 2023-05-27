@@ -17,7 +17,7 @@ const useAddPlaylist = (onPlaylist) => {
     onMutate: (newPlaylist) => {
       const previousPlaylist = queryClient.getQueryData(["playlists"]);
       queryClient.setQueryData(["playlists"], (playlists) => [
-        ...playlists,
+        ...(playlists || []),
         newPlaylist,
       ]);
 

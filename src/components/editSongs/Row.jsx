@@ -3,9 +3,13 @@ import React, { useContext } from "react";
 import { AiFillDelete, AiFillEdit } from "react-icons/ai";
 import { GlobalContext } from "../../context/GlobalWrapper";
 import { ExternalLinkIcon } from "@chakra-ui/icons";
+import useSongsDelete from "../../hooks/useSongsDelete";
 const Row = ({ id, name, link, artist, recommended_by }) => {
-  const { deleteSong, onOpen, FindOne } = useContext(GlobalContext);
+  const { onOpen, FindOne } = useContext(GlobalContext);
+
+  const deleteSong = useSongsDelete();
   console.log("row");
+
   return (
     <Tr>
       <Td>
@@ -30,7 +34,7 @@ const Row = ({ id, name, link, artist, recommended_by }) => {
           >
             <AiFillEdit />
           </Button>
-          <Button colorScheme={"red"} onClick={() => deleteSong(id)}>
+          <Button colorScheme={"red"} onClick={() => deleteSong.mutate(id)}>
             <AiFillDelete />
           </Button>
         </Box>

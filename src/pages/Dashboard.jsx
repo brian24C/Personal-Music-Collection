@@ -31,7 +31,7 @@ export default function Dashboard() {
   const deletePlaylist = useDeletePlaylist();
   const { colorMode } = useColorMode();
   const { setSongsFilter, setSongs } = useContext(GlobalContext);
-  console.log("dashboard");
+  console.log("dashboard", "playlists", playlists);
   useEffect(() => {
     setSongsFilter([]);
     setSongs([]);

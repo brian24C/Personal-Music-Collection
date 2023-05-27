@@ -13,18 +13,18 @@ export default function Wrapper({ children }) {
 
   const toast = useToast();
 
-  const getSongs = (id) => {
-    apiClient
-      .get(`/playlist/${id}`)
-      .then(({ data }) => {
-        const Songs = data.dataTotal.songs.map((song) => song.song);
-        setSongs(Songs);
-        setSongsFilter(Songs);
-      })
-      .catch((err) => {
-        console.log(err.reponse);
-      });
-  };
+  // const getSongs = (id) => {
+  //   apiClient
+  //     .get(`/playlist/${id}`)
+  //     .then(({ data }) => {
+  //       const Songs = data.dataTotal.songs.map((song) => song.song);
+  //       setSongs(Songs);
+  //       setSongsFilter(Songs);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err.reponse);
+  //     });
+  // };
 
   const Search = (query) => {
     if (query === "") {
@@ -123,7 +123,7 @@ export default function Wrapper({ children }) {
       value={{
         setSongsFilter,
         setSongs,
-        getSongs,
+
         Search,
         deleteSong,
         addSongToPlaylist,
