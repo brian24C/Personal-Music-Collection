@@ -33,76 +33,74 @@ export default function DrawerExample(id_playlist) {
   const onUpdate = () => {
     updateSong(form, setForm, form.id, id_playlist.id_playlist);
   };
-
+  console.log("drawer");
   useEffect(() => {
     setForm(song);
   }, [song]);
 
   return (
-    <>
-      <Drawer
-        isOpen={isOpen}
-        placement="right"
-        onClose={() => {
-          setForm({});
-          onClose();
-        }}
-      >
-        <DrawerOverlay />
-        <DrawerContent>
-          <DrawerCloseButton
+    <Drawer
+      isOpen={isOpen}
+      placement="right"
+      onClose={() => {
+        setForm({});
+        onClose();
+      }}
+    >
+      <DrawerOverlay />
+      <DrawerContent>
+        <DrawerCloseButton
+          onClick={() => {
+            onClose();
+            setForm({});
+          }}
+        />
+        <DrawerHeader>Create / Update user</DrawerHeader>
+
+        <DrawerBody>
+          <Stack spacing={"24px"}>
+            <InputsGroup
+              name="name"
+              onChangeHandler={onChangeHandler}
+              value={form?.name || ""}
+            />
+            <InputsGroup
+              name="artist"
+              onChangeHandler={onChangeHandler}
+              value={form?.artist || ""}
+            />
+            <InputsGroup
+              name="link"
+              onChangeHandler={onChangeHandler}
+              value={form?.link || ""}
+            />
+            <InputsGroup
+              name="recommendedBy"
+              onChangeHandler={onChangeHandler}
+              value={form?.recommendedBy || ""}
+            />
+          </Stack>
+        </DrawerBody>
+
+        <DrawerFooter>
+          <Button
+            variant="outline"
+            mr={3}
             onClick={() => {
               onClose();
               setForm({});
             }}
-          />
-          <DrawerHeader>Create / Update user</DrawerHeader>
-
-          <DrawerBody>
-            <Stack spacing={"24px"}>
-              <InputsGroup
-                name="name"
-                onChangeHandler={onChangeHandler}
-                value={form?.name || ""}
-              />
-              <InputsGroup
-                name="artist"
-                onChangeHandler={onChangeHandler}
-                value={form?.artist || ""}
-              />
-              <InputsGroup
-                name="link"
-                onChangeHandler={onChangeHandler}
-                value={form?.link || ""}
-              />
-              <InputsGroup
-                name="recommendedBy"
-                onChangeHandler={onChangeHandler}
-                value={form?.recommendedBy || ""}
-              />
-            </Stack>
-          </DrawerBody>
-
-          <DrawerFooter>
-            <Button
-              variant="outline"
-              mr={3}
-              onClick={() => {
-                onClose();
-                setForm({});
-              }}
-            >
-              Cancel
-            </Button>
-            <Button
-              colorScheme="blue"
-              onClick={() => (form.id ? onUpdate() : onAdd())}
-            >
-              Save
-            </Button>
-          </DrawerFooter>
-        </DrawerContent>
-      </Drawer>
-    </>
+          >
+            Cancel
+          </Button>
+          <Button
+            colorScheme="blue"
+            onClick={() => (form.id ? onUpdate() : onAdd())}
+          >
+            Save
+          </Button>
+        </DrawerFooter>
+      </DrawerContent>
+    </Drawer>
   );
 }

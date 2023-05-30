@@ -96,6 +96,7 @@ export default function Wrapper({ children }) {
   };
 
   const updateSong = (form, setForm, idSong, idPlaylist) => {
+    //console.log({ form, setForm, idSong, idPlaylist });
     apiClient
       .put(`/song/${idSong}`, form)
       .then((res) => {
@@ -108,7 +109,7 @@ export default function Wrapper({ children }) {
         setErrors({});
         setForm({});
         onClose();
-        getSongs(idPlaylist);
+        //getSongs(idPlaylist);
 
         //Probar esto luego:
         //setSongs(songs.map((song) => song.id===id ? res.data : song))
