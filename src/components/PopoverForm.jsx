@@ -39,7 +39,11 @@ const PopoverForm = ({ playlist }) => {
         closeOnBlur={false}
       >
         <PopoverTrigger>
-          <Button variant="ghost" leftIcon={<EditIcon />}>
+          <Button
+            variant="ghost"
+            _hover={{ backgroundColor: "#E4EEF0" }}
+            leftIcon={<EditIcon />}
+          >
             Edit
           </Button>
         </PopoverTrigger>

@@ -115,6 +115,7 @@ export default function EditPlaylist() {
                       link={link}
                       artist={artist}
                       recommended_by={recommendedBy}
+                      idPlaylist={params.id}
                     />
                   </React.Fragment>
                 );

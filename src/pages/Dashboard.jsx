@@ -51,6 +51,10 @@ export default function Dashboard() {
       {playlists &&
         playlists.map((playlist) => (
           <Card
+            _hover={{
+              transform: "scale(1.03)",
+              transition: "transform .15s ease-in",
+            }}
             key={playlist.id}
             borderTop="8px"
             borderColor={colorMode === "light" ? "green.300" : "gray.600"}
@@ -76,7 +80,11 @@ export default function Dashboard() {
               <NavLink
                 to={`/playlist/${playlist.name}/idPlaylist/${playlist.id}`}
               >
-                <Button variant="ghost" leftIcon={<ViewIcon />}>
+                <Button
+                  variant="ghost"
+                  leftIcon={<ViewIcon />}
+                  _hover={{ backgroundColor: "#E4EEF0" }}
+                >
                   Watch
                 </Button>
               </NavLink>

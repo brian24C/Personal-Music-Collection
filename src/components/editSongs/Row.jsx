@@ -4,7 +4,7 @@ import { AiFillDelete, AiFillEdit } from "react-icons/ai";
 import { GlobalContext } from "../../context/GlobalWrapper";
 import { ExternalLinkIcon } from "@chakra-ui/icons";
 import useSongsDelete from "../../hooks/useSongsDelete";
-const Row = ({ id, name, link, artist, recommended_by }) => {
+const Row = ({ id, name, link, artist, recommended_by, idPlaylist }) => {
   const { onOpen, FindOne } = useContext(GlobalContext);
 
   const deleteSong = useSongsDelete();
@@ -34,7 +34,10 @@ const Row = ({ id, name, link, artist, recommended_by }) => {
           >
             <AiFillEdit />
           </Button>
-          <Button colorScheme={"red"} onClick={() => deleteSong.mutate(id)}>
+          <Button
+            colorScheme={"red"}
+            onClick={() => deleteSong.mutate({ idSong: id, idPlaylist })}
+          >
             <AiFillDelete />
           </Button>
         </Box>

@@ -7,18 +7,19 @@ const useSongsDelete = () => {
   const queryClient = useQueryClient();
   const toast = useToast();
   return useMutation({
-    mutationFn: (idSong) => {
-      console.log(idSong);
+    mutationFn: (data) => {
       return apiClient
-        .delete(`/song/${idSong}`)
+        .delete(`/song/${data.idSong}`)
         .then(({ data }) => data.dataTotal);
     },
-    onMutate: (songDeleteId) => {
-      console.log(songDeleteId);
-      const previousPlaylist = queryClient.getQueryData(["songs"]);
+    onMutate: (data) => {
+      const previousPlaylist = queryClient.getQueryData([
+        "songs",
+        data.idPlaylist,
+      ]);
       console.log(previousPlaylist);
-      queryClient.setQueryData(["songs"], (songs) =>
-        songs.filter((p) => p.id != songDeleteId)
+      queryClient.setQueryData(["songs", data.idPlaylist], (songs) =>
+        songs.filter((p) => p.id != data.idSong)
       );
 
       toast({
@@ -35,7 +36,10 @@ const useSongsDelete = () => {
     onError: (error, newPlaylist, context) => {
       if (!context) return;
       console.log(error);
-      queryClient.setQueryData(["songs"], context.previousPlaylist);
+      queryClient.setQueryData(
+        ["songs", newPlaylist.idPlaylist],
+        context.previousPlaylist
+      );
     },
   });
 };
