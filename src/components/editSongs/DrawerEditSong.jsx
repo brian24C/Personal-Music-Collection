@@ -20,7 +20,7 @@ import useSongEdit from "../../hooks/useSongEdit";
 export default function DrawerEditSong({ song, idPlaylist, isOpen, onClose }) {
   //   const { isOpen, onClose, song, addSongToPlaylist, updateSong } =
   //     useContext(GlobalContext);
-  console.log("drawer");
+
   const editSong = useSongEdit(onClose, idPlaylist);
   return (
     <DrawerGeneral

@@ -22,6 +22,7 @@ import {
 import React from "react";
 import DrawerGeneral from "./DrawerGeneral";
 import useEditPlaylist from "../hooks/useEditPlaylist";
+import { AiOutlinePlus, AiOutlineSearch } from "react-icons/ai";
 function DrawerEditPlaylist({ playlist }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const editPlaylist = useEditPlaylist(onClose);

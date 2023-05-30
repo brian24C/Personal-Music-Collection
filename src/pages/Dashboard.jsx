@@ -31,7 +31,6 @@ export default function Dashboard() {
   const { colorMode } = useColorMode();
   const { setSongsFilter, setSongs } = useContext(GlobalContext);
 
-  console.log("dashboard", "playlists", playlists);
   useEffect(() => {
     setSongsFilter([]);
     setSongs([]);

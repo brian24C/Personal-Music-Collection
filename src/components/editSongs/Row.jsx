@@ -13,11 +13,11 @@ import { GlobalContext } from "../../context/GlobalWrapper";
 import { ExternalLinkIcon } from "@chakra-ui/icons";
 import useSongsDelete from "../../hooks/useSongsDelete";
 import DrawerEditSong from "./DrawerEditSong";
-const Row = ({ id, name, link, artist, recommended_by, idPlaylist }) => {
+const Row = ({ id = 0, name, link, artist, recommended_by, idPlaylist }) => {
   const deleteSong = useSongsDelete();
   const { isOpen, onOpen, onClose } = useDisclosure();
-  console.log("row");
 
+  console.log("idddd: ", id);
   return (
     <>
       <Tr>

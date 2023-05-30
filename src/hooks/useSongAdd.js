@@ -5,17 +5,18 @@ import { useToast } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 
 const useSongAdd = (idPlaylist) => {
-  const navigate = useNavigate();
   const queryClient = useQueryClient();
   const toast = useToast();
 
   return useMutation({
     mutationFn: (data) => {
       return apiClient.post("/song", data).then(({ data }) =>
-        apiClient.post("/playlist/SongsOnPlaylist", {
-          id_song: data.dataTotal.id,
-          id_playlist: idPlaylist,
-        })
+        apiClient
+          .post("/playlist/SongsOnPlaylist", {
+            id_song: data.dataTotal.id,
+            id_playlist: parseInt(idPlaylist),
+          })
+          .then((res) => data.dataTotal)
       );
     },
     onMutate: (newSong) => {
@@ -38,7 +39,6 @@ const useSongAdd = (idPlaylist) => {
       queryClient.setQueryData(["songs", idPlaylist], (songs) =>
         songs.map((song) => (song === newSong ? saveSong : song))
       );
-      navigate("/");
     },
 
     onError: (error, newPlaylist, context) => {

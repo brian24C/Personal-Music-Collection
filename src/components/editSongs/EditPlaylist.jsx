@@ -13,7 +13,6 @@ import {
   Tr,
   Center,
   Spinner,
-  useDisclosure,
 } from "@chakra-ui/react";
 import React, { useContext, useEffect, useState } from "react";
 import { AiOutlinePlus, AiOutlineSearch } from "react-icons/ai";
@@ -23,20 +22,19 @@ import DrawerExample from "./DrawerExample";
 import Row from "./Row";
 import useSongs from "../../hooks/useSongs";
 import DrawerEditSong from "./DrawerEditSong";
+import DrawerCreateSong from "./DrawerCreateSong";
 
 export default function EditPlaylist() {
   const params = useParams();
   const { data: songs, isLoading, error } = useSongs(params.id);
   const { Search, setSongs, setSongsFilter } = useContext(GlobalContext);
 
-  //const { isOpen, onOpen, onClose } = useDisclosure();
   const [query, setQuery] = useState("");
 
-  useEffect(() => {
-    setSongs(songs);
-    setSongsFilter(songs);
-    console.log("useeefect", songs);
-  }, [songs]);
+  // useEffect(() => {
+  //   setSongs(songs);
+  //   setSongsFilter(songs);
+  // }, [songs]);
 
   const SearchHandler = () => {
     Search(query);
@@ -81,7 +79,7 @@ export default function EditPlaylist() {
           <Text fontSize="xl" fontWeight="bold">
             List Songs
           </Text>
-          <Button
+          {/* <Button
             colorScheme="teal"
             variant="outline"
             maxW={"300px"}
@@ -89,7 +87,8 @@ export default function EditPlaylist() {
             leftIcon={<AiOutlinePlus fontSize={"20px"} />}
           >
             Add Song
-          </Button>
+          </Button> */}
+          <DrawerCreateSong idPlaylist={params.id} />
         </Box>
         <TableContainer>
           <Table variant="simple">
@@ -103,7 +102,7 @@ export default function EditPlaylist() {
               </Tr>
             </Thead>
             <Tbody>
-              {songs?.map(({ id, name, link, artist, recommendedBy }) => {
+              {songs?.map(({ id = 0, name, link, artist, recommendedBy }) => {
                 return (
                   <React.Fragment key={id}>
                     <Row

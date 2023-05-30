@@ -17,7 +17,7 @@ const useSongsDelete = () => {
         "songs",
         data.idPlaylist,
       ]);
-      console.log(previousPlaylist);
+
       queryClient.setQueryData(["songs", data.idPlaylist], (songs) =>
         songs.filter((p) => p.id != data.idSong)
       );
@@ -35,7 +35,7 @@ const useSongsDelete = () => {
 
     onError: (error, newPlaylist, context) => {
       if (!context) return;
-      console.log(error);
+
       queryClient.setQueryData(
         ["songs", newPlaylist.idPlaylist],
         context.previousPlaylist

@@ -22,7 +22,7 @@ const DrawerGeneral = ({ name, data, isOpen, onClose, onClick }) => {
       [e.target.name]: e.target.value,
     });
   };
-  console.log(form);
+
   const firstField = React.useRef();
   return (
     <Drawer
