@@ -17,15 +17,14 @@ import InputsGroup from "./InputsGroup";
 import DrawerGeneral from "../DrawerGeneral";
 import useSongEdit from "../../hooks/useSongEdit";
 
-export default function DrawerExample({ song, idPlaylist }) {
+export default function DrawerEditSong({ song, idPlaylist, isOpen, onClose }) {
   //   const { isOpen, onClose, song, addSongToPlaylist, updateSong } =
   //     useContext(GlobalContext);
-
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  console.log("drawer");
   const editSong = useSongEdit(onClose, idPlaylist);
   return (
     <DrawerGeneral
-      name="Create / Update user"
+      name="Edit Song"
       data={song}
       isOpen={isOpen}
       onClose={onClose}

@@ -13,6 +13,7 @@ import {
   Tr,
   Center,
   Spinner,
+  useDisclosure,
 } from "@chakra-ui/react";
 import React, { useContext, useEffect, useState } from "react";
 import { AiOutlinePlus, AiOutlineSearch } from "react-icons/ai";
@@ -21,20 +22,17 @@ import { GlobalContext } from "../../context/GlobalWrapper";
 import DrawerExample from "./DrawerExample";
 import Row from "./Row";
 import useSongs from "../../hooks/useSongs";
+import DrawerEditSong from "./DrawerEditSong";
 
 export default function EditPlaylist() {
   const params = useParams();
   const { data: songs, isLoading, error } = useSongs(params.id);
+  const { Search, setSongs, setSongsFilter } = useContext(GlobalContext);
 
-  const { onOpen, Search, setSongs, setSongsFilter } =
-    useContext(GlobalContext);
-
+  //const { isOpen, onOpen, onClose } = useDisclosure();
   const [query, setQuery] = useState("");
 
-  console.log("eidtplaylis", songs);
   useEffect(() => {
-    // getSongs(params.id);
-    // console.log("entra nuevo");
     setSongs(songs);
     setSongsFilter(songs);
     console.log("useeefect", songs);
@@ -89,7 +87,6 @@ export default function EditPlaylist() {
             maxW={"300px"}
             minW="150px"
             leftIcon={<AiOutlinePlus fontSize={"20px"} />}
-            onClick={onOpen}
           >
             Add Song
           </Button>
@@ -117,6 +114,12 @@ export default function EditPlaylist() {
                       recommended_by={recommendedBy}
                       idPlaylist={params.id}
                     />
+                    {/* <DrawerEditSong
+                      song={{ id, name, link, artist, recommendedBy }}
+                      idPlaylist={params.id}
+                      isOpen={isOpen}
+                      onClose={onClose}
+                    /> */}
                   </React.Fragment>
                 );
               })}
@@ -124,7 +127,7 @@ export default function EditPlaylist() {
           </Table>
         </TableContainer>
       </Box>
-      <DrawerExample id_playlist={params.id} />
+      {/* <DrawerExample id_playlist={params.id} /> */}
     </Container>
   );
 }

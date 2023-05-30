@@ -17,7 +17,7 @@ const useSongEdit = (close, idPlaylist) => {
     onMutate: (data) => {
       const previousSongs = queryClient.getQueryData(["songs", idPlaylist]);
       queryClient.setQueryData(["songs", idPlaylist], (songs) =>
-        songs.map((song) => (song.id === data.id ? data : p))
+        songs.map((song) => (song.id === data.id ? data : song))
       );
 
       toast({
