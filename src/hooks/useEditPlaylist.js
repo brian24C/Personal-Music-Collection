@@ -22,7 +22,7 @@ const useEditPlaylist = (close) => {
       );
 
       toast({
-        title: "Song update successfully",
+        title: "Playlist update successfully",
         status: "success",
         duration: 4000,
         isClosable: true,

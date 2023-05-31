@@ -38,7 +38,7 @@ export default function DrawerCreateSong({ idPlaylist }) {
         Add Song
       </Button>
       <DrawerGeneral
-        name="Edit Song"
+        name="Create Song"
         data={{
           name: "",
           link: "",

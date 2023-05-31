@@ -24,7 +24,7 @@ const useAddPlaylist = (onPlaylist) => {
       onPlaylist();
 
       toast({
-        title: "Song added successfully",
+        title: "Playlist added successfully",
         status: "success",
         duration: 4000,
         isClosable: true,

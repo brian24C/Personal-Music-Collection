@@ -4,6 +4,8 @@ import {
   Container,
   FormControl,
   Input,
+  Skeleton,
+  Spinner,
   Table,
   TableContainer,
   Tbody,
@@ -11,37 +13,40 @@ import {
   Th,
   Thead,
   Tr,
-  Center,
-  Spinner,
+  Stack,
+  Td,
 } from "@chakra-ui/react";
-import React, { useContext, useEffect, useState } from "react";
-import { AiOutlinePlus, AiOutlineSearch } from "react-icons/ai";
+import { useQueryClient } from "@tanstack/react-query";
+import React, { useEffect, useState } from "react";
+import { AiOutlineSearch } from "react-icons/ai";
 import { useParams } from "react-router-dom";
-import { GlobalContext } from "../../context/GlobalWrapper";
-import DrawerExample from "./DrawerExample";
-import Row from "./Row";
+import useSongSearch from "../../hooks/useSongSearch";
 import useSongs from "../../hooks/useSongs";
-import DrawerEditSong from "./DrawerEditSong";
 import DrawerCreateSong from "./DrawerCreateSong";
+import Row from "./Row";
 
 export default function EditPlaylist() {
   const params = useParams();
+  const queryClient = useQueryClient();
   const { data: songs, isLoading, error } = useSongs(params.id);
-  const { Search, setSongs, setSongsFilter } = useContext(GlobalContext);
+  const songsSearch = useSongSearch(params.id);
+  const [songStatic, setSongStatic] = useState(songs);
 
-  const [query, setQuery] = useState("");
-
-  // useEffect(() => {
-  //   setSongs(songs);
-  //   setSongsFilter(songs);
-  // }, [songs]);
-
-  const SearchHandler = () => {
-    Search(query);
-  };
-
+  const SearchHandler = () => {};
+  useEffect(() => {
+    return () => {
+      queryClient.invalidateQueries(["songs", params.id]); // Restablecer los datos en la caché de React Query
+    };
+  }, []);
   const onchangeHandler = (e) => {
-    setQuery(e.target.value);
+    if (!songStatic) {
+      songsSearch.mutate({ search: e.target.value, songStatic: songs });
+      setSongStatic(songs);
+      console.log("entra if");
+    } else {
+      songsSearch.mutate({ search: e.target.value, songStatic });
+      console.log("entra else");
+    }
   };
 
   return (
@@ -66,8 +71,6 @@ export default function EditPlaylist() {
             leftIcon={<AiOutlineSearch />}
             colorScheme="teal"
             variant="outline"
-            // maxW="300px"
-            // minW="150px"
             onClick={() => SearchHandler()}
           >
             Search
@@ -79,15 +82,6 @@ export default function EditPlaylist() {
           <Text fontSize="xl" fontWeight="bold">
             List Songs
           </Text>
-          {/* <Button
-            colorScheme="teal"
-            variant="outline"
-            maxW={"300px"}
-            minW="150px"
-            leftIcon={<AiOutlinePlus fontSize={"20px"} />}
-          >
-            Add Song
-          </Button> */}
           <DrawerCreateSong idPlaylist={params.id} />
         </Box>
         <TableContainer>
@@ -102,31 +96,44 @@ export default function EditPlaylist() {
               </Tr>
             </Thead>
             <Tbody>
-              {songs?.map(({ id = 0, name, link, artist, recommendedBy }) => {
-                return (
-                  <React.Fragment key={id}>
-                    <Row
-                      id={id}
-                      name={name}
-                      link={link}
-                      artist={artist}
-                      recommended_by={recommendedBy}
-                      idPlaylist={params.id}
-                    />
-                    {/* <DrawerEditSong
-                      song={{ id, name, link, artist, recommendedBy }}
-                      idPlaylist={params.id}
-                      isOpen={isOpen}
-                      onClose={onClose}
-                    /> */}
-                  </React.Fragment>
-                );
-              })}
+              {isLoading === true ? (
+                <Tr>
+                  <Td>
+                    <Skeleton height="20px" />
+                  </Td>
+                  <Td>
+                    <Skeleton height="20px" />
+                  </Td>
+                  <Td>
+                    <Skeleton height="20px" />
+                  </Td>
+                  <Td>
+                    <Skeleton height="20px" />
+                  </Td>
+                  <Td>
+                    <Skeleton height="20px" />
+                  </Td>
+                </Tr>
+              ) : (
+                songs?.map(({ id = 0, name, link, artist, recommendedBy }) => {
+                  return (
+                    <React.Fragment key={id}>
+                      <Row
+                        id={id}
+                        name={name}
+                        link={link}
+                        artist={artist}
+                        recommended_by={recommendedBy}
+                        idPlaylist={params.id}
+                      />
+                    </React.Fragment>
+                  );
+                })
+              )}
             </Tbody>
           </Table>
         </TableContainer>
       </Box>
-      {/* <DrawerExample id_playlist={params.id} /> */}
     </Container>
   );
 }

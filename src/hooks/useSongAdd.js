@@ -10,6 +10,7 @@ const useSongAdd = (idPlaylist) => {
 
   return useMutation({
     mutationFn: (data) => {
+      console.log("data,usemutation", data);
       return apiClient.post("/song", data).then(({ data }) =>
         apiClient
           .post("/playlist/SongsOnPlaylist", {

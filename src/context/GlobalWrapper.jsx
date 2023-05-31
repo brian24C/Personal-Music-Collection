@@ -40,22 +40,22 @@ export default function Wrapper({ children }) {
     }
   };
 
-  const deleteSong = (id) => {
-    apiClient
-      .delete(`/song/${id}`)
-      .then((res) => {
-        setSongs(songs.filter((u) => u.id != id));
-        toast({
-          title: "Song Deleted",
-          status: "success",
-          duration: 4000,
-          isClosable: true,
-        });
-      })
-      .catch((err) => {
-        console.log(err.reponse.data);
-      });
-  };
+  // const deleteSong = (id) => {
+  //   apiClient
+  //     .delete(`/song/${id}`)
+  //     .then((res) => {
+  //       setSongs(songs.filter((u) => u.id != id));
+  //       toast({
+  //         title: "Song Deleted",
+  //         status: "success",
+  //         duration: 4000,
+  //         isClosable: true,
+  //       });
+  //     })
+  //     .catch((err) => {
+  //       console.log(err.reponse.data);
+  //     });
+  // };
 
   const addSongToPlaylist = (form, setForm, idPplaylist) => {
     apiClient
@@ -126,7 +126,7 @@ export default function Wrapper({ children }) {
         setSongs,
 
         Search,
-        deleteSong,
+
         addSongToPlaylist,
         FindOne,
         updateSong,
