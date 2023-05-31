@@ -99,19 +99,25 @@ export default function EditPlaylist() {
               {isLoading === true ? (
                 <Tr>
                   <Td>
-                    <Skeleton height="20px" />
+                    <Skeleton height="20px" width="20px" />
                   </Td>
                   <Td>
-                    <Skeleton height="20px" />
+                    <Skeleton height="20px" width="60px" />
                   </Td>
                   <Td>
-                    <Skeleton height="20px" />
+                    <Skeleton height="20px" width="60px" />
                   </Td>
                   <Td>
-                    <Skeleton height="20px" />
+                    <Skeleton height="20px" width="60px" />
                   </Td>
                   <Td>
-                    <Skeleton height="20px" />
+                    <Skeleton height="20px" width="60px" />
+                  </Td>
+                  <Td>
+                    <Skeleton height="20px" width="20px" />
+                  </Td>
+                  <Td>
+                    <Skeleton height="20px" width="20px" />
                   </Td>
                 </Tr>
               ) : (
