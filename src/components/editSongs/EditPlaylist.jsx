@@ -16,6 +16,10 @@ import {
   Stack,
   Td,
   Center,
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  useToast,
 } from "@chakra-ui/react";
 import { useQueryClient } from "@tanstack/react-query";
 import React, { useEffect, useState } from "react";
@@ -27,29 +31,39 @@ import DrawerCreateSong from "./DrawerCreateSong";
 import Row from "./Row";
 
 export default function EditPlaylist() {
+  const toast = useToast();
   const params = useParams();
   const queryClient = useQueryClient();
   const { data: songs, isLoading, error } = useSongs(params.id);
   const songsSearch = useSongSearch(params.id);
   const [songStatic, setSongStatic] = useState(songs);
 
-  const SearchHandler = () => {};
   useEffect(() => {
     return () => {
       queryClient.invalidateQueries(["songs", params.id]); // Restablecer los datos en la caché de React Query
     };
   }, []);
+
+  useEffect(() => {
+    if (songs?.length === 0) {
+      toast({
+        title: "No hay canciones en esta playlist",
+        description: "Agrega tus canciones favoritas.",
+        status: "info",
+        duration: 4000,
+        isClosable: true,
+      });
+    }
+  }, [songs]);
   const onchangeHandler = (e) => {
     if (!songStatic) {
       songsSearch.mutate({ search: e.target.value, songStatic: songs });
       setSongStatic(songs);
-      console.log("entra if");
     } else {
       songsSearch.mutate({ search: e.target.value, songStatic });
-      console.log("entra else");
     }
   };
-
+  console.log(songs);
   return (
     <Container maxW={"full"} p="3" fontSize={"18px"}>
       <Text as="samp" fontSize={30}>
@@ -61,18 +75,17 @@ export default function EditPlaylist() {
             <Input
               type="text"
               onChange={onchangeHandler}
-              onKeyDown={() => {
-                if (event.key === "Enter") {
-                  SearchHandler();
-                }
-              }}
+              // onKeyDown={() => {
+              //   if (event.key === "Enter") {
+              //     SearchHandler();
+              //   }
+              // }}
             />
           </FormControl>
           <Button
             leftIcon={<AiOutlineSearch />}
             colorScheme="teal"
             variant="outline"
-            onClick={() => SearchHandler()}
           >
             Search
           </Button>
