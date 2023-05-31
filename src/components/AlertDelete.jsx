@@ -1,31 +1,25 @@
 import {
   AlertDialog,
   AlertDialogBody,
+  AlertDialogContent,
   AlertDialogFooter,
   AlertDialogHeader,
-  AlertDialogContent,
   AlertDialogOverlay,
-  AlertDialogCloseButton,
-  useDisclosure,
   Button,
 } from "@chakra-ui/react";
 import React from "react";
-import { DeleteIcon, ViewIcon } from "@chakra-ui/icons";
-function AlertDeleteSong({ deletePlaylist, playlistName }) {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+function AlertDelete({
+  isOpen,
+  onClose,
+  onDelete,
+  name,
+  nameHeader,
+  descriptionBody,
+}) {
   const cancelRef = React.useRef();
 
   return (
     <>
-      <Button
-        _hover={{ backgroundColor: "#E4EEF0" }}
-        variant="ghost"
-        onClick={onOpen}
-        leftIcon={<DeleteIcon />}
-      >
-        Delete
-      </Button>
-
       <AlertDialog
         isOpen={isOpen}
         leastDestructiveRef={cancelRef}
@@ -34,13 +28,10 @@ function AlertDeleteSong({ deletePlaylist, playlistName }) {
         <AlertDialogOverlay>
           <AlertDialogContent>
             <AlertDialogHeader fontSize="lg" fontWeight="bold">
-              Delete Playlist {playlistName}
+              {nameHeader} {name}
             </AlertDialogHeader>
 
-            <AlertDialogBody>
-              Are you sure? All song with this playlist will be deleted, You
-              can't undo this action afterwards.
-            </AlertDialogBody>
+            <AlertDialogBody>{descriptionBody}</AlertDialogBody>
 
             <AlertDialogFooter>
               <Button ref={cancelRef} onClick={onClose}>
@@ -49,7 +40,7 @@ function AlertDeleteSong({ deletePlaylist, playlistName }) {
               <Button
                 colorScheme="red"
                 onClick={() => {
-                  deletePlaylist();
+                  onDelete();
                   onClose;
                 }}
                 ml={3}
@@ -64,4 +55,4 @@ function AlertDeleteSong({ deletePlaylist, playlistName }) {
   );
 }
 
-export default AlertDeleteSong;
+export default AlertDelete;

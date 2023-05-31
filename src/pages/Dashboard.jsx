@@ -19,7 +19,7 @@ import {
 } from "@chakra-ui/react";
 
 import { NavLink } from "react-router-dom";
-import AlertDeleteSong from "../components/AlertDeleteSong";
+import AlertDeletePlaylist from "../components/AlertDeletePlaylist";
 import DrawerEditPlaylist from "../components/DrawerEditPlaylist";
 import useDeletePlaylist from "../hooks/useDeletePlaylist";
 import usePlaylists from "../hooks/usePlaylists";
@@ -89,15 +89,18 @@ export default function Dashboard() {
               >
                 Delete
               </Button> */}
-                  <AlertDeleteSong
-                    deletePlaylist={() =>
+                  <AlertDeletePlaylist
+                    onDelete={() =>
                       deletePlaylist.mutate({
                         playlistId: playlist.id,
                         name: playlist.name,
                         CreatedBy: playlist.CreatedBy,
                       })
                     }
-                    playlistName={playlist.name}
+                    name={playlist.name}
+                    nameHeader="Delete Playlist"
+                    descriptionBody="Are you sure? All song with this playlist will be deleted, You
+                    can't undo this action afterwards."
                   />
 
                   <DrawerEditPlaylist playlist={playlist} />
