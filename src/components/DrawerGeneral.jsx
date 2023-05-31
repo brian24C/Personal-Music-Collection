@@ -14,6 +14,7 @@ import InputsGroup from "./editSongs/InputsGroup";
 
 const DrawerGeneral = ({ name, data, isOpen, onClose, onClick }) => {
   const [form, setForm] = useState(data);
+  const [formSend, setFormSend] = useState(false);
   const keys = Object.keys(data);
   console.log(form);
   useEffect(() => {
@@ -76,7 +77,7 @@ const DrawerGeneral = ({ name, data, isOpen, onClose, onClick }) => {
           <Button
             onClick={() => {
               const hasEmptyValue = Object.values(form).includes("");
-              if (hasEmptyValue) {
+              if (!formSend) {
                 return console.log("campos vacios");
               }
               return onClick(form);

@@ -31,7 +31,10 @@ export default function DrawerCreateSong({ idPlaylist }) {
         }}
         isOpen={isOpen}
         onClose={onClose}
-        onClick={(form) => createSong.mutate(form)}
+        onClick={(form) => {
+          createSong.mutate(form);
+          onClose();
+        }}
       />
     </>
   );
