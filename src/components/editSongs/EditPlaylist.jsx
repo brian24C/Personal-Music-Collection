@@ -17,7 +17,7 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import { useQueryClient } from "@tanstack/react-query";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
 import { useParams } from "react-router-dom";
 import useSongSearch from "../../hooks/useSongSearch";
@@ -34,31 +34,35 @@ export default function EditPlaylist() {
   const [songStatic, setSongStatic] = useState(songs);
 
   useEffect(() => {
-    return () => {
-      queryClient.invalidateQueries(["songs", params.id]); // Restablecer los datos en la caché de React Query
-    };
-  }, []);
-
-  useEffect(() => {
-    if (songs?.length === 0) {
+    if (songs?.length === 0 && (songStatic?.length === 0 || !songStatic)) {
       toast({
-        title: "No hay canciones en esta playlist",
-        description: "Agrega tus canciones favoritas.",
+        title: "There are no songs in this playlist",
+        description: "Add your favorite songs.",
         status: "info",
         duration: 4000,
         isClosable: true,
       });
     }
+
+    if (songs?.length === 0 && songStatic?.length != 0 && songStatic != null) {
+      toast({
+        title: "that song is not found",
+        status: "info",
+        duration: 1000,
+        isClosable: true,
+      });
+    }
   }, [songs]);
+
   const onchangeHandler = (e) => {
-    if (!songStatic) {
+    if (!songStatic || songStatic.length === 0) {
       songsSearch.mutate({ search: e.target.value, songStatic: songs });
       setSongStatic(songs);
     } else {
       songsSearch.mutate({ search: e.target.value, songStatic });
     }
   };
-  console.log(songs);
+
   return (
     <Container maxW={"full"} p="3" fontSize={"18px"}>
       <Text as="samp" fontSize={30}>
@@ -116,16 +120,15 @@ export default function EditPlaylist() {
               ) : (
                 songs?.map(({ id = 0, name, link, artist, recommendedBy }) => {
                   return (
-                    <React.Fragment key={id}>
-                      <Row
-                        id={id}
-                        name={name}
-                        link={link}
-                        artist={artist}
-                        recommended_by={recommendedBy}
-                        idPlaylist={params.id}
-                      />
-                    </React.Fragment>
+                    <Row
+                      key={id}
+                      id={id}
+                      name={name}
+                      link={link}
+                      artist={artist}
+                      recommended_by={recommendedBy}
+                      idPlaylist={params.id}
+                    />
                   );
                 })
               )}

@@ -75,29 +75,3 @@ export default function Create() {
     </Box>
   );
 }
-
-// export const createAction = async ({ request }) => {
-//   const data = await request.formData();
-
-//   const playlist = {
-//     name: data.get("name"),
-//   };
-
-//   fetch("https://api-playlist.onrender.com/api/v1/playlist", {
-//     method: "POST",
-//     headers: {
-//       "Content-Type": "application/json",
-//     },
-//     body: JSON.stringify(playlist),
-//   })
-//     .then((response) => response.json())
-//     .then((data) => {
-//       window.location.reload();
-//       console.log(data);
-//     })
-//     .catch((error) => {
-//       console.error("Error:", error);
-//     });
-
-//   return redirect("/");
-// };

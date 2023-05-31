@@ -1,8 +1,7 @@
-import { DeleteIcon } from "@chakra-ui/icons";
 import { Button, useDisclosure } from "@chakra-ui/react";
 import React from "react";
+import { AiFillDelete } from "react-icons/ai";
 import AlertDelete from "../AlertDelete";
-import { AiFillDelete, AiFillEdit } from "react-icons/ai";
 function AlertDeleteSong({ onDelete, name }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
 

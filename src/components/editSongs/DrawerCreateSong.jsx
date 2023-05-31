@@ -1,23 +1,7 @@
-import {
-  Button,
-  Drawer,
-  DrawerBody,
-  DrawerCloseButton,
-  DrawerContent,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerOverlay,
-  Input,
-  Stack,
-  useDisclosure,
-} from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { GlobalContext } from "../../context/GlobalWrapper";
-import InputsGroup from "./InputsGroup";
-import DrawerGeneral from "../DrawerGeneral";
-import useSongEdit from "../../hooks/useSongEdit";
+import { Button, useDisclosure } from "@chakra-ui/react";
+import { AiOutlinePlus } from "react-icons/ai";
 import useSongAdd from "../../hooks/useSongAdd";
-import { AiOutlinePlus, AiOutlineSearch } from "react-icons/ai";
+import DrawerGeneral from "../DrawerGeneral";
 
 export default function DrawerCreateSong({ idPlaylist }) {
   //   const { isOpen, onClose, song, addSongToPlaylist, updateSong } =

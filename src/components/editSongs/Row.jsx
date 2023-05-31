@@ -9,7 +9,7 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import React from "react";
-import { AiFillDelete, AiFillEdit } from "react-icons/ai";
+import { AiFillEdit } from "react-icons/ai";
 import useSongEdit from "../../hooks/useSongEdit";
 import useSongsDelete from "../../hooks/useSongsDelete";
 import DrawerGeneral from "../DrawerGeneral";
@@ -18,7 +18,7 @@ const Row = ({ id = 0, name, link, artist, recommended_by, idPlaylist }) => {
   const deleteSong = useSongsDelete();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const editSong = useSongEdit(onClose, idPlaylist);
-  console.log("idddd: ", id);
+
   return (
     <>
       <Tr>
@@ -43,26 +43,26 @@ const Row = ({ id = 0, name, link, artist, recommended_by, idPlaylist }) => {
             >
               <AiFillEdit />
             </Button>
-            {/* <Button
-              colorScheme="red"
-              onClick={() => deleteSong.mutate({ idSong: id, idPlaylist })}
-            >
-              <AiFillDelete />
-            </Button> */}
+
             <AlertDeleteSong
               onDelete={() => deleteSong.mutate({ idSong: id, idPlaylist })}
               name={name}
             />
           </Box>
         </Td>
+
+        <Td>
+          <React.Fragment>
+            <DrawerGeneral
+              name="Edit Song"
+              data={{ id, name, link, artist, recommendedBy: recommended_by }}
+              isOpen={isOpen}
+              onClose={onClose}
+              onClick={(form) => editSong.mutate(form)}
+            />
+          </React.Fragment>
+        </Td>
       </Tr>
-      <DrawerGeneral
-        name="Edit Song"
-        data={{ id, name, link, artist, recommendedBy: recommended_by }}
-        isOpen={isOpen}
-        onClose={onClose}
-        onClick={(form) => editSong.mutate(form)}
-      />
     </>
   );
 };

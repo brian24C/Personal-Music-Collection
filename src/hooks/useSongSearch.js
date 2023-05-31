@@ -17,7 +17,6 @@ const useSongSearch = (idPlaylist) => {
       });
     },
     onMutate: (data) => {
-      console.log("usemutate", data);
       const previousSongs = queryClient.getQueryData(["songs", idPlaylist]);
       queryClient.setQueryData(["songs", idPlaylist], (songs) =>
         data.songStatic.filter((song) => {
@@ -34,7 +33,11 @@ const useSongSearch = (idPlaylist) => {
 
       return { previousSongs };
     },
-    onSuccess: (savePlaylist, newPlaylist) => {},
+    onSuccess: (savePlaylist, newPlaylist) => {
+      if (savePlaylist.length === 0) {
+        queryClient.invalidateQueries(["songs", idPlaylist]);
+      }
+    },
 
     onError: (error, newPlaylist, context) => {
       if (!context) return;

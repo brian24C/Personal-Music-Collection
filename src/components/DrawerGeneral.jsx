@@ -14,11 +14,9 @@ import InputsGroup from "./editSongs/InputsGroup";
 
 const DrawerGeneral = ({ name, data, isOpen, onClose, onClick }) => {
   const [form, setForm] = useState(data);
-
   const keys = Object.keys(data);
-
+  console.log(form);
   useEffect(() => {
-    console.log("useeffect");
     setForm(data);
   }, [data]);
 
@@ -53,13 +51,12 @@ const DrawerGeneral = ({ name, data, isOpen, onClose, onClick }) => {
           <Stack spacing="24px">
             {keys.map((key) => {
               return key != "id" && key != "songs" ? (
-                <React.Fragment key={key}>
-                  <InputsGroup
-                    name={key}
-                    onChangeHandler={onChangeHandler}
-                    value={form[key] || ""}
-                  />
-                </React.Fragment>
+                <InputsGroup
+                  key={key}
+                  name={key}
+                  onChangeHandler={onChangeHandler}
+                  value={form[key] || ""}
+                />
               ) : null;
             })}
           </Stack>
@@ -76,7 +73,16 @@ const DrawerGeneral = ({ name, data, isOpen, onClose, onClick }) => {
           >
             Cancel
           </Button>
-          <Button onClick={() => onClick(form)} colorScheme="blue">
+          <Button
+            onClick={() => {
+              const hasEmptyValue = Object.values(form).includes("");
+              if (hasEmptyValue) {
+                return console.log("campos vacios");
+              }
+              return onClick(form);
+            }}
+            colorScheme="blue"
+          >
             Submit
           </Button>
         </DrawerFooter>

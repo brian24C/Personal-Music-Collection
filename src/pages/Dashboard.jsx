@@ -7,13 +7,11 @@ import {
   CardBody,
   CardFooter,
   CardHeader,
-  Center,
   Divider,
   Flex,
   HStack,
   Heading,
   SimpleGrid,
-  Spinner,
   Text,
   useColorMode,
 } from "@chakra-ui/react";
@@ -21,9 +19,9 @@ import {
 import { NavLink } from "react-router-dom";
 import AlertDeletePlaylist from "../components/AlertDeletePlaylist";
 import DrawerEditPlaylist from "../components/DrawerEditPlaylist";
+import PlaylistCardSkeleton from "../components/PlaylistCardSkeleton";
 import useDeletePlaylist from "../hooks/useDeletePlaylist";
 import usePlaylists from "../hooks/usePlaylists";
-import PlaylistCardSkeleton from "../components/PlaylistCardSkeleton";
 export default function Dashboard() {
   const { data: playlists, isLoading, error } = usePlaylists();
   const deletePlaylist = useDeletePlaylist();
@@ -76,19 +74,7 @@ export default function Dashboard() {
                       Watch
                     </Button>
                   </NavLink>
-                  {/* <Button
-                variant="ghost"
-                onClick={() =>
-                  deletePlaylist.mutate({
-                    playlistId: playlist.id,
-                    name: playlist.name,
-                    CreatedBy: playlist.CreatedBy,
-                  })
-                }
-                leftIcon={<DeleteIcon />}
-              >
-                Delete
-              </Button> */}
+
                   <AlertDeletePlaylist
                     onDelete={() =>
                       deletePlaylist.mutate({
@@ -101,7 +87,6 @@ export default function Dashboard() {
                   />
 
                   <DrawerEditPlaylist playlist={playlist} />
-                  {/* <PopoverForm playlist={playlist} /> */}
                 </CardFooter>
               </Card>
             ))}

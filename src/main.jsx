@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
-import Wrapper from "./context/GlobalWrapper";
+
 import {
   ChakraProvider,
   extendTheme,
@@ -27,10 +27,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <QueryClientProvider client={queryClient}>
     <ChakraProvider theme={theme}>
       <ColorModeScript initialColorMode={theme.config.initialColorMode} />
-      <Wrapper>
-        <App />
-        <ReactQueryDevtools />
-      </Wrapper>
+
+      <App />
+      <ReactQueryDevtools />
     </ChakraProvider>
   </QueryClientProvider>
 );
