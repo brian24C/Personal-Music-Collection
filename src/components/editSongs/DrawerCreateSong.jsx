@@ -2,6 +2,7 @@ import { Button, useDisclosure } from "@chakra-ui/react";
 import { AiOutlinePlus } from "react-icons/ai";
 import useSongAdd from "../../hooks/useSongAdd";
 import DrawerGeneral from "../DrawerGeneral";
+import DrawerGeneralCreate from "../DrawerGeneralCreate";
 
 export default function DrawerCreateSong({ idPlaylist }) {
   //   const { isOpen, onClose, song, addSongToPlaylist, updateSong } =
@@ -21,7 +22,7 @@ export default function DrawerCreateSong({ idPlaylist }) {
       >
         Add Song
       </Button>
-      <DrawerGeneral
+      <DrawerGeneralCreate
         name="Create Song"
         data={{
           name: "",

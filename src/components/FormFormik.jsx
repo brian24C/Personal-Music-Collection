@@ -5,13 +5,18 @@ import {
   FormLabel,
   Input,
   FormErrorMessage,
+  Button,
+  Flex,
+  Divider,
 } from "@chakra-ui/react";
-const Formulario = (keys, form, onForm, setFormSend) => {
-  const [formularioEnviado, cambiarFormularioEnviado] = useState(false);
+const FormFormik = ({ keys, dataInitial, onClose, onClick }) => {
+  console.log(keys);
+  console.log("dataInitial", dataInitial);
+  //const [formSend, setFormSend] = useState(false);
   return (
     <>
       <Formik
-        initialValues={form}
+        initialValues={dataInitial}
         validate={(valor) => {
           let errors = {};
 
@@ -19,26 +24,26 @@ const Formulario = (keys, form, onForm, setFormSend) => {
           if (!valor.name) {
             errors.name = "Por favor ingresa un nombre";
           } else if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(valor.nombre)) {
-            errors.nombre = "El nombre solo puede contener letras y espacios";
+            errors.name = "El nombre solo puede contener letras y espacios";
           }
 
           // Validacion correo
           if (!valor.link) {
-            errors.correo = "Por favor ingresa un link";
+            errors.link = "Por favor ingresa un link";
           } else if (
-            !/^https?:\/\/[\w\-]+(\.[\w\-]+)+[/#?]?.*$/.test(valor.correo)
+            !/^https?:\/\/[\w\-]+(\.[\w\-]+)+[/#?]?.*$/.test(valor.link)
           ) {
-            errors.correo = "El link tiene que ser valido.";
+            errors.link = "El link tiene que ser valido.";
           }
 
-          if (!valor.artist) {
-            errors.name = "Por favor ingresa un artista";
-          }
+          //   if (!valor.artist) {
+          //     errors.artist = "Por favor ingresa un artista";
+          //   }
 
-          if (!valor.recomendedBy) {
-            errors.recomendedBy = "Por favor ingresa un artista";
-          } else if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(valor.nombre)) {
-            errors.recomendedBy =
+          if (!valor.recommendedBy) {
+            errors.recommendedBy = "Por favor ingresa un artista";
+          } else if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(valor.recommendedBy)) {
+            errors.recommendedBy =
               "El artista solo puede contener letras y espacios";
           }
 
@@ -46,41 +51,51 @@ const Formulario = (keys, form, onForm, setFormSend) => {
         }}
         onSubmit={(valores, { resetForm }) => {
           resetForm();
-          //onForm(valores)
-          //setFormSend(true)
+          console.log("submit");
+          console.log(valores);
+
+          onClick(valores);
         }}
       >
-        {({ errors, touched }) => (
+        {({ values, errors, touched, handleChange, handleBlur }) => (
           <Form>
-            <FormControl isInvalid={errors.name && touched.name}>
-              <FormLabel></FormLabel>
-              <Field
-                type="text"
-                id="nombre"
-                name="nombre"
-                placeholder="John Doe"
-              />
-              <FormErrorMessage>enter the {name}</FormErrorMessage>
-            </FormControl>
             {keys.map((key) => {
               return key != "id" && key != "songs" ? (
-                <FormControl isInvalid={errors[key] && touched[key]}>
-                  <FormLabel>{key}</FormLabel>
-                  <Field
+                <FormControl
+                  isRequired={key === "artist" ? false : true}
+                  key={key}
+                  isInvalid={errors[key] && touched[key]}
+                >
+                  <FormLabel>{key} :</FormLabel>
+                  <Input
                     type="text"
                     id={key}
                     name={key}
+                    value={values[key]}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
                     //placeholder="enter the {name}"
                   />
-                  <FormErrorMessage>enter the {key}</FormErrorMessage>
+                  <FormErrorMessage>{errors[key]}</FormErrorMessage>
                 </FormControl>
               ) : null;
             })}
 
-            {/* <button type="submit">Enviar</button>
-            {formularioEnviado && (
-              <p className="exito">Formulario enviado con exito!</p>
-            )} */}
+            <Flex justifyContent="center" alignItems="flex-end" mt={30}>
+              <Button
+                variant="outline"
+                mr={3}
+                onClick={() => {
+                  onClose();
+                  //setForm({});
+                }}
+              >
+                Cancel
+              </Button>
+              <Button type="submit" colorScheme="blue">
+                Submit
+              </Button>
+            </Flex>
           </Form>
         )}
       </Formik>
@@ -88,4 +103,4 @@ const Formulario = (keys, form, onForm, setFormSend) => {
   );
 };
 
-export default Formulario;
+export default FormFormik;
