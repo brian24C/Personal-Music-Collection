@@ -13,6 +13,7 @@ import { AiFillDelete, AiFillEdit } from "react-icons/ai";
 import useSongEdit from "../../hooks/useSongEdit";
 import useSongsDelete from "../../hooks/useSongsDelete";
 import DrawerGeneral from "../DrawerGeneral";
+import AlertDeleteSong from "./AlerDeleteSong";
 const Row = ({ id = 0, name, link, artist, recommended_by, idPlaylist }) => {
   const deleteSong = useSongsDelete();
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -42,12 +43,16 @@ const Row = ({ id = 0, name, link, artist, recommended_by, idPlaylist }) => {
             >
               <AiFillEdit />
             </Button>
-            <Button
+            {/* <Button
               colorScheme="red"
               onClick={() => deleteSong.mutate({ idSong: id, idPlaylist })}
             >
               <AiFillDelete />
-            </Button>
+            </Button> */}
+            <AlertDeleteSong
+              onDelete={() => deleteSong.mutate({ idSong: id, idPlaylist })}
+              name={name}
+            />
           </Box>
         </Td>
       </Tr>

@@ -98,9 +98,6 @@ export default function Dashboard() {
                       })
                     }
                     name={playlist.name}
-                    nameHeader="Delete Playlist"
-                    descriptionBody="Are you sure? All song with this playlist will be deleted, You
-                    can't undo this action afterwards."
                   />
 
                   <DrawerEditPlaylist playlist={playlist} />

@@ -2,7 +2,7 @@ import { DeleteIcon } from "@chakra-ui/icons";
 import { Button, useDisclosure } from "@chakra-ui/react";
 import React from "react";
 import AlertDelete from "./AlertDelete";
-function AlertDeletePlaylist({ onDelete, name, nameHeader, descriptionBody }) {
+function AlertDeletePlaylist({ onDelete, name }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
@@ -21,8 +21,9 @@ function AlertDeletePlaylist({ onDelete, name, nameHeader, descriptionBody }) {
         onClose={onClose}
         onDelete={onDelete}
         name={name}
-        nameHeader={nameHeader}
-        descriptionBody={descriptionBody}
+        nameHeader="Delete Playlist"
+        descriptionBody="Are you sure? All song with this playlist will be deleted, You
+        can't undo this action afterwards."
       />
     </>
   );
