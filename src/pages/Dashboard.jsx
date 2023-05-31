@@ -36,7 +36,7 @@ export default function Dashboard() {
     <>
       <SimpleGrid spacing={10} minChildWidth="300px">
         {isLoading === true
-          ? skeletons.map((skeleton) => <PlaylistCardSkeleton />)
+          ? skeletons.map((skeleton) => <PlaylistCardSkeleton key={skeleton} />)
           : playlists.map((playlist) => (
               <Card
                 _hover={{

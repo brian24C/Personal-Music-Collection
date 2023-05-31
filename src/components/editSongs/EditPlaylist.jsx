@@ -15,6 +15,7 @@ import {
   Tr,
   Stack,
   Td,
+  Center,
 } from "@chakra-ui/react";
 import { useQueryClient } from "@tanstack/react-query";
 import React, { useEffect, useState } from "react";
@@ -98,26 +99,10 @@ export default function EditPlaylist() {
             <Tbody>
               {isLoading === true ? (
                 <Tr>
-                  <Td>
-                    <Skeleton height="20px" width="20px" />
-                  </Td>
-                  <Td>
-                    <Skeleton height="20px" width="60px" />
-                  </Td>
-                  <Td>
-                    <Skeleton height="20px" width="60px" />
-                  </Td>
-                  <Td>
-                    <Skeleton height="20px" width="60px" />
-                  </Td>
-                  <Td>
-                    <Skeleton height="20px" width="60px" />
-                  </Td>
-                  <Td>
-                    <Skeleton height="20px" width="20px" />
-                  </Td>
-                  <Td>
-                    <Skeleton height="20px" width="20px" />
+                  <Td colSpan={5}>
+                    <Center>
+                      <Spinner size="xl" />
+                    </Center>
                   </Td>
                 </Tr>
               ) : (
