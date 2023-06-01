@@ -1,28 +1,9 @@
 import { EditIcon } from "@chakra-ui/icons";
-import {
-  Box,
-  Button,
-  Drawer,
-  DrawerBody,
-  DrawerCloseButton,
-  DrawerContent,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerOverlay,
-  FormLabel,
-  Input,
-  InputGroup,
-  InputLeftAddon,
-  InputRightAddon,
-  Select,
-  Stack,
-  Textarea,
-  useDisclosure,
-} from "@chakra-ui/react";
+import { Button, useDisclosure } from "@chakra-ui/react";
 import React from "react";
-import DrawerGeneral from "./DrawerGeneral";
+
 import useEditPlaylist from "../hooks/useEditPlaylist";
-import { AiOutlinePlus, AiOutlineSearch } from "react-icons/ai";
+import DrawerGeneralCreate from "./DrawerGeneral";
 function DrawerEditPlaylist({ playlist }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const editPlaylist = useEditPlaylist(onClose);
@@ -37,7 +18,7 @@ function DrawerEditPlaylist({ playlist }) {
       >
         Edit
       </Button>
-      <DrawerGeneral
+      <DrawerGeneralCreate
         name="Edit Playlist"
         data={playlist}
         isOpen={isOpen}

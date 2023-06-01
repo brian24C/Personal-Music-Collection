@@ -32,19 +32,35 @@ export default function EditPlaylist() {
   const { data: songs, isLoading, error } = useSongs(params.id);
   const songsSearch = useSongSearch(params.id);
   const [songStatic, setSongStatic] = useState(songs);
+  const [isSecondRender, setIsSecondRender] = useState(false);
 
   useEffect(() => {
-    if (songs?.length === 0 && (songStatic?.length === 0 || !songStatic)) {
+    return () => {
+      queryClient.invalidateQueries(["songs", params.id]);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (
+      isSecondRender &&
+      songs?.length === 0 &&
+      (songStatic?.length === 0 || !songStatic)
+    ) {
       toast({
         title: "There are no songs in this playlist",
         description: "Add your favorite songs.",
         status: "info",
-        duration: 4000,
+        duration: 2000,
         isClosable: true,
       });
     }
 
-    if (songs?.length === 0 && songStatic?.length != 0 && songStatic != null) {
+    if (
+      isSecondRender &&
+      songs?.length === 0 &&
+      songStatic?.length != 0 &&
+      songStatic != null
+    ) {
       toast({
         title: "that song is not found",
         status: "info",
@@ -52,6 +68,7 @@ export default function EditPlaylist() {
         isClosable: true,
       });
     }
+    setIsSecondRender(true);
   }, [songs]);
 
   const onchangeHandler = (e) => {
@@ -71,15 +88,7 @@ export default function EditPlaylist() {
       <Box rounded="lg" boxShadow="base" p="4" marginTop={5}>
         <Box mt="2" gap={"2"} mb="3" display={"flex"}>
           <FormControl>
-            <Input
-              type="text"
-              onChange={onchangeHandler}
-              // onKeyDown={() => {
-              //   if (event.key === "Enter") {
-              //     SearchHandler();
-              //   }
-              // }}
-            />
+            <Input type="text" onChange={onchangeHandler} />
           </FormControl>
           <Button
             leftIcon={<AiOutlineSearch />}

@@ -25,7 +25,7 @@ const useSongsDelete = () => {
       toast({
         title: "Song delete successfully",
         status: "success",
-        duration: 4000,
+        duration: 3000,
         isClosable: true,
       });
 

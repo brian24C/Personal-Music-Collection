@@ -34,9 +34,9 @@ const useSongSearch = (idPlaylist) => {
       return { previousSongs };
     },
     onSuccess: (savePlaylist, newPlaylist) => {
-      if (savePlaylist.length === 0) {
-        queryClient.invalidateQueries(["songs", idPlaylist]);
-      }
+      // if (savePlaylist.length === 0) {
+      //   queryClient.invalidateQueries(["songs", idPlaylist]);
+      // }
     },
 
     onError: (error, newPlaylist, context) => {

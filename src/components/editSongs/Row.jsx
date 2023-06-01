@@ -14,7 +14,6 @@ import useSongEdit from "../../hooks/useSongEdit";
 import useSongsDelete from "../../hooks/useSongsDelete";
 import DrawerGeneral from "../DrawerGeneral";
 import AlertDeleteSong from "./AlerDeleteSong";
-import DrawerGeneralCreate from "../DrawerGeneralCreate";
 const Row = ({ id = 0, name, link, artist, recommended_by, idPlaylist }) => {
   const deleteSong = useSongsDelete();
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -54,7 +53,7 @@ const Row = ({ id = 0, name, link, artist, recommended_by, idPlaylist }) => {
 
         <Td>
           <React.Fragment>
-            <DrawerGeneralCreate
+            <DrawerGeneral
               name="Edit Song"
               data={{ id, name, link, artist, recommendedBy: recommended_by }}
               isOpen={isOpen}

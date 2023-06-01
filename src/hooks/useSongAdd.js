@@ -3,10 +3,12 @@ import React from "react";
 import apiClient from "../services/api-client";
 import { useToast } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
+import useSongSearch from "./useSongSearch";
 
 const useSongAdd = (idPlaylist) => {
   const queryClient = useQueryClient();
   const toast = useToast();
+  const songsSearch = useSongSearch(params.id);
 
   return useMutation({
     mutationFn: (data) => {
@@ -29,16 +31,19 @@ const useSongAdd = (idPlaylist) => {
       toast({
         title: "Song added successfully",
         status: "success",
-        duration: 4000,
+        duration: 3000,
         isClosable: true,
       });
 
       return { previousPlaylist };
     },
     onSuccess: (saveSong, newSong) => {
-      queryClient.setQueryData(["songs", idPlaylist], (songs) =>
-        songs.map((song) => (song === newSong ? saveSong : song))
-      );
+      // queryClient.setQueryData(["songs", idPlaylist], (songs) =>
+      //   songs.map((song) => (song === newSong ? saveSong : song))
+      // );
+
+      queryClient.invalidateQueries(["songs", idPlaylist]);
+      //songsSearch.mutate({ search: "", songStatic });
     },
 
     onError: (error, newPlaylist, context) => {

@@ -1,5 +1,4 @@
 import {
-  Button,
   Drawer,
   DrawerBody,
   DrawerCloseButton,
@@ -9,24 +8,11 @@ import {
   DrawerOverlay,
   Stack,
 } from "@chakra-ui/react";
-import React, { useState, useEffect } from "react";
-import InputsGroup from "./editSongs/InputsGroup";
+import React from "react";
+import FormFormik from "./FormFormik";
 
 const DrawerGeneral = ({ name, data, isOpen, onClose, onClick }) => {
-  const [form, setForm] = useState(data);
-  const [formSend, setFormSend] = useState(false);
   const keys = Object.keys(data);
-  console.log(form);
-  useEffect(() => {
-    setForm(data);
-  }, [data]);
-
-  const onChangeHandler = (e) => {
-    setForm({
-      ...form,
-      [e.target.name]: e.target.value,
-    });
-  };
 
   const firstField = React.useRef();
   return (
@@ -36,7 +22,6 @@ const DrawerGeneral = ({ name, data, isOpen, onClose, onClick }) => {
       initialFocusRef={firstField}
       onClose={() => {
         onClose();
-        // setForm({});
       }}
     >
       <DrawerOverlay />
@@ -50,43 +35,16 @@ const DrawerGeneral = ({ name, data, isOpen, onClose, onClick }) => {
 
         <DrawerBody>
           <Stack spacing="24px">
-            {keys.map((key) => {
-              return key != "id" && key != "songs" ? (
-                <InputsGroup
-                  key={key}
-                  name={key}
-                  onChangeHandler={onChangeHandler}
-                  value={form[key] || ""}
-                />
-              ) : null;
-            })}
+            <FormFormik
+              keys={keys}
+              dataInitial={data}
+              onClose={onClose}
+              onClick={onClick}
+            />
           </Stack>
         </DrawerBody>
 
-        <DrawerFooter borderTopWidth="1px">
-          <Button
-            variant="outline"
-            mr={3}
-            onClick={() => {
-              onClose();
-              //setForm({});
-            }}
-          >
-            Cancel
-          </Button>
-          <Button
-            onClick={() => {
-              const hasEmptyValue = Object.values(form).includes("");
-              if (!formSend) {
-                return console.log("campos vacios");
-              }
-              return onClick(form);
-            }}
-            colorScheme="blue"
-          >
-            Submit
-          </Button>
-        </DrawerFooter>
+        <DrawerFooter borderTopWidth="5px"></DrawerFooter>
       </DrawerContent>
     </Drawer>
   );

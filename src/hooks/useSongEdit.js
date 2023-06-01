@@ -23,7 +23,7 @@ const useSongEdit = (close, idPlaylist) => {
       toast({
         title: "Song update successfully",
         status: "success",
-        duration: 4000,
+        duration: 3000,
         isClosable: true,
       });
 

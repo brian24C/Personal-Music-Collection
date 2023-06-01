@@ -17,44 +17,53 @@ const FormFormik = ({ keys, dataInitial, onClose, onClick }) => {
     <>
       <Formik
         initialValues={dataInitial}
-        validate={(valor) => {
+        validate={(values) => {
           let errors = {};
 
-          // Validacion nombre
-          if (!valor.name) {
-            errors.name = "Por favor ingresa un nombre";
-          } else if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(valor.nombre)) {
-            errors.name = "El nombre solo puede contener letras y espacios";
+          if (!values.name) {
+            errors.name = "Please enter a name";
+          } else if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(values.nombre)) {
+            errors.name = "The name can only contain letters and spaces";
           }
 
-          // Validacion correo
-          if (!valor.link) {
-            errors.link = "Por favor ingresa un link";
-          } else if (
-            !/^https?:\/\/[\w\-]+(\.[\w\-]+)+[/#?]?.*$/.test(valor.link)
-          ) {
-            errors.link = "El link tiene que ser valido.";
-          }
+          console.log("values", values);
+          if ("CreatedBy" in values) {
+            if (!values.CreatedBy) {
+              errors.CreatedBy = "Please write your name";
+            } else if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(values.nombre)) {
+              errors.CreatedBy = "The name can only contain letters and spaces";
+            }
+          } else {
+            // Validacion nombre
 
-          //   if (!valor.artist) {
-          //     errors.artist = "Por favor ingresa un artista";
-          //   }
+            // Validacion correo
+            if (!values.link) {
+              errors.link = "Please enter a link";
+            } else if (
+              !/^https?:\/\/[\w\-]+(\.[\w\-]+)+[/#?]?.*$/.test(values.link)
+            ) {
+              errors.link = "The link has to be valid";
+            }
 
-          if (!valor.recommendedBy) {
-            errors.recommendedBy = "Por favor ingresa un artista";
-          } else if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(valor.recommendedBy)) {
-            errors.recommendedBy =
-              "El artista solo puede contener letras y espacios";
+            //   if (!values.artist) {
+            //     errors.artist = "Por favor ingresa un artista";
+            //   }
+
+            if (!values.recommendedBy) {
+              errors.recommendedBy = "Please enter an artist";
+            } else if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(values.recommendedBy)) {
+              errors.recommendedBy =
+                "Artist can only contain letters and spaces";
+            }
           }
 
           return errors;
         }}
-        onSubmit={(valores, { resetForm }) => {
-          resetForm();
+        onSubmit={(values, { resetForm }) => {
           console.log("submit");
-          console.log(valores);
+          console.log(values);
 
-          onClick(valores);
+          onClick(values);
         }}
       >
         {({ values, errors, touched, handleChange, handleBlur }) => (
@@ -65,6 +74,7 @@ const FormFormik = ({ keys, dataInitial, onClose, onClick }) => {
                   isRequired={key === "artist" ? false : true}
                   key={key}
                   isInvalid={errors[key] && touched[key]}
+                  mb={6}
                 >
                   <FormLabel>{key} :</FormLabel>
                   <Input

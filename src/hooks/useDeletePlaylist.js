@@ -21,7 +21,7 @@ const useDeletePlaylist = () => {
       toast({
         title: "Playlist delete successfully",
         status: "success",
-        duration: 4000,
+        duration: 3000,
         isClosable: true,
       });
 
