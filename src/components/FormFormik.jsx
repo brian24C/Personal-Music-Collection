@@ -22,7 +22,7 @@ const FormFormik = ({ keys, dataInitial, onClose, onClick }) => {
 
           if (!values.name) {
             errors.name = "Please enter a name";
-          } else if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(values.name)) {
+          } else if (!/^[a-zA-ZÀ-ÿ\s&]{1,40}$/.test(values.name)) {
             errors.name = "The name can only contain letters and spaces";
           }
 

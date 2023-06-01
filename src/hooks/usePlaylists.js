@@ -11,6 +11,8 @@ const usePlaylists = () => {
       return apiClient.get("/playlist").then(({ data }) => data.dataTotal);
     },
     staleTime: ms("24h"),
+    //initialData: playlists,
+    //initialDataUpdatedAt: true,
   });
 };
 

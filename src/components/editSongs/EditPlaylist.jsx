@@ -26,6 +26,7 @@ import DrawerCreateSong from "./DrawerCreateSong";
 import Row from "./Row";
 import useSongStore from "../store";
 import useSongsStatic from "../../hooks/useSongsStatic";
+import { useQuery } from "@tanstack/react-query";
 
 export default function EditPlaylist() {
   const toast = useToast();
@@ -33,11 +34,9 @@ export default function EditPlaylist() {
   const queryClient = useQueryClient();
   const { data: songs, isLoading, error } = useSongs(params.id);
   const songsSearch = useSongSearch(params.id);
-  //const [songStatic, setSongStatic] = useState(songs);
   const [isSecondRender, setIsSecondRender] = useState(false);
-  //const setSongStatic = useSongStore((s) => s.setSongStatic);
-  //const songStatic = useSongStore((s) => s.songStatic);
   const { data: songsStatic } = useSongsStatic(params.id);
+  //const { data: dataPrueba } = useQuery(["songs", filter]);
 
   console.log("songs", songs);
   console.log("songStatic", songsStatic);

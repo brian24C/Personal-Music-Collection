@@ -43,7 +43,8 @@ export default function Dashboard() {
                 }}
                 key={playlist.id}
                 borderTop="8px"
-                borderColor={colorMode === "light" ? "green.300" : "gray.600"}
+                borderColor={colorMode === "light" ? "blue.300" : "gray.600"}
+                boxShadow="xl"
               >
                 <CardHeader>
                   <Flex gap={5} justify="space-between">

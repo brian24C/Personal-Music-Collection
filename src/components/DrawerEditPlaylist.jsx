@@ -3,7 +3,7 @@ import { Button, useDisclosure } from "@chakra-ui/react";
 import React from "react";
 
 import useEditPlaylist from "../hooks/useEditPlaylist";
-import DrawerGeneralCreate from "./DrawerGeneral";
+import DrawerGeneral from "./DrawerGeneral";
 function DrawerEditPlaylist({ playlist }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const editPlaylist = useEditPlaylist(onClose);
@@ -18,7 +18,7 @@ function DrawerEditPlaylist({ playlist }) {
       >
         Edit
       </Button>
-      <DrawerGeneralCreate
+      <DrawerGeneral
         name="Edit Playlist"
         data={playlist}
         isOpen={isOpen}
