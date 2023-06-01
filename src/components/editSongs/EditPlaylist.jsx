@@ -36,10 +36,7 @@ export default function EditPlaylist() {
   const songsSearch = useSongSearch(params.id);
   const [isSecondRender, setIsSecondRender] = useState(false);
   const { data: songsStatic } = useSongsStatic(params.id);
-  //const { data: dataPrueba } = useQuery(["songs", filter]);
 
-  console.log("songs", songs);
-  console.log("songStatic", songsStatic);
   useEffect(() => {
     return () => {
       queryClient.invalidateQueries(["songs", params.id]);
@@ -78,11 +75,6 @@ export default function EditPlaylist() {
   }, [songs]);
 
   const onchangeHandler = (e) => {
-    // if (!songStatic || songStatic.length === 0) {
-    //   songsSearch.mutate({ search: e.target.value, songStatic: songs });
-    //   setSongStatic(songs);
-    // } else {}
-    console.log("onchangehandler", songsStatic);
     songsSearch.mutate({ search: e.target.value, songsStatic });
   };
 

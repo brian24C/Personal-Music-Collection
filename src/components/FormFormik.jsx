@@ -10,8 +10,6 @@ import {
   Divider,
 } from "@chakra-ui/react";
 const FormFormik = ({ keys, dataInitial, onClose, onClick }) => {
-  console.log(keys);
-  console.log("dataInitial", dataInitial);
   //const [formSend, setFormSend] = useState(false);
   return (
     <>
@@ -26,7 +24,6 @@ const FormFormik = ({ keys, dataInitial, onClose, onClick }) => {
             errors.name = "The name can only contain letters and spaces";
           }
 
-          console.log("values", values);
           if ("CreatedBy" in values) {
             if (!values.CreatedBy) {
               errors.CreatedBy = "Please write your name";
@@ -60,9 +57,6 @@ const FormFormik = ({ keys, dataInitial, onClose, onClick }) => {
           return errors;
         }}
         onSubmit={(values, { resetForm }) => {
-          console.log("submit");
-          console.log(values);
-
           onClick(values);
         }}
       >
