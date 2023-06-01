@@ -1,15 +1,12 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import React from "react";
-import apiClient from "../services/api-client";
 import { useToast } from "@chakra-ui/react";
-import { useNavigate } from "react-router-dom";
-import useSongSearch from "./useSongSearch";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import useSongStore from "../components/store";
+import apiClient from "../services/api-client";
 
 const useSongAdd = (idPlaylist) => {
   const queryClient = useQueryClient();
   const toast = useToast();
-  const songsSearch = useSongSearch(params.id);
-
+  const setAddSongStatic = useSongStore((s) => s.setAddSongStatic);
   return useMutation({
     mutationFn: (data) => {
       return apiClient.post("/song", data).then(({ data }) =>
@@ -38,11 +35,12 @@ const useSongAdd = (idPlaylist) => {
       return { previousPlaylist };
     },
     onSuccess: (saveSong, newSong) => {
-      // queryClient.setQueryData(["songs", idPlaylist], (songs) =>
-      //   songs.map((song) => (song === newSong ? saveSong : song))
-      // );
+      queryClient.setQueryData(["songs", idPlaylist], (songs) =>
+        songs.map((song) => (song === newSong ? saveSong : song))
+      );
+      setAddSongStatic(saveSong);
+      //queryClient.invalidateQueries(["songs", idPlaylist]);
 
-      queryClient.invalidateQueries(["songs", idPlaylist]);
       //songsSearch.mutate({ search: "", songStatic });
     },
 

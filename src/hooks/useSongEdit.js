@@ -2,10 +2,13 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import React from "react";
 import apiClient from "../services/api-client";
 import { useToast } from "@chakra-ui/react";
+import useSongStore from "../components/store";
 
 const useSongEdit = (close, idPlaylist) => {
   const queryClient = useQueryClient();
   const toast = useToast();
+  const setEditSongStatic = useSongStore((s) => s.setEditSongStatic);
+
   return useMutation({
     mutationFn: (data) => {
       return apiClient
@@ -31,7 +34,10 @@ const useSongEdit = (close, idPlaylist) => {
 
       return { previousSongs };
     },
-    onSuccess: (savePlaylist, newPlaylist) => {},
+    onSuccess: (savePlaylist, newPlaylist) => {
+      setEditSongStatic(savePlaylist);
+      // queryClient.invalidateQueries(["songs", idPlaylist]);
+    },
 
     onError: (error, newPlaylist, context) => {
       if (!context) return;

@@ -24,6 +24,7 @@ import useSongSearch from "../../hooks/useSongSearch";
 import useSongs from "../../hooks/useSongs";
 import DrawerCreateSong from "./DrawerCreateSong";
 import Row from "./Row";
+import useSongStore from "../store";
 
 export default function EditPlaylist() {
   const toast = useToast();
@@ -31,14 +32,24 @@ export default function EditPlaylist() {
   const queryClient = useQueryClient();
   const { data: songs, isLoading, error } = useSongs(params.id);
   const songsSearch = useSongSearch(params.id);
-  const [songStatic, setSongStatic] = useState(songs);
+  //const [songStatic, setSongStatic] = useState(songs);
   const [isSecondRender, setIsSecondRender] = useState(false);
-
+  const setSongStatic = useSongStore((s) => s.setSongStatic);
+  const songStatic = useSongStore((s) => s.songStatic);
+  console.log("songStatic", songStatic);
+  console.log("songs", songs);
   useEffect(() => {
+    console.log("tiene que netrar 2 veces");
+    if (isSecondRender && songs?.length > 0) {
+      console.log("useEffect", isSecondRender, songs, songStatic);
+      console.log("entro en el condional");
+      setSongStatic(songs);
+    }
+    setIsSecondRender(true);
     return () => {
       queryClient.invalidateQueries(["songs", params.id]);
     };
-  }, []);
+  }, [isSecondRender]);
 
   useEffect(() => {
     if (
@@ -68,7 +79,6 @@ export default function EditPlaylist() {
         isClosable: true,
       });
     }
-    setIsSecondRender(true);
   }, [songs]);
 
   const onchangeHandler = (e) => {
