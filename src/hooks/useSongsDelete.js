@@ -21,6 +21,9 @@ const useSongsDelete = () => {
       queryClient.setQueryData(["songs", data.idPlaylist], (songs) =>
         songs.filter((p) => p.id != data.idSong)
       );
+      queryClient.setQueryData(["songsSearch", data.idPlaylist], (songs) =>
+        songs.filter((p) => p.id != data.idSong)
+      );
 
       toast({
         title: "Song delete successfully",

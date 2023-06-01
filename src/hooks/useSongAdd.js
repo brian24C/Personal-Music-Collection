@@ -6,7 +6,7 @@ import apiClient from "../services/api-client";
 const useSongAdd = (idPlaylist) => {
   const queryClient = useQueryClient();
   const toast = useToast();
-  const setAddSongStatic = useSongStore((s) => s.setAddSongStatic);
+  //const setAddSongStatic = useSongStore((s) => s.setAddSongStatic);
   return useMutation({
     mutationFn: (data) => {
       return apiClient.post("/song", data).then(({ data }) =>
@@ -24,6 +24,10 @@ const useSongAdd = (idPlaylist) => {
         ...(songs || []),
         newSong,
       ]);
+      queryClient.setQueryData(["songsSearch", idPlaylist], (songs) => [
+        ...(songs || []),
+        newSong,
+      ]);
 
       toast({
         title: "Song added successfully",
@@ -38,7 +42,9 @@ const useSongAdd = (idPlaylist) => {
       queryClient.setQueryData(["songs", idPlaylist], (songs) =>
         songs.map((song) => (song === newSong ? saveSong : song))
       );
-      setAddSongStatic(saveSong);
+      queryClient.setQueryData(["songsSearch", idPlaylist], (songs) =>
+        songs.map((song) => (song === newSong ? saveSong : song))
+      );
       //queryClient.invalidateQueries(["songs", idPlaylist]);
 
       //songsSearch.mutate({ search: "", songStatic });

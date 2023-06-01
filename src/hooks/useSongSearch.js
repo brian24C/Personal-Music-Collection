@@ -19,7 +19,7 @@ const useSongSearch = (idPlaylist) => {
     onMutate: (data) => {
       const previousSongs = queryClient.getQueryData(["songs", idPlaylist]);
       queryClient.setQueryData(["songs", idPlaylist], (songs) =>
-        data.songStatic.filter((song) => {
+        data.songsStatic.filter((song) => {
           if (
             song.name
               .toString()

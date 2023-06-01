@@ -25,6 +25,7 @@ import useSongs from "../../hooks/useSongs";
 import DrawerCreateSong from "./DrawerCreateSong";
 import Row from "./Row";
 import useSongStore from "../store";
+import useSongsStatic from "../../hooks/useSongsStatic";
 
 export default function EditPlaylist() {
   const toast = useToast();
@@ -34,28 +35,23 @@ export default function EditPlaylist() {
   const songsSearch = useSongSearch(params.id);
   //const [songStatic, setSongStatic] = useState(songs);
   const [isSecondRender, setIsSecondRender] = useState(false);
-  const setSongStatic = useSongStore((s) => s.setSongStatic);
-  const songStatic = useSongStore((s) => s.songStatic);
-  console.log("songStatic", songStatic);
+  //const setSongStatic = useSongStore((s) => s.setSongStatic);
+  //const songStatic = useSongStore((s) => s.songStatic);
+  const { data: songsStatic } = useSongsStatic(params.id);
+
   console.log("songs", songs);
+  console.log("songStatic", songsStatic);
   useEffect(() => {
-    console.log("tiene que netrar 2 veces");
-    if (isSecondRender && songs?.length > 0) {
-      console.log("useEffect", isSecondRender, songs, songStatic);
-      console.log("entro en el condional");
-      setSongStatic(songs);
-    }
-    setIsSecondRender(true);
     return () => {
       queryClient.invalidateQueries(["songs", params.id]);
     };
-  }, [isSecondRender]);
+  }, []);
 
   useEffect(() => {
     if (
       isSecondRender &&
       songs?.length === 0 &&
-      (songStatic?.length === 0 || !songStatic)
+      (songsStatic?.length === 0 || !songsStatic)
     ) {
       toast({
         title: "There are no songs in this playlist",
@@ -69,8 +65,8 @@ export default function EditPlaylist() {
     if (
       isSecondRender &&
       songs?.length === 0 &&
-      songStatic?.length != 0 &&
-      songStatic != null
+      songsStatic?.length != 0 &&
+      songsStatic != null
     ) {
       toast({
         title: "that song is not found",
@@ -79,15 +75,16 @@ export default function EditPlaylist() {
         isClosable: true,
       });
     }
+    setIsSecondRender(true);
   }, [songs]);
 
   const onchangeHandler = (e) => {
-    if (!songStatic || songStatic.length === 0) {
-      songsSearch.mutate({ search: e.target.value, songStatic: songs });
-      setSongStatic(songs);
-    } else {
-      songsSearch.mutate({ search: e.target.value, songStatic });
-    }
+    // if (!songStatic || songStatic.length === 0) {
+    //   songsSearch.mutate({ search: e.target.value, songStatic: songs });
+    //   setSongStatic(songs);
+    // } else {}
+    console.log("onchangehandler", songsStatic);
+    songsSearch.mutate({ search: e.target.value, songsStatic });
   };
 
   return (

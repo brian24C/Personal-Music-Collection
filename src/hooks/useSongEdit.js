@@ -7,7 +7,7 @@ import useSongStore from "../components/store";
 const useSongEdit = (close, idPlaylist) => {
   const queryClient = useQueryClient();
   const toast = useToast();
-  const setEditSongStatic = useSongStore((s) => s.setEditSongStatic);
+  // const setEditSongStatic = useSongStore((s) => s.setEditSongStatic);
 
   return useMutation({
     mutationFn: (data) => {
@@ -20,6 +20,9 @@ const useSongEdit = (close, idPlaylist) => {
     onMutate: (data) => {
       const previousSongs = queryClient.getQueryData(["songs", idPlaylist]);
       queryClient.setQueryData(["songs", idPlaylist], (songs) =>
+        songs.map((song) => (song.id === data.id ? data : song))
+      );
+      queryClient.setQueryData(["songsSearch", idPlaylist], (songs) =>
         songs.map((song) => (song.id === data.id ? data : song))
       );
 
@@ -35,7 +38,7 @@ const useSongEdit = (close, idPlaylist) => {
       return { previousSongs };
     },
     onSuccess: (savePlaylist, newPlaylist) => {
-      setEditSongStatic(savePlaylist);
+      //setEditSongStatic(savePlaylist);
       // queryClient.invalidateQueries(["songs", idPlaylist]);
     },
 

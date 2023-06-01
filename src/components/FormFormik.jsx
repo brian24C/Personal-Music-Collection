@@ -22,7 +22,7 @@ const FormFormik = ({ keys, dataInitial, onClose, onClick }) => {
 
           if (!values.name) {
             errors.name = "Please enter a name";
-          } else if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(values.nombre)) {
+          } else if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(values.name)) {
             errors.name = "The name can only contain letters and spaces";
           }
 
@@ -30,7 +30,7 @@ const FormFormik = ({ keys, dataInitial, onClose, onClick }) => {
           if ("CreatedBy" in values) {
             if (!values.CreatedBy) {
               errors.CreatedBy = "Please write your name";
-            } else if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(values.nombre)) {
+            } else if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(values.CreatedBy)) {
               errors.CreatedBy = "The name can only contain letters and spaces";
             }
           } else {
