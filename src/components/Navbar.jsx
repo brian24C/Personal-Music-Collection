@@ -19,7 +19,7 @@ const Navbar = () => {
     toast({
       title: "Logged out",
       description: "Succesfully logged out",
-      duration: 5000,
+      duration: 3000,
       isClosable: true,
       status: "success",
       position: "top",
@@ -41,9 +41,9 @@ const Navbar = () => {
           </AvatarBadge> */}
         </Avatar>
         <Text>Brian Castro</Text>
-        <Button colorScheme="blue" onClick={showToast}>
+        {/* <Button colorScheme="blue" onClick={showToast}>
           logout
-        </Button>
+        </Button> */}
       </HStack>
     </Flex>
     // <Flex bg="gray.200" justify="space-between" wrap="wrap" gap="2">

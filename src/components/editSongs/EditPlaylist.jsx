@@ -1,43 +1,89 @@
 import {
   Box,
   Button,
+  Center,
   Container,
   FormControl,
   Input,
+  Spinner,
   Table,
   TableContainer,
   Tbody,
+  Td,
   Text,
   Th,
   Thead,
   Tr,
+  useToast,
 } from "@chakra-ui/react";
-import React, { useContext, useEffect, useState } from "react";
-import { AiOutlinePlus, AiOutlineSearch } from "react-icons/ai";
+import { useQueryClient } from "@tanstack/react-query";
+import React, { useEffect, useState, useRef } from "react";
+import { AiOutlineSearch } from "react-icons/ai";
 import { useParams } from "react-router-dom";
-import { GlobalContext } from "../../context/GlobalWrapper";
-import DrawerExample from "./DrawerExample";
+import useSongSearch from "../../hooks/useSongSearch";
+import useSongs from "../../hooks/useSongs";
+import DrawerCreateSong from "./DrawerCreateSong";
 import Row from "./Row";
+import useSongStore from "../store";
+import useSongsStatic from "../../hooks/useSongsStatic";
+import { useQuery } from "@tanstack/react-query";
 
 export default function EditPlaylist() {
+  const toast = useToast();
   const params = useParams();
+  const queryClient = useQueryClient();
+  const { data: songs, isLoading, error } = useSongs(params.id);
+  const songsSearch = useSongSearch(params.id);
+  const [isSecondRender, setIsSecondRender] = useState(false);
+  const { data: songsStatic } = useSongsStatic(params.id);
+  //const { data: dataPrueba } = useQuery(["songs", filter]);
 
-  const { onOpen, Search, getSongs, songs } = useContext(GlobalContext);
-
-  const [query, setQuery] = useState("");
-
-  console.log("eidtplaylis");
+  console.log("songs", songs);
+  console.log("songStatic", songsStatic);
   useEffect(() => {
-    getSongs(params.id);
-    console.log("entra nuevo");
+    return () => {
+      queryClient.invalidateQueries(["songs", params.id]);
+    };
   }, []);
 
-  const SearchHandler = () => {
-    Search(query);
-  };
+  useEffect(() => {
+    if (
+      isSecondRender &&
+      songs?.length === 0 &&
+      (songsStatic?.length === 0 || !songsStatic)
+    ) {
+      toast({
+        title: "There are no songs in this playlist",
+        description: "Add your favorite songs.",
+        status: "info",
+        duration: 2000,
+        isClosable: true,
+      });
+    }
+
+    if (
+      isSecondRender &&
+      songs?.length === 0 &&
+      songsStatic?.length != 0 &&
+      songsStatic != null
+    ) {
+      toast({
+        title: "that song is not found",
+        status: "info",
+        duration: 1000,
+        isClosable: true,
+      });
+    }
+    setIsSecondRender(true);
+  }, [songs]);
 
   const onchangeHandler = (e) => {
-    setQuery(e.target.value);
+    // if (!songStatic || songStatic.length === 0) {
+    //   songsSearch.mutate({ search: e.target.value, songStatic: songs });
+    //   setSongStatic(songs);
+    // } else {}
+    console.log("onchangehandler", songsStatic);
+    songsSearch.mutate({ search: e.target.value, songsStatic });
   };
 
   return (
@@ -48,23 +94,12 @@ export default function EditPlaylist() {
       <Box rounded="lg" boxShadow="base" p="4" marginTop={5}>
         <Box mt="2" gap={"2"} mb="3" display={"flex"}>
           <FormControl>
-            <Input
-              type="text"
-              onChange={onchangeHandler}
-              onKeyDown={() => {
-                if (event.key === "Enter") {
-                  SearchHandler();
-                }
-              }}
-            />
+            <Input type="text" onChange={onchangeHandler} />
           </FormControl>
           <Button
             leftIcon={<AiOutlineSearch />}
             colorScheme="teal"
             variant="outline"
-            // maxW="300px"
-            // minW="150px"
-            onClick={() => SearchHandler()}
           >
             Search
           </Button>
@@ -75,16 +110,7 @@ export default function EditPlaylist() {
           <Text fontSize="xl" fontWeight="bold">
             List Songs
           </Text>
-          <Button
-            colorScheme="teal"
-            variant="outline"
-            maxW={"300px"}
-            minW="150px"
-            leftIcon={<AiOutlinePlus fontSize={"20px"} />}
-            onClick={onOpen}
-          >
-            Add Song
-          </Button>
+          <DrawerCreateSong idPlaylist={params.id} />
         </Box>
         <TableContainer>
           <Table variant="simple">
@@ -98,24 +124,33 @@ export default function EditPlaylist() {
               </Tr>
             </Thead>
             <Tbody>
-              {songs?.map(({ id, name, link, artist, recommendedBy }) => {
-                return (
-                  <React.Fragment key={id}>
+              {isLoading === true ? (
+                <Tr>
+                  <Td colSpan={5}>
+                    <Center>
+                      <Spinner size="xl" />
+                    </Center>
+                  </Td>
+                </Tr>
+              ) : (
+                songs?.map(({ id = 0, name, link, artist, recommendedBy }) => {
+                  return (
                     <Row
+                      key={id}
                       id={id}
                       name={name}
                       link={link}
                       artist={artist}
                       recommended_by={recommendedBy}
+                      idPlaylist={params.id}
                     />
-                  </React.Fragment>
-                );
-              })}
+                  );
+                })
+              )}
             </Tbody>
           </Table>
         </TableContainer>
       </Box>
-      <DrawerExample id_playlist={params.id} />
     </Container>
   );
 }

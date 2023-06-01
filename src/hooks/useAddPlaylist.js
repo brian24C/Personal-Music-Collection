@@ -17,16 +17,16 @@ const useAddPlaylist = (onPlaylist) => {
     onMutate: (newPlaylist) => {
       const previousPlaylist = queryClient.getQueryData(["playlists"]);
       queryClient.setQueryData(["playlists"], (playlists) => [
-        ...playlists,
+        ...(playlists || []),
         newPlaylist,
       ]);
 
       onPlaylist();
 
       toast({
-        title: "Song added successfully",
+        title: "Playlist added successfully",
         status: "success",
-        duration: 4000,
+        duration: 3000,
         isClosable: true,
       });
 
