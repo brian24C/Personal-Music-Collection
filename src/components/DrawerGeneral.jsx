@@ -44,7 +44,7 @@ const DrawerGeneral = ({ name, data, isOpen, onClose, onClick }) => {
           </Stack>
         </DrawerBody>
 
-        <DrawerFooter borderTopWidth="5px"></DrawerFooter>
+        <DrawerFooter borderTopWidth="3px"></DrawerFooter>
       </DrawerContent>
     </Drawer>
   );

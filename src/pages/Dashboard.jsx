@@ -64,9 +64,7 @@ export default function Dashboard() {
                 <Divider borderColor="gray.300" />
 
                 <CardFooter justify="space-between">
-                  <NavLink
-                    to={`/playlist/${playlist.name}/idPlaylist/${playlist.id}`}
-                  >
+                  <NavLink to={`/${playlist.name}/${playlist.id}`}>
                     <Button
                       variant="ghost"
                       leftIcon={<ViewIcon />}
