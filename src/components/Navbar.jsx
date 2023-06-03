@@ -1,4 +1,7 @@
 import { UnlockIcon } from "@chakra-ui/icons";
+import { AiOutlineUser } from "react-icons/ai";
+import { FaPlusSquare } from "react-icons/Fa";
+import { MdEdit } from "react-icons/md";
 
 import {
   Avatar,
@@ -9,10 +12,14 @@ import {
   Spacer,
   Text,
   useToast,
+  Icon,
+  Input,
+  Box,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useState } from "react";
 
 const Navbar = () => {
+  const [isHovered, setIsHovered] = useState(false);
   const toast = useToast();
 
   const showToast = () => {
@@ -26,20 +33,36 @@ const Navbar = () => {
       icon: <UnlockIcon />,
     });
   };
-
+  console.log("toast");
   return (
     <Flex as="nav" p="10px" mb="40px" alignItems="center">
-      <Heading as="h1">My PlayList</Heading>
+      <Heading as="h1" fontSize={{ base: "24px", md: "40px", lg: "45px" }}>
+        My playlist
+      </Heading>
 
       <Spacer />
       <HStack spacing="20px">
-        <Avatar bg="blue.200" name="b">
-          {/* <AvatarBadge width="1.3em" bg="teal.500">
-            <Text fontSize="xs" color="white">
-              3
-            </Text>
-          </AvatarBadge> */}
-        </Avatar>
+        <Box position="relative" display="inline-block">
+          <Avatar
+            bg={isHovered ? "white" : "red.500"}
+            icon={<AiOutlineUser fontSize="1.5rem" />}
+            src="https://www.simplilearn.com/ice9/free_resources_article_thumb/what_is_image_Processing.jpg"
+            showBorder="black"
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+            borderWidth="2px"
+          />
+          <Box
+            position="absolute"
+            top="50%"
+            left="50%"
+            transform="translate(-50%, -50%)"
+            pointerEvents="none"
+          >
+            {isHovered ? <FaPlusSquare /> : null}
+          </Box>
+        </Box>
+
         <Text>Brian Castro</Text>
         {/* <Button colorScheme="blue" onClick={showToast}>
           logout
