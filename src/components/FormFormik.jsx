@@ -47,7 +47,7 @@ const FormFormik = ({ keys, dataInitial, onClose, onClick }) => {
             //   }
 
             if (!values.recommendedBy) {
-              errors.recommendedBy = "Please enter an artist";
+              errors.recommendedBy = "Please write your name";
             } else if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(values.recommendedBy)) {
               errors.recommendedBy =
                 "Artist can only contain letters and spaces";

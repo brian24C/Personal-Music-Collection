@@ -34,7 +34,7 @@ export default function EditPlaylist() {
   const queryClient = useQueryClient();
   const { data: songs, isLoading, error } = useSongs(params.id);
   const songsSearch = useSongSearch(params.id);
-  const [isSecondRender, setIsSecondRender] = useState(false);
+  //const [isSecondRender, setIsSecondRender] = useState(false);
   const { data: songsStatic } = useSongsStatic(params.id);
 
   useEffect(() => {
@@ -42,13 +42,12 @@ export default function EditPlaylist() {
       queryClient.invalidateQueries(["songs", params.id]);
     };
   }, []);
+  console.log(songs);
 
+  console.log("--------", songsStatic);
   useEffect(() => {
-    if (
-      isSecondRender &&
-      songs?.length === 0 &&
-      (songsStatic?.length === 0 || !songsStatic)
-    ) {
+    console.log("entro");
+    if (songsStatic?.length === 0) {
       toast({
         title: "There are no songs in this playlist",
         description: "Add your favorite songs.",
@@ -59,7 +58,6 @@ export default function EditPlaylist() {
     }
 
     if (
-      isSecondRender &&
       songs?.length === 0 &&
       songsStatic?.length != 0 &&
       songsStatic != null
@@ -71,8 +69,7 @@ export default function EditPlaylist() {
         isClosable: true,
       });
     }
-    setIsSecondRender(true);
-  }, [songs]);
+  }, [songsStatic, songs]);
 
   const onchangeHandler = (e) => {
     songsSearch.mutate({ search: e.target.value, songsStatic });

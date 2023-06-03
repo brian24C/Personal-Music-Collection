@@ -17,7 +17,7 @@ const useSongs = (id) => {
     staleTime: ms("24h"),
     initialData: () => {
       const playlists = queryClient.getQueryData(["playlists"]);
-      console.log(playlists);
+
       const playlist = playlists?.find(
         (playlist) => playlist.id === parseInt(id)
       );

@@ -38,7 +38,7 @@ const useAddPlaylist = (onPlaylist) => {
           p === newPlaylist ? { ...savePlaylist, songs: [] } : p
         )
       );
-      console.log(savePlaylist);
+
       navigate("/");
     },
 
