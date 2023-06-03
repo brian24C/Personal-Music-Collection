@@ -34,8 +34,11 @@ const useAddPlaylist = (onPlaylist) => {
     },
     onSuccess: (savePlaylist, newPlaylist) => {
       queryClient.setQueryData(["playlists"], (playlists) =>
-        playlists.map((p) => (p === newPlaylist ? savePlaylist : p))
+        playlists.map((p) =>
+          p === newPlaylist ? { ...savePlaylist, songs: [] } : p
+        )
       );
+      console.log(savePlaylist);
       navigate("/");
     },
 
