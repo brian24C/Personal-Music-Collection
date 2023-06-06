@@ -1,22 +1,11 @@
 import { create } from "zustand";
 
-const useSongStore = create((set) => ({
-  songStatic: [],
-  setSongStatic: (Songs) =>
+const useImageStore = create((set) => ({
+  url: "",
+  setUrl: (url) =>
     set((store) => ({
-      songStatic: [...Songs],
-    })),
-  setAddSongStatic: (songStatic) =>
-    set((store) => ({
-      songStatic: [...store.songStatic, songStatic],
-    })),
-
-  setEditSongStatic: (songStatic) =>
-    set((store) => ({
-      songStatic: store.songStatic.map((song) =>
-        song.id === songStatic.id ? songStatic : song
-      ),
+      url: url,
     })),
 }));
 
-export default useSongStore;
+export default useImageStore;

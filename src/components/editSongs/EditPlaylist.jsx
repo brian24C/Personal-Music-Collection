@@ -42,11 +42,8 @@ export default function EditPlaylist() {
       queryClient.invalidateQueries(["songs", params.id]);
     };
   }, []);
-  console.log(songs);
 
-  console.log("--------", songsStatic);
   useEffect(() => {
-    console.log("entro");
     if (songsStatic?.length === 0) {
       toast({
         title: "There are no songs in this playlist",

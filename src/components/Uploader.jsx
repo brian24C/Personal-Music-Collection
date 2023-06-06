@@ -2,11 +2,14 @@ import React, { useState, useEffect } from "react";
 import { Box, Text, Image as ChakraImage, Button } from "@chakra-ui/react";
 import { useDropzone } from "react-dropzone";
 import { BeatLoader } from "react-spinners";
+import axios from "axios";
 import apiClient from "../services/api-client";
-//import { BeatLoader } from "@chakra-ui/icons";
+import useImageStore from "./store";
+
 const Uploader = () => {
   const [file, setFile] = useState({});
   const [isUploading, setIsUploading] = useState(false);
+  const setUrl = useImageStore((s) => s.setUrl);
 
   const setFileState = (data) => setFile((p) => ({ ...p, ...data }));
 
@@ -14,11 +17,14 @@ const Uploader = () => {
     setIsUploading(true);
     try {
       const { base64, height, width } = file;
-      const { data } = await apiClient.post("/upload", {
+      //const url = "http://127.0.0.1:9001/api/v1/image/upload";
+
+      const { data } = await apiClient.post("image/upload", {
         src: base64,
         height: 200,
       });
       setIsUploading(false);
+      setUrl(data.dataTotal.url);
     } catch (error) {
       console.log(error.response.data.message);
       setIsUploading(false);
@@ -27,14 +33,13 @@ const Uploader = () => {
 
   const onDrop = (acceptedFiles) => {
     const fileObject = acceptedFiles[0];
-    console.log(fileObject);
+
     const preview = URL.createObjectURL(fileObject);
     setFileState({ fileObject, preview });
     // Do something with the files
     const image = new Image();
-    console.log("preview", preview);
+
     image.src = preview;
-    console.log(image.width, image.height);
     image.onload = () =>
       setFileState({
         width: image.width,
@@ -46,7 +51,6 @@ const Uploader = () => {
     reader.onabort = () => console.log("file reading was aborted");
     reader.onerror = () => console.log("file reading has failed");
     reader.readAsDataURL(fileObject);
-    console.log("reader.result", reader);
     reader.onload = () => setFileState({ base64: reader.result });
   };
 
