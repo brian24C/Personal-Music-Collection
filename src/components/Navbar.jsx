@@ -21,28 +21,15 @@ import { NavLink } from "react-router-dom";
 import axios from "axios";
 import apiClient from "../services/api-client";
 const Navbar = () => {
-  const [isHovered, setIsHovered] = useState(false);
   const toast = useToast();
   const url = useImageStore((s) => s.url);
   const setUrl = useImageStore((s) => s.setUrl);
 
-  const showToast = () => {
-    toast({
-      title: "Logged out",
-      description: "Succesfully logged out",
-      duration: 3000,
-      isClosable: true,
-      status: "success",
-      position: "top",
-      icon: <UnlockIcon />,
-    });
-  };
-  console.log("toast");
   useEffect(() => {
     const fetchImage = async () => {
       //const url = "http://127.0.0.1:9001/api/v1/image/load";
       const { data } = await apiClient.get("/image/load");
-      setUrl(data.dataTotal[0].url);
+      setUrl(data.dataTotal[0]?.url);
     };
     fetchImage();
   }, []);
@@ -56,26 +43,13 @@ const Navbar = () => {
       <Spacer />
       <HStack spacing="20px">
         <NavLink to="/profile">
-          <Box position="relative" display="inline-block">
-            <Avatar
-              src={!url ? "" : url}
-              bg={isHovered ? "white" : "red.500"}
-              icon={<AiOutlineUser fontSize="1.5rem" />}
-              showBorder="black"
-              onMouseEnter={() => setIsHovered(true)}
-              onMouseLeave={() => setIsHovered(false)}
-              borderWidth="2px"
-            />
-            <Box
-              position="absolute"
-              top="50%"
-              left="50%"
-              transform="translate(-50%, -50%)"
-              pointerEvents="none"
-            >
-              {isHovered ? <FaPlusSquare /> : null}
-            </Box>
-          </Box>
+          <Avatar
+            src={!url ? "" : url}
+            bg="red.500"
+            icon={<AiOutlineUser fontSize="1.5rem" />}
+            showBorder="black"
+            borderWidth="2px"
+          />
         </NavLink>
 
         <Text>Brian Castro</Text>

@@ -1,12 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { Box, Text, Image as ChakraImage, Button } from "@chakra-ui/react";
+import {
+  Box,
+  Text,
+  Image as ChakraImage,
+  Button,
+  useToast,
+} from "@chakra-ui/react";
 import { useDropzone } from "react-dropzone";
 import { BeatLoader } from "react-spinners";
-import axios from "axios";
 import apiClient from "../services/api-client";
 import useImageStore from "./store";
-
+import { DownloadIcon } from "@chakra-ui/icons";
 const Uploader = () => {
+  const toast = useToast();
   const [file, setFile] = useState({});
   const [isUploading, setIsUploading] = useState(false);
   const setUrl = useImageStore((s) => s.setUrl);
@@ -25,6 +31,15 @@ const Uploader = () => {
       });
       setIsUploading(false);
       setUrl(data.dataTotal.url);
+
+      toast({
+        title: "Avatar uploaded successfully",
+        duration: 2000,
+        isClosable: true,
+        status: "success",
+        position: "top",
+        icon: <DownloadIcon />,
+      });
     } catch (error) {
       console.log(error.response.data.message);
       setIsUploading(false);
@@ -67,7 +82,7 @@ const Uploader = () => {
   return (
     <Box>
       <Text as="kbd" textAlign="center" display="block">
-        Change your perfil:
+        Change your avatar:
       </Text>
       <Box m="0 auto" maxW="50rem" w="80%" marginTop={4}>
         {file.preview ? (
@@ -84,7 +99,7 @@ const Uploader = () => {
             <Text as="kbd" padding={5}>
               {isDragActive
                 ? "Release to drop the files here"
-                : "Drag 'n' drop some files here, or click to select files"}
+                : "Drag one drop a file here, or click to select a file"}
             </Text>
           </Box>
         )}
