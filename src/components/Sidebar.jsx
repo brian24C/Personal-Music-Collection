@@ -18,7 +18,16 @@ const Sidebar = () => {
   return (
     <List color="white" fontSize="1.2em" spacing={4}>
       <ListItem>
-        <NavLink to="/">
+        <NavLink
+          to="/"
+          style={({ isActive, isPending }) => {
+            return {
+              fontWeight: isActive ? "bold" : "normal",
+              color: isActive ? "white" : "white",
+              fontSize: isActive ? "20px" : "",
+            };
+          }}
+        >
           <Flex alignItems="center">
             <ListIcon as={CalendarIcon} color="white" />
             Dashboard
@@ -27,7 +36,16 @@ const Sidebar = () => {
       </ListItem>
 
       <ListItem>
-        <NavLink to="/create">
+        <NavLink
+          to="/create"
+          style={({ isActive, isPending }) => {
+            return {
+              fontWeight: isActive ? "bold" : "normal",
+              color: isActive ? "white" : "white",
+              fontSize: isActive ? "20px" : "",
+            };
+          }}
+        >
           <Flex alignItems="center">
             <ListIcon as={AddIcon} color="white" />
             <Text noOfLines={1}>New Playlist</Text>
@@ -36,7 +54,16 @@ const Sidebar = () => {
       </ListItem>
 
       <ListItem>
-        <NavLink to="/profile">
+        <NavLink
+          to="/profile"
+          style={({ isActive, isPending }) => {
+            return {
+              fontWeight: isActive ? "bold" : "normal",
+              color: isActive ? "white" : "white",
+              fontSize: isActive ? "20px" : "",
+            };
+          }}
+        >
           <ListIcon as={AtSignIcon} color="white" />
           Profile
         </NavLink>

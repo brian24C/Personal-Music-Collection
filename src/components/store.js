@@ -1,22 +1,16 @@
 import { create } from "zustand";
 
-const useSongStore = create((set) => ({
-  songStatic: [],
-  setSongStatic: (Songs) =>
+const useImageStore = create((set) => ({
+  imageData: { url: "", filename: "" },
+  setData: (data) =>
     set((store) => ({
-      songStatic: [...Songs],
-    })),
-  setAddSongStatic: (songStatic) =>
-    set((store) => ({
-      songStatic: [...store.songStatic, songStatic],
+      imageData: { url: data.url, filename: data.filename },
     })),
 
-  setEditSongStatic: (songStatic) =>
+  deleteImageData: () =>
     set((store) => ({
-      songStatic: store.songStatic.map((song) =>
-        song.id === songStatic.id ? songStatic : song
-      ),
+      imageData: { url: "", filename: "" },
     })),
 }));
 
-export default useSongStore;
+export default useImageStore;

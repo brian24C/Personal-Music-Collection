@@ -4,11 +4,10 @@ import React from "react";
 import AlertDelete from "./AlertDelete";
 function AlertDeletePlaylist({ onDelete, name }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
-
   return (
     <>
       <Button
-        _hover={{ backgroundColor: "#E4EEF0" }}
+        _hover={{ backgroundColor: "#B4B3C3" }}
         variant="ghost"
         onClick={onOpen}
         leftIcon={<DeleteIcon />}

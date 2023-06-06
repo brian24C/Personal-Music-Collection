@@ -10,7 +10,6 @@ import {
   Divider,
 } from "@chakra-ui/react";
 const FormFormik = ({ keys, dataInitial, onClose, onClick }) => {
-  //const [formSend, setFormSend] = useState(false);
   return (
     <>
       <Formik
@@ -47,7 +46,7 @@ const FormFormik = ({ keys, dataInitial, onClose, onClick }) => {
             //   }
 
             if (!values.recommendedBy) {
-              errors.recommendedBy = "Please enter an artist";
+              errors.recommendedBy = "Please write your name";
             } else if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(values.recommendedBy)) {
               errors.recommendedBy =
                 "Artist can only contain letters and spaces";
