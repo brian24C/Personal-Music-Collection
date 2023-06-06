@@ -10,7 +10,8 @@ import { useDropzone } from "react-dropzone";
 import { BeatLoader } from "react-spinners";
 import apiClient from "../services/api-client";
 import useImageStore from "./store";
-import { DownloadIcon } from "@chakra-ui/icons";
+import { DownloadIcon, ArrowDownIcon } from "@chakra-ui/icons";
+
 const Uploader = () => {
   const toast = useToast();
   const [file, setFile] = useState({});
@@ -82,7 +83,7 @@ const Uploader = () => {
   return (
     <Box>
       <Text as="kbd" textAlign="center" display="block">
-        Change your avatar:
+        <ArrowDownIcon /> Change your avatar <ArrowDownIcon />
       </Text>
       <Box m="0 auto" maxW="50rem" w="80%" marginTop={4}>
         {file.preview ? (
@@ -128,6 +129,11 @@ const Uploader = () => {
           </Button>
         </Box>
       </Box>
+      <Button onClick={() => setUrl("")} colorScheme="red" mt={6}>
+        <Text as="kbd" fontSize={{ base: "12px", md: "16px", lg: "16px" }}>
+          Click to Delete your Avatar
+        </Text>
+      </Button>{" "}
     </Box>
   );
 };

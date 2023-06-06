@@ -48,9 +48,9 @@ export default function Profile() {
     },
   ];
   return (
-    <Box>
+    <Box p="15px">
       <Uploader />
-      <Tabs mt="40px" p="20px" variant="enclosed">
+      <Tabs mt="40px" variant="enclosed">
         <TabList>
           <Tab _selected={{ color: "white", bg: "blue.400" }}>Account Info</Tab>
           <Tab _selected={{ color: "white", bg: "blue.400" }}>
