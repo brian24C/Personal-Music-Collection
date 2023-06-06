@@ -44,10 +44,13 @@ const Uploader = () => {
       setIsUploading(false);
 
       if (data.dataTotal.filename) {
-        setData({ url: data.dataTotal.url, filename: data.dataTotal.filename });
+        setData({
+          url: data.dataTotal.secure_url,
+          filename: data.dataTotal.filename,
+        });
       } else {
         const [, resultado] = data.dataTotal.public_id.split("/");
-        setData({ url: data.dataTotal.url, filename: resultado });
+        setData({ url: data.dataTotal.secure_url, filename: resultado });
       }
 
       toast({
@@ -130,6 +133,7 @@ const Uploader = () => {
           }}
         >
           <Button
+            isDisabled={isUploading}
             onClick={() => setFile({})}
             _hover={{ backgroundColor: "blue.200" }}
           >

@@ -14,10 +14,11 @@ const Navbar = () => {
       const { data } = await apiClient.get("/image/load");
 
       setData({
-        url: data.dataTotal[0]?.url,
+        url: data.dataTotal[0]?.secure_url,
         filename: data.dataTotal[0]?.filename,
       });
     };
+
     fetchImage();
   }, []);
 
