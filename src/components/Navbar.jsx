@@ -1,33 +1,17 @@
-import { UnlockIcon } from "@chakra-ui/icons";
+import { Avatar, Flex, HStack, Heading, Spacer, Text } from "@chakra-ui/react";
+import React, { useEffect } from "react";
 import { AiOutlineUser } from "react-icons/ai";
-import { FaPlusSquare } from "react-icons/Fa";
-import { MdEdit } from "react-icons/md";
-import useImageStore from "./store";
-import {
-  Avatar,
-  Button,
-  Flex,
-  HStack,
-  Heading,
-  Spacer,
-  Text,
-  useToast,
-  Icon,
-  Input,
-  Box,
-} from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
-import axios from "axios";
 import apiClient from "../services/api-client";
+import useImageStore from "./store";
 const Navbar = () => {
-  const toast = useToast();
   const setData = useImageStore((s) => s.setData);
   const url = useImageStore((s) => s.imageData.url);
   useEffect(() => {
     const fetchImage = async () => {
       //const url = "http://127.0.0.1:9001/api/v1/image/load";
       const { data } = await apiClient.get("/image/load");
+
       setData({
         url: data.dataTotal[0]?.url,
         filename: data.dataTotal[0]?.filename,
@@ -60,12 +44,6 @@ const Navbar = () => {
         </Button> */}
       </HStack>
     </Flex>
-    // <Flex bg="gray.200" justify="space-between" wrap="wrap" gap="2">
-    //     <Box w="150px" h="50px" bg="red" textAlign="center">1</Box>
-    //     <Box w="150px" h="50px" bg="blue" textAlign="center">2</Box>
-    //     <Box w="150px" h="50px" bg="green" flexGrow="1" textAlign="center">3</Box>
-    //     <Box w="150px" h="50px" bg="yellow" flexGrow="2" textAlign="center">4</Box>
-    // </Flex>
   );
 };
 

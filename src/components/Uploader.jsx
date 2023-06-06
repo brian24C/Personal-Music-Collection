@@ -1,30 +1,38 @@
-import React, { useState, useEffect } from "react";
+import { ArrowDownIcon, DownloadIcon } from "@chakra-ui/icons";
 import {
   Box,
-  Text,
-  Image as ChakraImage,
   Button,
+  Image as ChakraImage,
+  Text,
   useToast,
 } from "@chakra-ui/react";
+import React, { useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { BeatLoader } from "react-spinners";
 import apiClient from "../services/api-client";
-import useImageStore from "./store";
-import { DownloadIcon, ArrowDownIcon } from "@chakra-ui/icons";
 import AlertDeleteImage from "./AlertDeleteImage";
+import useImageStore from "./store";
 
 const Uploader = () => {
   const toast = useToast();
   const [file, setFile] = useState({});
   const [isUploading, setIsUploading] = useState(false);
   const setData = useImageStore((s) => s.setData);
-  const deleteImageData = useImageStore((s) => s.deleteImageData);
-  const filename = useImageStore((s) => s.imageData.filename);
   const setFileState = (data) => setFile((p) => ({ ...p, ...data }));
 
   const handleSubmit = async () => {
-    setIsUploading(true);
     try {
+      if (Object.keys(file).length === 0) {
+        return toast({
+          title: "You have to upload one image first",
+          duration: 2000,
+          isClosable: true,
+          status: "info",
+          position: "bottom-right",
+        });
+      }
+
+      setIsUploading(true);
       const { base64, height, width } = file;
       //const url = "http://127.0.0.1:9001/api/v1/image/upload";
 
@@ -33,7 +41,13 @@ const Uploader = () => {
         height: 200,
       });
       setIsUploading(false);
-      setData({ url: data.dataTotal.url, filename: data.dataTotal.filename });
+
+      if (data.dataTotal.filename) {
+        setData({ url: data.dataTotal.url, filename: data.dataTotal.filename });
+      } else {
+        const [, resultado] = data.dataTotal.public_id.split("/");
+        setData({ url: data.dataTotal.url, filename: resultado });
+      }
 
       toast({
         title: "Avatar uploaded successfully",
