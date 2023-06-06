@@ -109,14 +109,14 @@ const Uploader = () => {
             display="grid"
             placeItems="center"
             minH="15rem"
-            border="1px dashed black"
+            border="1px dashed gray"
             {...getRootProps()}
           >
             <input {...getInputProps()} />
             <Text as="kbd" padding={5}>
               {isDragActive
-                ? "Release to drop the files here"
-                : "Drag one drop a file here, or click to select a file"}
+                ? "Release to drop the image here"
+                : "Drag one drop a image here, or click to select a image"}
             </Text>
           </Box>
         )}

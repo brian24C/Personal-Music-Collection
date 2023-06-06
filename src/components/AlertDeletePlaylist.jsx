@@ -4,7 +4,6 @@ import React from "react";
 import AlertDelete from "./AlertDelete";
 function AlertDeletePlaylist({ onDelete, name }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
-
   return (
     <>
       <Button
