@@ -5,6 +5,7 @@ import {
   Image as ChakraImage,
   Text,
   useToast,
+  Divider,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
@@ -145,23 +146,9 @@ const Uploader = () => {
           </Button>
         </Box>
       </Box>
-      {/* <Button
-        onClick={() => {
-          const deleteImage = async () => {
-            const { data } = await apiClient.delete("/image/" + filename);
-          };
-          deleteImage();
-          deleteImageData();
-        }}
-        colorScheme="red"
-        mt={6}
-      >
-        
-        <Text as="kbd" fontSize={{ base: "12px", md: "16px", lg: "16px" }}>
-          Click to Delete your Avatar
-        </Text>
-      </Button>{" "} */}
+      <Divider mt={6} />
       <AlertDeleteImage />
+      <Divider mt={6} />
     </Box>
   );
 };

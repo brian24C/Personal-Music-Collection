@@ -4,7 +4,7 @@ import { AiOutlineUser } from "react-icons/ai";
 import { NavLink } from "react-router-dom";
 import apiClient from "../services/api-client";
 import useImageStore from "./store";
-
+import { DeleteIcon } from "@chakra-ui/icons";
 const Navbar = () => {
   const setData = useImageStore((s) => s.setData);
   const url = useImageStore((s) => s.imageData.url);
@@ -36,6 +36,7 @@ const Navbar = () => {
             icon={<AiOutlineUser fontSize="1.5rem" />}
             showBorder="black"
             borderWidth="2px"
+            _hover={{ backgroundColor: "#2582FF" }}
           />
         </NavLink>
 

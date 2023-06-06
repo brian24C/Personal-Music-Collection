@@ -31,6 +31,10 @@ export default function Profile() {
       link: "https://www.youtube.com/watch?v=6NXnxTNIWkc",
     },
     {
+      name: "Florence + The Machine - Dog Days Are Over",
+      link: "https://www.youtube.com/watch?v=iWOyfLBYtuU",
+    },
+    {
       name: "Fooled Around And Fell In Love/ Elvin Bishop",
       link: "https://www.youtube.com/watch?v=DyMMEmwFQUE",
     },
