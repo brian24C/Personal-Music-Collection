@@ -11,13 +11,15 @@ import { BeatLoader } from "react-spinners";
 import apiClient from "../services/api-client";
 import useImageStore from "./store";
 import { DownloadIcon, ArrowDownIcon } from "@chakra-ui/icons";
+import AlertDeleteImage from "./AlertDeleteImage";
 
 const Uploader = () => {
   const toast = useToast();
   const [file, setFile] = useState({});
   const [isUploading, setIsUploading] = useState(false);
-  const setUrl = useImageStore((s) => s.setUrl);
-
+  const setData = useImageStore((s) => s.setData);
+  const deleteImageData = useImageStore((s) => s.deleteImageData);
+  const filename = useImageStore((s) => s.imageData.filename);
   const setFileState = (data) => setFile((p) => ({ ...p, ...data }));
 
   const handleSubmit = async () => {
@@ -31,7 +33,7 @@ const Uploader = () => {
         height: 200,
       });
       setIsUploading(false);
-      setUrl(data.dataTotal.url);
+      setData({ url: data.dataTotal.url, filename: data.dataTotal.filename });
 
       toast({
         title: "Avatar uploaded successfully",
@@ -129,11 +131,23 @@ const Uploader = () => {
           </Button>
         </Box>
       </Box>
-      <Button onClick={() => setUrl("")} colorScheme="red" mt={6}>
+      {/* <Button
+        onClick={() => {
+          const deleteImage = async () => {
+            const { data } = await apiClient.delete("/image/" + filename);
+          };
+          deleteImage();
+          deleteImageData();
+        }}
+        colorScheme="red"
+        mt={6}
+      >
+        
         <Text as="kbd" fontSize={{ base: "12px", md: "16px", lg: "16px" }}>
           Click to Delete your Avatar
         </Text>
-      </Button>{" "}
+      </Button>{" "} */}
+      <AlertDeleteImage />
     </Box>
   );
 };

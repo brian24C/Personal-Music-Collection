@@ -1,10 +1,15 @@
 import { create } from "zustand";
 
 const useImageStore = create((set) => ({
-  url: "",
-  setUrl: (url) =>
+  imageData: { url: "", filename: "" },
+  setData: (data) =>
     set((store) => ({
-      url: url,
+      imageData: { url: data.url, filename: data.filename },
+    })),
+
+  deleteImageData: () =>
+    set((store) => ({
+      imageData: { url: "", filename: "" },
     })),
 }));
 

@@ -41,7 +41,7 @@ function AlertDelete({
                 colorScheme="red"
                 onClick={() => {
                   onDelete();
-                  onClose;
+                  onClose();
                 }}
                 ml={3}
               >

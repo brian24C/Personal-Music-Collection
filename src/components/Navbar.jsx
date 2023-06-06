@@ -22,14 +22,16 @@ import axios from "axios";
 import apiClient from "../services/api-client";
 const Navbar = () => {
   const toast = useToast();
-  const url = useImageStore((s) => s.url);
-  const setUrl = useImageStore((s) => s.setUrl);
-
+  const setData = useImageStore((s) => s.setData);
+  const url = useImageStore((s) => s.imageData.url);
   useEffect(() => {
     const fetchImage = async () => {
       //const url = "http://127.0.0.1:9001/api/v1/image/load";
       const { data } = await apiClient.get("/image/load");
-      setUrl(data.dataTotal[0]?.url);
+      setData({
+        url: data.dataTotal[0]?.url,
+        filename: data.dataTotal[0]?.filename,
+      });
     };
     fetchImage();
   }, []);
