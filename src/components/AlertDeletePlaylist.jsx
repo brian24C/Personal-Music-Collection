@@ -7,7 +7,7 @@ function AlertDeletePlaylist({ onDelete, name }) {
   return (
     <>
       <Button
-        _hover={{ backgroundColor: "#E4EEF0" }}
+        _hover={{ backgroundColor: "#B4B3C3" }}
         variant="ghost"
         onClick={onOpen}
         leftIcon={<DeleteIcon />}

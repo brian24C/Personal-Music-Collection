@@ -12,7 +12,7 @@ function DrawerEditPlaylist({ playlist }) {
     <>
       <Button
         variant="ghost"
-        _hover={{ backgroundColor: "#E4EEF0" }}
+        _hover={{ backgroundColor: "#B4B3C3" }}
         leftIcon={<EditIcon />}
         onClick={onOpen}
       >

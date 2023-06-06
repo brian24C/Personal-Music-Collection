@@ -4,6 +4,7 @@ import { AiOutlineUser } from "react-icons/ai";
 import { NavLink } from "react-router-dom";
 import apiClient from "../services/api-client";
 import useImageStore from "./store";
+
 const Navbar = () => {
   const setData = useImageStore((s) => s.setData);
   const url = useImageStore((s) => s.imageData.url);

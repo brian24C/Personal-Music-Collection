@@ -68,7 +68,7 @@ export default function Dashboard() {
                     <Button
                       variant="ghost"
                       leftIcon={<ViewIcon />}
-                      _hover={{ backgroundColor: "#E4EEF0" }}
+                      _hover={{ backgroundColor: "#B4B3C3" }}
                     >
                       Watch
                     </Button>

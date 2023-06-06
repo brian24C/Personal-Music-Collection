@@ -10,7 +10,6 @@ import {
   Divider,
 } from "@chakra-ui/react";
 const FormFormik = ({ keys, dataInitial, onClose, onClick }) => {
-  //const [formSend, setFormSend] = useState(false);
   return (
     <>
       <Formik
