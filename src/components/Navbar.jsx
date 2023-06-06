@@ -17,6 +17,7 @@ import {
   Box,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
+import { NavLink } from "react-router-dom";
 
 const Navbar = () => {
   const [isHovered, setIsHovered] = useState(false);
@@ -42,26 +43,27 @@ const Navbar = () => {
 
       <Spacer />
       <HStack spacing="20px">
-        <Box position="relative" display="inline-block">
-          <Avatar
-            bg={isHovered ? "white" : "red.500"}
-            icon={<AiOutlineUser fontSize="1.5rem" />}
-            src="https://www.simplilearn.com/ice9/free_resources_article_thumb/what_is_image_Processing.jpg"
-            showBorder="black"
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
-            borderWidth="2px"
-          />
-          <Box
-            position="absolute"
-            top="50%"
-            left="50%"
-            transform="translate(-50%, -50%)"
-            pointerEvents="none"
-          >
-            {isHovered ? <FaPlusSquare /> : null}
+        <NavLink to="/profile">
+          <Box position="relative" display="inline-block">
+            <Avatar
+              bg={isHovered ? "white" : "red.500"}
+              icon={<AiOutlineUser fontSize="1.5rem" />}
+              showBorder="black"
+              onMouseEnter={() => setIsHovered(true)}
+              onMouseLeave={() => setIsHovered(false)}
+              borderWidth="2px"
+            />
+            <Box
+              position="absolute"
+              top="50%"
+              left="50%"
+              transform="translate(-50%, -50%)"
+              pointerEvents="none"
+            >
+              {isHovered ? <FaPlusSquare /> : null}
+            </Box>
           </Box>
-        </Box>
+        </NavLink>
 
         <Text>Brian Castro</Text>
         {/* <Button colorScheme="blue" onClick={showToast}>

@@ -24,6 +24,7 @@
     "react-dropzone": "^14.2.3",
     "react-icons": "^4.8.0",
     "react-router-dom": "^6.6.1",
+    "react-spinners": "^0.13.8",
     "zustand": "^4.3.7"
   },
   "devDependencies": {

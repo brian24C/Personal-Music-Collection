@@ -15,7 +15,10 @@ import {
   TabPanel,
   TabPanels,
   Tabs,
+  Box,
+  Text,
 } from "@chakra-ui/react";
+import Uploader from "../components/Uploader";
 
 export default function Profile() {
   const songsFavorites = [
@@ -45,59 +48,62 @@ export default function Profile() {
     },
   ];
   return (
-    <Tabs mt="40px" p="20px" variant="enclosed">
-      <TabList>
-        <Tab _selected={{ color: "white", bg: "blue.400" }}>Account Info</Tab>
-        <Tab _selected={{ color: "white", bg: "blue.400" }}>
-          My Favorite songs
-        </Tab>
-      </TabList>
-      <TabPanels>
-        <TabPanel>
-          <List spacing={4}>
-            <ListItem>
-              <ListIcon as={EmailIcon} />
-              Email: brianjosuecastro@hotmail.com
-            </ListItem>
+    <Box>
+      <Uploader />
+      <Tabs mt="40px" p="20px" variant="enclosed">
+        <TabList>
+          <Tab _selected={{ color: "white", bg: "blue.400" }}>Account Info</Tab>
+          <Tab _selected={{ color: "white", bg: "blue.400" }}>
+            My Favorite songs
+          </Tab>
+        </TabList>
+        <TabPanels>
+          <TabPanel>
+            <List spacing={4}>
+              <ListItem>
+                <ListIcon as={EmailIcon} />
+                Email: brianjosuecastro@hotmail.com
+              </ListItem>
 
-            <ListItem>
-              <ListIcon as={ChatIcon} />
-              Discipline but more importantly, constancy
-            </ListItem>
+              <ListItem>
+                <ListIcon as={ChatIcon} />
+                Discipline but more importantly, constancy
+              </ListItem>
 
-            {/* <ListItem>
+              {/* <ListItem>
               <ListIcon as={StarIcon} />
               
             </ListItem> */}
-          </List>
-        </TabPanel>
+            </List>
+          </TabPanel>
 
-        <TabPanel>
-          <List spacing={4}>
-            {songsFavorites.map((song) => {
-              return (
-                <ListItem>
-                  <Flex alignItems="center">
-                    <ListIcon
-                      as={HamburgerIcon}
-                      color="teal.400"
-                      marginRight="0.5rem"
-                    />
-                    {song.name}
-                    <Link href={song.link} isExternal>
+          <TabPanel>
+            <List spacing={4}>
+              {songsFavorites.map((song) => {
+                return (
+                  <ListItem key={song.name}>
+                    <Flex alignItems="center">
                       <ListIcon
-                        as={ExternalLinkIcon}
+                        as={HamburgerIcon}
                         color="teal.400"
-                        marginLeft="0.5rem"
+                        marginRight="0.5rem"
                       />
-                    </Link>
-                  </Flex>
-                </ListItem>
-              );
-            })}
-          </List>
-        </TabPanel>
-      </TabPanels>
-    </Tabs>
+                      {song.name}
+                      <Link href={song.link} isExternal>
+                        <ListIcon
+                          as={ExternalLinkIcon}
+                          color="teal.400"
+                          marginLeft="0.5rem"
+                        />
+                      </Link>
+                    </Flex>
+                  </ListItem>
+                );
+              })}
+            </List>
+          </TabPanel>
+        </TabPanels>
+      </Tabs>
+    </Box>
   );
 }
